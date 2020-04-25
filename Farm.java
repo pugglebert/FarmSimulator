@@ -9,6 +9,9 @@ public class Farm {
 	private Farmer farmer;
 	private ArrayList<Animal> animals;
 	private ArrayList<Crop> crops;
+	private int cropLimit;
+	private int growthBonus;
+	private int happinessBonus;
 	
 	public String getStatus() {
 		String status = "Your farm has $" + money;
@@ -79,11 +82,32 @@ public class Farm {
 		crops.remove(cropToRemove);
 	}
 	
-	public void setUp(String newName, int newMoney, Farmer newFarmer, ArrayList<Animal> newAnimals, ArrayList<Crop> newCrops) {
+	public void setUp(String newName, Farmer newFarmer) {
 		setName(newName);
-		setMoney(newMoney);
 		setFarmer(newFarmer);
-		setCrops(newCrops);
-		setAnimals(newAnimals);
+	}
+	
+	public void setCropLimit(int newCropLimit) {
+		cropLimit = newCropLimit;
+	}
+	
+	public int getCropLimit() {
+		return cropLimit;
+	}
+	
+	public void setGrowthBonus(int newGrowthBonus) {
+		growthBonus = newGrowthBonus;
+	}
+	
+	public int getGrowthBonus() {
+		return growthBonus;
+	}
+	
+	public void setHappinessBonus(int newHappinessBonus) {
+		happinessBonus = newHappinessBonus;
+	}
+	
+	public int getHappinessBonus() {
+		return happinessBonus;
 	}
 }
