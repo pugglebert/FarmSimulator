@@ -60,11 +60,12 @@ public class GameEnvironment {
 	}
 	
 	public static void main(String[] args) {
-		startup();
-		while(currentDay <= totalDays) {
-			day();
+		GameEnvironment game = new GameEnvironment();
+		game.startup();
+		while(game.currentDay <= game.totalDays) {
+			game.day();
 		}
-		endGame();
+		game.endGame();
 		
 	}
 }
