@@ -18,7 +18,7 @@ public class MarsFarm extends Farm {
 	
 	public void initializeCrops() {
 		startCrops.add(new Maize());
-		startCrops.add(new Potatoes());
+		startCrops.add(new Potato());
 		super.setCrops(startCrops);
 	}
 	
