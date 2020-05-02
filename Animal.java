@@ -4,6 +4,14 @@ public class Animal {
 	private int health = 10;
 	private int happiness = 5;
 	private int baseReturn;
+	private String animalType;
+	private int buyPrice;
+	
+	Animal(String newAnimalType, int newBuyPrice, int newBaseReturn) {
+		animalType = newAnimalType;
+		buyPrice = newBuyPrice;
+		baseReturn = newBaseReturn;
+	}
 	
 	public void advanceDay() {
 		if (health <= 3) {
@@ -23,6 +31,10 @@ public class Animal {
 		if (health > 0) {
 			health--;
 		}
+	}
+	
+	public int getBuyPrice() {
+		return buyPrice;
 	}
 	
 	public void increaseHappiness(int amount) {
@@ -51,5 +63,9 @@ public class Animal {
 		else {
 			return baseReturn * 1.5;
 		}
+	}
+	
+	public String toString() {
+		return animalType.substring(0, 1).toUpperCase() + animalType.substring(1) + ": " + happiness + "/10 Happiness, " + health + "/10 Health";
 	}
 }

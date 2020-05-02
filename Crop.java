@@ -49,5 +49,9 @@ public class Crop {
 		else {
 			return false;
 		}
-	}	
+	}
+	
+	public String toString() {
+		return cropType.substring(0, 1).toUpperCase() + cropType.substring(1) + ": Growth Progress " + age + "/" + harvestAge;
+	}
 }
