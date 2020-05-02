@@ -78,6 +78,7 @@ public class GameEnvironment {
 	public void enterPlanet() {
 		boolean valid = false;
 		while (valid == false) {
+			
 			System.out.println("Enter a number to select which planet you would like to start your farm on:");
 			System.out.println("1) Earth");
 			System.out.println("2) Mars");
@@ -87,19 +88,19 @@ public class GameEnvironment {
 				int planetChoice = keyboard.nextInt();
 				switch (planetChoice) {
 				case 1:
-					farm = new EarthFarm();
+					farm = new EarthFarm(farmer);
 					valid = true;
 					break;
 				case 2:
-					farm = new MarsFarm();
+					farm = new MarsFarm(farmer);
 					valid = true;
 					break;
 				case 3:
-					farm = new VenusFarm();
+					farm = new VenusFarm(farmer);
 					valid = true;
 					break;
 				case 4:
-					farm = new JupiterFarm();
+					farm = new JupiterFarm(farmer);
 					valid = true;
 					break;
 				default:
@@ -131,40 +132,42 @@ public class GameEnvironment {
 		int actions = 0;
 		
 		while(actions <= 2) {
-		
-			System.out.print("Enter a number: ");
-			Scanner scanner = new Scanner(System. in);
-			String option = scanner. nextLine();
+			
+			System.out.println("What would you like to do?");
+			System.out.println("1) View the status of your farm");
+			System.out.println("2) Visit the county store");
+			System.out.println("3) Perform an action");
+			System.out.println("4) Go to the next day");
+			System.out.println("Enter a number: ");
+			String option = keyboard.nextLine();
 
 			switch(option) {
 			case "1": /* view status farm*/
+				viewFarmStatus();
 				break;
 			case "2": /* view status crops*/
+				visitStore();
 				break;
 			case "3": /* view status animals*/
+				action();
 				break;
 			case "4": /*visit store*/
-				break;
-			case "5": 
 				nextDay();
-				break;
-			case "6": /*tend to crops*/
-				actions++;
-				break;
-			case "7": /*play with animals*/
-				actions++;
-				break;
-			case "8": /*harvest crops*/
-				actions++;
-				break;
-			case "9": /*tend to farm land*/
-				actions++;
-				break;
-			case "10": /*feed animals*/
-				actions++;
 				break;
 			}
         }
+	}
+	
+	public void viewFarmStatus() {
+		
+	}
+	
+	public void visitStore() {
+		
+	}
+	
+	public void action() {
+		
 	}
 	
 	public void nextDay() {

@@ -22,8 +22,8 @@ public class MarsFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	public void setUp(String newName, Farmer newFarmer) {
-		super.setUp(newName, newFarmer);
+	MarsFarm(Farmer newFarmer) {
+		super(newFarmer);
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);

@@ -8,8 +8,8 @@ public class VenusFarm extends Farm {
 	private int cropLimit = 10;
 	private int happinessBonus = 0;
 	private int growthBonus = 0;
-	private ArrayList<Animal> startAnimals;
-	private ArrayList<Crop> startCrops;
+	private ArrayList<Animal> startAnimals = new ArrayList<Animal>();
+	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Sheep());
@@ -22,8 +22,8 @@ public class VenusFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	public void setUp(String newName, Farmer newFarmer) {
-		super.setUp(newName, newFarmer);
+	VenusFarm(Farmer newFarmer) {
+		super(newFarmer);
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);

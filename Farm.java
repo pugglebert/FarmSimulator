@@ -13,8 +13,17 @@ public class Farm {
 	private int growthBonus;
 	private int happinessBonus;
 	
+	Farm(Farmer newFarmer) {
+		farmer = newFarmer;
+	}
+	
 	public String getStatus() {
 		String status = "Your farm has $" + money;
+		return status;
+	}
+	
+	public String getCropStatus() {
+		String status = " ";
 		return status;
 	}
 	
@@ -102,11 +111,6 @@ public class Farm {
 	
 	public void removeCrop(Crop cropToRemove) {
 		crops.remove(cropToRemove);
-	}
-	
-	public void setUp(String newName, Farmer newFarmer) {
-		setName(newName);
-		setFarmer(newFarmer);
 	}
 	
 	public void setCropLimit(int newCropLimit) {

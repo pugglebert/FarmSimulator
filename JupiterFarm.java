@@ -8,8 +8,8 @@ public class JupiterFarm extends Farm {
 	private int cropLimit = 6;
 	private int happinessBonus = 1;
 	private int growthBonus = 1;
-	private ArrayList<Animal> startAnimals;
-	private ArrayList<Crop> startCrops;
+	private ArrayList<Animal> startAnimals = new ArrayList<Animal>();
+	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Cow());
@@ -24,8 +24,8 @@ public class JupiterFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	public void setUp(String newName, Farmer newFarmer) {
-		super.setUp(newName, newFarmer);
+	JupiterFarm(Farmer newFarmer) {
+		super(newFarmer);
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);

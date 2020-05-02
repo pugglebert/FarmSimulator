@@ -8,8 +8,8 @@ public class EarthFarm extends Farm {
 	private int cropLimit = 6;
 	private int happinessBonus = 1;
 	private int growthBonus = 0;
-	private ArrayList<Animal> startAnimals;
-	private ArrayList<Crop> startCrops;
+	private ArrayList<Animal> startAnimals = new ArrayList<Animal>();
+	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Chicken());
@@ -22,8 +22,8 @@ public class EarthFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	public void setUp(String newName, Farmer newFarmer) {
-		setUp(newName, newFarmer);
+	EarthFarm(Farmer newFarmer) {
+		super(newFarmer);
 		setMoney(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);
