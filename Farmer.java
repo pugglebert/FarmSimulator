@@ -38,21 +38,21 @@ public class Farmer {
 		return items;
 	}
 	
-	public ArrayList<Item> getFoodItems() {
+	public ArrayList<FoodItem> getFoodItems() {
 		ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
-		for (int counter = 0; counter < items.size(); counter++) {
-			if (items.get(counter).isFoodItem()) {
-				foodItems.add(items.get(counter));
+		for (Item item : items) {
+			if (item instanceof FoodItem) {
+				foodItems.add((FoodItem) item);
 			}
 		}
 		return foodItems;
 	}
 	
-	public ArrayList<Item> getCropItems() {
+	public ArrayList<CropItem> getCropItems() {
 		ArrayList<CropItem> cropItems = new ArrayList<CropItem>();
-		for (int counter = 0; counter < items.size(); counter++) {
-			if (items.get(counter).isCropItem()) {
-				cropItems.add(items.get(counter));
+		for (Item item : items) {
+			if (item instanceof CropItem) {
+				cropItems.add((CropItem) item);
 			}
 		}
 		return cropItems;
