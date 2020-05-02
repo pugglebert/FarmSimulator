@@ -25,6 +25,22 @@ public class Animal {
 		}
 	}
 	
+	public void increaseHappiness(int amount) {
+		happiness += amount;
+		if (happiness > 10) {
+			happiness = 10;
+		}
+	}
+	
+	public void increaseHealth(int amount) {
+		health += amount;
+		if (health > 10) {
+			health = 10;
+		}
+	}
+	
+	
+	
 	public double dailyReturn() {
 		if (happiness <= 3) {
 			return baseReturn * 0.5;
