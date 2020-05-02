@@ -142,16 +142,17 @@ public class GameEnvironment {
 			String option = keyboard.nextLine();
 
 			switch(option) {
-			case "1": /* view status farm*/
+			case "1":
 				viewFarmStatus();
 				break;
-			case "2": /* view status crops*/
+			case "2":
+				System.out.println("Welcome to the store!");
 				visitStore();
 				break;
-			case "3": /* view status animals*/
+			case "3":
 				action();
 				break;
-			case "4": /*visit store*/
+			case "4":
 				nextDay();
 				break;
 			}
@@ -159,10 +160,64 @@ public class GameEnvironment {
 	}
 	
 	public void viewFarmStatus() {
+		System.out.println("View status of...");
+		System.out.println("1) Money");
+		System.out.println("2) Items");
+		System.out.println("3) Animals");
+		System.out.println("4) Crops");
 		
+		String option = keyboard.nextLine();
+		switch (option) {
+		case "1": 
+			System.out.println(farm.getMoneyStatus());
+			day();
+			break;
+		case "2": 
+			System.out.println(farm.getItemsStatus());
+			day();
+			break;
+		case "3":
+			System.out.println(farm.getAnimalStatus());
+			day();
+			break;
+		case "4":
+			System.out.println(farm.getCropStatus());
+			day();
+			break;
+		default:
+			System.out.println("Invalid input - enter a number from 1 to 4.");
+			viewFarmStatus();
+			break;
+		}
 	}
 	
 	public void visitStore() {
+		System.out.println("What would you like to do?");
+		System.out.println("1) View merchandise for sale");
+		System.out.println("2) See how much money your farm has");
+		System.out.println("3) View items you farmer currently owns");
+		System.out.println("4) Leave the store");
+		
+		String option = keyboard.nextLine();
+		switch (option) {
+		case "1":
+			viewMerchandise();
+			break;
+		case "2":
+			System.out.println(farm.getMoneyStatus());
+			visitStore();
+			break;
+		case "3":
+			System.out.println(farm.getMoneyStatus());
+			visitStore();
+			break;
+		case "4":
+			System.out.println("Come back soon!");
+			day();
+		}
+	}
+	
+	public void viewMerchandise() {
 		
 	}
 	
