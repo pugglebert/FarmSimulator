@@ -130,8 +130,8 @@ public class GameEnvironment {
 	
 	public void day() {
 		int actions = 0;
-		
-		while(actions <= 2) {
+		boolean sameDay = true;
+		while(sameDay) {
 			
 			System.out.println("What would you like to do?");
 			System.out.println("1) View the status of your farm");
@@ -150,10 +150,17 @@ public class GameEnvironment {
 				visitStore();
 				break;
 			case "3":
-				action();
+				if (actions < 2) {
+					action();
+					actions++;
+				}
+				else {
+					System.out.println("You can not perform any other actions, choose another option");
+				}
 				break;
 			case "4":
 				nextDay();
+				sameDay = false;
 				break;
 			}
         }
