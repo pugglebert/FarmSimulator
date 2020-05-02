@@ -39,7 +39,7 @@ public class Farmer {
 	}
 	
 	public ArrayList<Item> getFoodItems() {
-		ArrayList<Item> foodItems = new ArrayList<Item>();
+		ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
 		for (int counter = 0; counter < items.size(); counter++) {
 			if (items.get(counter).isFoodItem()) {
 				foodItems.add(items.get(counter));
@@ -49,7 +49,7 @@ public class Farmer {
 	}
 	
 	public ArrayList<Item> getCropItems() {
-		ArrayList<Item> cropItems = new ArrayList<Item>();
+		ArrayList<CropItem> cropItems = new ArrayList<CropItem>();
 		for (int counter = 0; counter < items.size(); counter++) {
 			if (items.get(counter).isCropItem()) {
 				cropItems.add(items.get(counter));
