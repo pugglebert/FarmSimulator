@@ -17,13 +17,48 @@ public class Farm {
 		farmer = newFarmer;
 	}
 	
-	public String getStatus() {
+	public String getMoneyStatus() {
 		String status = "Your farm has $" + money;
 		return status;
 	}
 	
+	public String getItemsStatus() {
+		String status = "";
+		ArrayList<Item> items = farmer.getItems();
+		if (items.isEmpty()) {
+			status = "Your farmer doesn't have any items.";
+		} else {
+			status = "Your farmer has the following items:";
+			for (int counter = 1; counter <= items.size(); counter++) {
+				status += "\n" + Integer.toString(counter) + ") " + items.get(counter - 1).toString();
+			}
+		}
+		return status;
+	}
+	
+	public String getAnimalStatus() {
+		String status = "";
+		if (animals.isEmpty()) {
+			status = "Your farm doesn't have any animals";
+		} else {
+			status = "Your farm has the following animals:";
+			for (int counter = 1; counter <= animals.size(); counter++) {
+				status += "\n" + Integer.toString(counter) + ") " + animals.get(counter - 1).toString();
+			}
+		}
+		return status;
+	}
+	
 	public String getCropStatus() {
-		String status = " ";
+		String status = "";
+		if (crops.isEmpty()) {
+			status = "Your farm doesn't have any crops";
+		} else {
+			status = "Your farm has the following crops:";
+			for (int counter = 1; counter <= crops.size(); counter++) {
+				status += "\n" + Integer.toString(counter) + ") " + crops.get(counter - 1).toString();
+			}
+		}
 		return status;
 	}
 	
