@@ -222,7 +222,64 @@ public class GameEnvironment {
 	}
 	
 	public void action() {
-		
+		System.out.println("Enter an action:");
+		option = keyboard.nextLine();
+		case "1": /*tend to crops*/
+			System.out.print("Enter a crop to tend to:");
+			cropType = keyboard.nextLine();
+
+			System.out.println("Would you like to water the crops or use an item?");
+			option = keyboard.nextLine();
+			scanner.close();
+			int growthBonus;
+
+			if (option == "water") {
+				growthBonus = 1;
+			}
+			else {
+				/*Implement method of getting Item*/
+				CropItem item = new CropItem(); /*temporary*/
+				growthBonus = item.getGrowthBonus();
+			}
+
+			for (Crop crop : farm.getCrops()) {
+				if (crop.getCropType() == cropType.toLowerCase()) {
+					crop.decreaseHarvestAge(growthBonus);
+				}
+			}
+			actions++;
+			break;
+		case "2": /*play with animals*/
+			for (Animal animal : farm.getAnimals()) {
+				animal.increaseHappiness(2);
+			}
+			actions++;
+			break;
+		case "3": /*harvest crops*/
+			for (Crop crop : farm.getCrops()) {
+				if (crop.canHarvest()) {
+					farm.earnMoney(crop.getSellPrice());
+					farm.removeCrop(crop);
+				}
+			}
+			actions++;
+			break;
+		case "4": /*tend to farm land*/
+			farm.setCropLimit(farm.getCropLimit() + 2);
+			for (Animal animal : farm.getAnimals()) {
+				animal.increaseHappiness(1);
+			}
+			actions++;
+			break;
+		case "5": /*feed animals*/
+			/*Implement method of getting Item*/
+			FoodItem item2 = new FoodItem(); /*temporary*/
+			for (Animal animal : farm.getAnimals()) {
+				animal.increaseHealth(item2.getHealthGiven());
+				/*remove item from inventory*/
+			}
+			actions++;
+			break;
 	}
 	
 	public void nextDay() {
