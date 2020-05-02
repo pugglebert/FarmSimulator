@@ -1,11 +1,13 @@
 package farmSimulator;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class GameEnvironment {
 	private int totalDays = 10;
-	private int currentDay = 0;
+	private int currentDay = 1;
+	private int actions = 0;
 	private Scanner keyboard = new Scanner(System.in);
 	private Farmer farmer = new Farmer();
 	private Farm farm;
@@ -129,7 +131,8 @@ public class GameEnvironment {
 	}
 	
 	public void day() {
-		int actions = 0;
+		System.out.println("The sun rises and marks the beginning of day " + currentDay + " of " + totalDays + ".");
+		
 		boolean sameDay = true;
 		while(sameDay) {
 			
@@ -151,8 +154,8 @@ public class GameEnvironment {
 				break;
 			case "3":
 				if (actions < 2) {
-					action();
 					actions++;
+					action();
 				}
 				else {
 					System.out.println("You can not perform any other actions, choose another option");
@@ -229,68 +232,122 @@ public class GameEnvironment {
 	}
 	
 	public void action() {
-		System.out.println("Enter an action:");
-		option = keyboard.nextLine();
-		case "1": /*tend to crops*/
-			System.out.print("Enter a crop to tend to:");
-			cropType = keyboard.nextLine();
-
-			System.out.println("Would you like to water the crops or use an item?");
-			option = keyboard.nextLine();
-			scanner.close();
-			int growthBonus;
-
-			if (option == "water") {
-				growthBonus = 1;
-			}
-			else {
-				/*Implement method of getting Item*/
-				CropItem item = new CropItem(); /*temporary*/
-				growthBonus = item.getGrowthBonus();
-			}
-
-			for (Crop crop : farm.getCrops()) {
-				if (crop.getCropType() == cropType.toLowerCase()) {
-					crop.decreaseHarvestAge(growthBonus);
+		System.out.println("Enter a number to perform an action:");
+		System.out.println("1) Tend to your crops");
+		System.out.println("2) Play with your animals");
+		System.out.println("3) Harvest your crops");
+		System.out.println("4) Tend to the farm land");
+		System.out.println("5) Feed the animals");
+		String option = keyboard.nextLine();
+		
+		switch(option) {
+			case "1": /*tend to crops*/
+				System.out.println(farm.getCropStatus());
+				System.out.println("Enter the name of the crop to tend to:");
+				
+				String cropType = keyboard.nextLine();
+	
+				System.out.println("Would you like to:  ");
+				System.out.println("1) Water the crops");
+				System.out.println("2) Use an item");
+				option = keyboard.nextLine();
+				int growthBonus = 1;
+	
+				if (option == "1") {
+					growthBonus = 1;
 				}
-			}
-			actions++;
-			break;
-		case "2": /*play with animals*/
-			for (Animal animal : farm.getAnimals()) {
-				animal.increaseHappiness(2);
-			}
-			actions++;
-			break;
-		case "3": /*harvest crops*/
-			for (Crop crop : farm.getCrops()) {
-				if (crop.canHarvest()) {
-					farm.earnMoney(crop.getSellPrice());
-					farm.removeCrop(crop);
+				else if (option == "2"){
+					System.out.println("Which item would you like to use?");
+					ArrayList<CropItem> items = farmer.getCropItems();
+					int i = 1;
+					for (CropItem item : items) {
+						System.out.print("" + i + ") " + item.getName());
+						i++;
+					}
+					String input = keyboard.nextLine();
+					CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
+					growthBonus = chosenItem.getGrowthBonus();
+					farmer.removeItem(chosenItem);				
 				}
-			}
-			actions++;
-			break;
-		case "4": /*tend to farm land*/
-			farm.setCropLimit(farm.getCropLimit() + 2);
-			for (Animal animal : farm.getAnimals()) {
-				animal.increaseHappiness(1);
-			}
-			actions++;
-			break;
-		case "5": /*feed animals*/
-			/*Implement method of getting Item*/
-			FoodItem item2 = new FoodItem(); /*temporary*/
-			for (Animal animal : farm.getAnimals()) {
-				animal.increaseHealth(item2.getHealthGiven());
-				/*remove item from inventory*/
-			}
-			actions++;
-			break;
+				
+				/*Add error handling*/
+	
+				for (Crop crop : farm.getCrops()) {
+					if (crop.getCropType().contentEquals(cropType.toLowerCase())) {
+						crop.decreaseHarvestAge(growthBonus);
+					}
+				}
+				System.out.println("You tended to all your " + cropType + " crops and reduced their time to grow by " + growthBonus + " days.");
+				
+				break;
+				
+			case "2": /*play with animals*/
+				System.out.println("You played with all of your animals and increased their happiness.\n");
+				for (Animal animal : farm.getAnimals()) {
+					animal.increaseHappiness(2);
+				}
+				break;
+				
+			case "3": /*harvest crops*/
+				int earnings = 0;
+				boolean cropsToHarvest = false;
+				for (Crop crop : farm.getCrops()) {
+					if (crop.canHarvest()) {
+						cropsToHarvest = true;
+						earnings += crop.getSellPrice();
+						farm.removeCrop(crop);
+					}
+				}
+				if (cropsToHarvest) {
+					System.out.println("You harvested all fully grown crops and earned $" + earnings + ".");
+					farm.earnMoney(earnings);
+				}
+				else {
+					System.out.println("You have no fully grown crops to harvest!");
+					actions -= 1;
+				}
+				break;
+				
+			case "4": /*tend to farm land*/
+				farm.setCropLimit(farm.getCropLimit() + 1);
+				for (Animal animal : farm.getAnimals()) {
+					animal.increaseHappiness(1);
+				}
+				System.out.println("You tended to the farm land and made it look pristine.\nYour animals are feeling happier and you can now crow up to " + farm.getCropLimit() + " crops.");
+				break;
+				
+			case "5": /*feed animals*/
+				System.out.println("Which item would you like to use?");
+				ArrayList<FoodItem> items = farmer.getFoodItems();
+				int i = 1;
+				for (FoodItem item : items) {
+					System.out.print("" + i + ") " + item.getName());
+					i++;
+				}
+				String input = keyboard.nextLine();
+				FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
+				int healthBonus = chosenItem.getHealthGiven();
+				farmer.removeItem(chosenItem);	
+				
+				for (Animal animal : farm.getAnimals()) {
+					animal.increaseHealth(healthBonus);
+				}
+				System.out.println("You fed all your animals and increased their health.");
+				
+				break;
+		}
 	}
 	
 	public void nextDay() {
-		
+		for (Animal animal : farm.getAnimals()) {
+			animal.advanceDay();
+		}
+		for (Crop crop : farm.getCrops()) {
+			crop.advanceDay();
+		}
+		currentDay++;
+		actions = 0;
+		System.out.println("You retire to your home after a hard days work.\n");
 	}
 	
 	public void endGame() {
