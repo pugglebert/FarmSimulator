@@ -1,9 +1,13 @@
 package farmSimulator;
 
-public class Item {
+abstract class Item {
 	
 	private String name;
 	private int price;
+	
+	public abstract boolean isFoodItem();
+	public abstract boolean isCropItem();
+	
 	
     public void setPrice(int newPrice) {
     	price = newPrice;

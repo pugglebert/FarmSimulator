@@ -6,7 +6,7 @@ public class Farmer {
 	
 	private String name;
 	private int age;
-	private ArrayList<Item> items;
+	private ArrayList<Item> items = new ArrayList<Item>();
 	
 	public void setName(String newName) {
 		if (newName.length() > 15 || newName.length() < 3) {
@@ -36,6 +36,26 @@ public class Farmer {
 	
 	public ArrayList<Item> getItems() {
 		return items;
+	}
+	
+	public ArrayList<Item> getFoodItems() {
+		ArrayList<Item> foodItems = new ArrayList<Item>();
+		for (int counter = 0; counter < items.size(); counter++) {
+			if (items.get(counter).isFoodItem()) {
+				foodItems.add(items.get(counter));
+			}
+		}
+		return foodItems;
+	}
+	
+	public ArrayList<Item> getCropItems() {
+		ArrayList<Item> cropItems = new ArrayList<Item>();
+		for (int counter = 0; counter < items.size(); counter++) {
+			if (items.get(counter).isCropItem()) {
+				cropItems.add(items.get(counter));
+			}
+		}
+		return cropItems;
 	}
 	
 	public void addItem(Item itemToAdd) {
