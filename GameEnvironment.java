@@ -136,7 +136,7 @@ public class GameEnvironment {
 		boolean sameDay = true;
 		while(sameDay) {
 			
-			System.out.println("What would you like to do?");
+			System.out.println("\nWhat would you like to do?");
 			System.out.println("1) View the status of your farm");
 			System.out.println("2) Visit the county store");
 			System.out.println("3) Perform an action");
@@ -313,27 +313,35 @@ public class GameEnvironment {
 				for (Animal animal : farm.getAnimals()) {
 					animal.increaseHappiness(1);
 				}
-				System.out.println("You tended to the farm land and made it look pristine.\nYour animals are feeling happier and you can now crow up to " + farm.getCropLimit() + " crops.");
+				System.out.println("You tended to the farm land and made it look pristine.\nYour animals are feeling happier and you can now grow up to " + farm.getCropLimit() + " crops.");
 				break;
 				
 			case "5": /*feed animals*/
-				System.out.println("Which item would you like to use?");
 				ArrayList<FoodItem> items = farmer.getFoodItems();
-				int i = 1;
-				for (FoodItem item : items) {
-					System.out.print("" + i + ") " + item.getName());
-					i++;
-				}
-				String input = keyboard.nextLine();
-				FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
-				int healthBonus = chosenItem.getHealthGiven();
-				farmer.removeItem(chosenItem);	
 				
-				for (Animal animal : farm.getAnimals()) {
-					animal.increaseHealth(healthBonus);
+				if (items.size() == 0) {
+					System.out.println("You have no items to feed your animals.");
+					System.out.println("Visit the shop and stock up before they get too hungry!");
+					actions -= 1;
 				}
-				System.out.println("You fed all your animals and increased their health.");
 				
+				else {
+					System.out.println("Which item would you like to use?");
+					int i = 1;
+					for (FoodItem item : items) {
+						System.out.print("" + i + ") " + item.getName());
+						i++;
+					}
+					String input = keyboard.nextLine();
+					FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
+					int healthBonus = chosenItem.getHealthGiven();
+					farmer.removeItem(chosenItem);	
+					
+					for (Animal animal : farm.getAnimals()) {
+						animal.increaseHealth(healthBonus);
+					}
+					System.out.println("You fed all your animals and increased their health.");
+				}	
 				break;
 		}
 	}
