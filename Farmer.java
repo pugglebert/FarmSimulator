@@ -9,7 +9,13 @@ public class Farmer {
 	private ArrayList<Item> items;
 	
 	public void setName(String newName) {
-		name = newName;
+		if (newName.length() > 15 || newName.length() < 3) {
+			throw new IllegalArgumentException("Invalid input - farmer's name must be 3 to 15 characters long.");
+		} else if (newName.matches("[a-zA-Z ]+")) {
+			name = newName;
+		} else {
+			throw new IllegalArgumentException("Invalid input - farmers name cannot contain any numbers or special characters");
+		}
 	}
 	
 	public String getName() {

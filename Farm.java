@@ -19,7 +19,11 @@ public class Farm {
 	}
 	
 	public void setMoney(int newMoney) {
-		money = newMoney;
+		if (money >= 0) {
+			money = newMoney;
+		} else {
+			throw new IllegalArgumentException("money < 0");
+		}
 	}
 	
 	public int getMoney() {
@@ -27,15 +31,33 @@ public class Farm {
 	}
 	
 	public void earnMoney(int earnings) {
-		money += earnings;
+		if (earnings >= 0) {
+			money += earnings;
+		} else {
+			throw new IllegalArgumentException("earnings < 0");
+		}
 	}
 	
 	public void spendMoney(int spendings) {
-		money -= spendings;
+		if (spendings >= 0 && (money - spendings >= 0)) {
+			money -= spendings;
+		} else if (spendings < 0) {
+			throw new IllegalArgumentException("spendings < 0");
+		} else {
+			throw new IllegalArgumentException("insufficient funds");
+		}
 	}
 	
 	public void setName(String newName) {
-		name = newName;
+		if (newName.length() < 3) {
+			throw new IllegalArgumentException("Name must be at least 3 chars long.");
+		} else if (newName.length() > 15) {
+			throw new IllegalArgumentException("Name must be at most 15 chars long.");
+		} else if (newName.matches("[a-zA-Z ]+")){
+		    name = newName;
+		} else {
+			throw new IllegalArgumentException("Name must not contain numbers or special characters.");
+		}
 	}
 	
 	public String getName() {
