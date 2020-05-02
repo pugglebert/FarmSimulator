@@ -1,20 +1,8 @@
 package farmSimulator;
 
 public class Kale extends Crop{
-	private int buyPrice;
-	private int sellPrice;
-	private int harvestAge;
-	
-	public int getBuyPrice() {
-		return buyPrice;
+		
+	Kale(){
+		super("kale", 10, 100, 100);
 	}
-
-	public int getSellPrice() {
-		return sellPrice;
-	}
-
-	public int getHarvestAge() {
-		return harvestAge;
-	}
-	
 }
