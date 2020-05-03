@@ -180,19 +180,15 @@ public class GameEnvironment {
 		switch (option) {
 		case "1": 
 			System.out.println(farm.getMoneyStatus());
-			day();
 			break;
 		case "2": 
 			System.out.println(farm.getItemsStatus());
-			day();
 			break;
 		case "3":
 			System.out.println(farm.getAnimalStatus());
-			day();
 			break;
 		case "4":
 			System.out.println(farm.getCropStatus());
-			day();
 			break;
 		default:
 			System.out.println("Invalid input - enter a number from 1 to 4.");
@@ -359,7 +355,10 @@ public class GameEnvironment {
 	}
 	
 	public void endGame() {
-		
+		System.out.println("Your farming adventure has come to an end!");
+		System.out.println("You were on your farm, " + farm.getName() + ", for " + totalDays + " days.");
+		int netProfit = farm.getMoney() - farm.getStartCash();
+		System.out.println("You finished with a total of $" + farm.getMoney() + ", with a net profit of $" + netProfit);
 	}
 	
 	public static void main(String[] args) {
