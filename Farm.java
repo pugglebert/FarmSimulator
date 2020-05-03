@@ -12,7 +12,6 @@ public class Farm {
 	private int cropLimit;
 	private int growthBonus;
 	private int happinessBonus;
-	private int startCash;
 	
 	Farm(Farmer newFarmer) {
 		farmer = newFarmer;
@@ -66,14 +65,9 @@ public class Farm {
 	public void setMoney(int newMoney) {
 		if (money >= 0) {
 			money = newMoney;
-			startCash = money;
 		} else {
 			throw new IllegalArgumentException("money < 0");
 		}
-	}
-	
-	public int getStartCash(){
-		return startCash;
 	}
 	
 	public int getMoney() {
@@ -176,5 +170,45 @@ public class Farm {
 	
 	public int getHappinessBonus() {
 		return happinessBonus;
+	}
+	
+	public void buy(CropItem merchandise) {
+		int price = merchandise.getBuyPrice();
+		if (money >= price) {
+			money -= price;
+			farmer.addItem(merchandise);
+		} else {
+			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+		}
+	}
+	
+	public void buy(FoodItem merchandise) {
+		int price = merchandise.getBuyPrice();
+		if (money >= price) {
+			money -= price;
+			farmer.addItem(merchandise);
+		} else {
+			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+		}
+	}
+	
+	public void buy(Animal merchandise) {
+		int price = merchandise.getBuyPrice();
+		if (money >= price) {
+			money -= price;
+			animals.add(merchandise);
+		} else {
+			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+		}
+	}
+	
+	public void buy(Crop merchandise) {
+		int price = merchandise.getBuyPrice();
+		if (money >= price) {
+			money -= price;
+			crops.add(merchandise);
+		} else {
+			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+		}
 	}
 }
