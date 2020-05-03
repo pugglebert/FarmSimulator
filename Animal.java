@@ -37,6 +37,10 @@ public class Animal {
 		return buyPrice;
 	}
 	
+		public int getHappiness() {
+		return happiness;
+	}
+	
 	public void increaseHappiness(int amount) {
 		happiness += amount;
 		if (happiness > 10) {
@@ -67,5 +71,9 @@ public class Animal {
 	
 	public String toString() {
 		return animalType.substring(0, 1).toUpperCase() + animalType.substring(1) + ": " + happiness + "/10 Happiness, " + health + "/10 Health";
+	}
+	
+	public String toStringStore() {
+		return animalType.substring(0, 1).toUpperCase() + animalType.substring(1) + ": costs $" + Integer.toString(buyPrice);
 	}
 }
