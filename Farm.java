@@ -12,6 +12,7 @@ public class Farm {
 	private int cropLimit;
 	private int growthBonus;
 	private int happinessBonus;
+	private int startCash;
 	
 	Farm(Farmer newFarmer) {
 		farmer = newFarmer;
@@ -65,9 +66,14 @@ public class Farm {
 	public void setMoney(int newMoney) {
 		if (money >= 0) {
 			money = newMoney;
+			startCash = money;
 		} else {
 			throw new IllegalArgumentException("money < 0");
 		}
+	}
+	
+	public int getStartCash(){
+		return startCash;
 	}
 	
 	public int getMoney() {
