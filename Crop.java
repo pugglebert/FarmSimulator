@@ -54,4 +54,8 @@ public class Crop {
 	public String toString() {
 		return cropType.substring(0, 1).toUpperCase() + cropType.substring(1) + ": Growth Progress " + age + "/" + harvestAge;
 	}
+	
+	public String toStringStore() {
+		return cropType.substring(0, 1).toUpperCase() + cropType.substring(1) + ": costs $" + Integer.toString(buyPrice);
+	}
 }
