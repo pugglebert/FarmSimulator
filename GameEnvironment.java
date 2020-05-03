@@ -344,6 +344,7 @@ public class GameEnvironment {
 	
 	public void nextDay() {
 		for (Animal animal : farm.getAnimals()) {
+			farm.earnMoney((int)animal.dailyReturn());
 			animal.advanceDay();
 		}
 		for (Crop crop : farm.getCrops()) {
