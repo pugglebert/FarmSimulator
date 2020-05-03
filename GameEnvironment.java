@@ -11,6 +11,7 @@ public class GameEnvironment {
 	private Scanner keyboard = new Scanner(System.in);
 	private Farmer farmer = new Farmer();
 	private Farm farm;
+	private Store store = new Store();
 
 	
 	public void startup() {
@@ -165,6 +166,8 @@ public class GameEnvironment {
 				nextDay();
 				sameDay = false;
 				break;
+			default:
+				System.out.println("Invalid input - enter number from 1 to 4.");
 			}
         }
 	}
@@ -197,7 +200,7 @@ public class GameEnvironment {
 		}
 	}
 	
-	public void visitStore() {
+public void visitStore() {
 		System.out.println("What would you like to do?");
 		System.out.println("1) View merchandise for sale");
 		System.out.println("2) See how much money your farm has");
@@ -210,7 +213,7 @@ public class GameEnvironment {
 			viewMerchandise();
 			break;
 		case "2":
-			System.out.println(farm.getMoneyStatus());
+			System.out.println(farm.getItemsStatus());
 			visitStore();
 			break;
 		case "3":
@@ -220,11 +223,145 @@ public class GameEnvironment {
 		case "4":
 			System.out.println("Come back soon!");
 			day();
+			break;
+		default:
+			System.out.println("Invalid input");
+			visitStore();
 		}
 	}
 	
 	public void viewMerchandise() {
-		
+		System.out.println("What sort of merchandise would you like to view?");
+		System.out.println("1) View food items for sale");
+		System.out.println("2) View crop items for sale");
+		System.out.println("3) View animals for sale");
+		System.out.println("4) View crops for sale");
+		System.out.println("5) Go back");
+		String option = keyboard.nextLine();
+		switch (option) {
+		case "1":
+			System.out.println(store.getFoodItemString());
+			buyFoodItem(store.getFoodItems());
+			break;
+		case "2":
+			System.out.println(store.getCropItemString());
+			buyCropItem(store.getCropItems());
+			break;
+		case "3":
+			System.out.println(store.getAnimalString());
+			buyAnimal(store.getAnimals());
+			break;
+		case "4":
+			System.out.println(store.getCropString());
+			buyCrop(store.getCrops());
+			break;
+		case "5" :
+			visitStore();
+			break;
+		default:
+			System.out.println("Invalid input");
+			viewMerchandise();
+		}
+	}
+	
+	public void buyFoodItem(ArrayList<FoodItem> merchandise) {
+		int backInt = merchandise.size() + 1;
+		String backStr = Integer.toString(backInt);
+		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
+		String option = keyboard.nextLine();
+		try {
+			int optionInt = Integer.parseInt(option);
+			if (optionInt <= merchandise.size() && optionInt > 0) {
+				try {
+					farm.buy(merchandise.get(optionInt - 1));
+					System.out.println("Purchase successful!");
+					buyFoodItem(merchandise);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.toString());
+					buyFoodItem(merchandise);
+				}
+			} else if (optionInt == backInt) {
+				viewMerchandise();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid input - please enter an integer.");
+			buyFoodItem(merchandise);
+		}
+	}
+	
+	public void buyCropItem(ArrayList<CropItem> merchandise) {
+		int backInt = merchandise.size() + 1;
+		String backStr = Integer.toString(backInt);
+		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
+		String option = keyboard.nextLine();
+		try {
+			int optionInt = Integer.parseInt(option);
+			if (optionInt <= merchandise.size() && optionInt > 0) {
+				try {
+					farm.buy(merchandise.get(optionInt - 1));
+					System.out.println("Purchase successful!");
+					buyCropItem(merchandise);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.toString());
+					buyCropItem(merchandise);
+				}
+			} else if (optionInt == backInt) {
+				viewMerchandise();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid input - please enter an integer.");
+			buyCropItem(merchandise);
+		}
+	}
+	
+	public void buyAnimal(ArrayList<Animal> merchandise) {
+		int backInt = merchandise.size() + 1;
+		String backStr = Integer.toString(backInt);
+		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
+		String option = keyboard.nextLine();
+		try {
+			int optionInt = Integer.parseInt(option);
+			if (optionInt <= merchandise.size() && optionInt > 0) {
+				try {
+					farm.buy(merchandise.get(optionInt - 1));
+					buyAnimal(merchandise);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.toString());
+					System.out.println("Purchase successful!");
+					buyAnimal(merchandise);
+				}
+			} else if (optionInt == backInt) {
+				viewMerchandise();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid input - please enter an integer.");
+			buyAnimal(merchandise);
+		}
+	}
+	
+	public void buyCrop(ArrayList<Crop> merchandise) {
+		int backInt = merchandise.size() + 1;
+		String backStr = Integer.toString(backInt);
+		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
+		String option = keyboard.nextLine();
+		try {
+			int optionInt = Integer.parseInt(option);
+			if (optionInt <= merchandise.size() && optionInt > 0) {
+				try {
+					farm.buy(merchandise.get(optionInt - 1));
+					System.out.println("Purchase successful!");
+					buyCrop(merchandise);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.toString());
+					buyCrop(merchandise);
+				}
+			} else if (optionInt == backInt) {
+				viewMerchandise();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid input - please enter an integer.");
+			buyCrop(merchandise);
+		}
 	}
 	
 	public void action() {
@@ -360,6 +497,18 @@ public class GameEnvironment {
 		System.out.println("You were on your farm, " + farm.getName() + ", for " + totalDays + " days.");
 		int netProfit = farm.getMoney() - farm.getStartCash();
 		System.out.println("You finished with a total of $" + farm.getMoney() + ", with a net profit of $" + netProfit);
+		int score =calcScore();
+		System.out.println("Your final score is " + Integer.toString(score));
+	}
+	
+	public int calcScore() {
+		int score = 0;
+		score += farm.getMoney();
+		for (int counter = 0; counter < farm.getAnimals().size(); counter ++) {
+			score += 50 * farm.getAnimals().get(counter).getHappiness();
+		}
+		score += farm.getCrops().size() * 100;
+		return score;
 	}
 	
 	public static void main(String[] args) {
