@@ -213,11 +213,11 @@ public void visitStore() {
 			viewMerchandise();
 			break;
 		case "2":
-			System.out.println(farm.getItemsStatus());
+			System.out.println(farm.getMoneyStatus());
 			visitStore();
 			break;
 		case "3":
-			System.out.println(farm.getMoneyStatus());
+			System.out.println(farm.getStatusStatus());
 			visitStore();
 			break;
 		case "4":
@@ -324,10 +324,10 @@ public void visitStore() {
 			if (optionInt <= merchandise.size() && optionInt > 0) {
 				try {
 					farm.buy(merchandise.get(optionInt - 1));
+					System.out.println("Purchase successful!");
 					buyAnimal(merchandise);
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.toString());
-					System.out.println("Purchase successful!");
 					buyAnimal(merchandise);
 				}
 			} else if (optionInt == backInt) {
