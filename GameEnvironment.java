@@ -217,7 +217,7 @@ public void visitStore() {
 			visitStore();
 			break;
 		case "3":
-			System.out.println(farm.getStatusStatus());
+			System.out.println(farm.getItemsStatus());
 			visitStore();
 			break;
 		case "4":
@@ -462,7 +462,7 @@ public void visitStore() {
 					System.out.println("Which item would you like to use?");
 					int i = 1;
 					for (FoodItem item : items) {
-						System.out.print("" + i + ") " + item.getName());
+						System.out.println("" + i + ") " + item.getName());
 						i++;
 					}
 					String input = keyboard.nextLine();
