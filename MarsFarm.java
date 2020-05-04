@@ -13,12 +13,18 @@ public class MarsFarm extends Farm {
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Sheep());
+		for(Animal animal : startAnimals) {
+			animal.setBaseHappiness(happinessBonus);
+		}
 		super.setAnimals(startAnimals);
 	}
 	
 	public void initializeCrops() {
 		startCrops.add(new Maize());
 		startCrops.add(new Potato());
+		for(Crop crop : startCrops) {
+			crop.setBaseHarvestAge(growthBonus);
+		}
 		super.setCrops(startCrops);
 	}
 	

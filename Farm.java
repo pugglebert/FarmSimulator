@@ -201,6 +201,7 @@ public class Farm {
 		int price = merchandise.getBuyPrice();
 		if (money >= price) {
 			money -= price;
+			merchandise.setBaseHappiness(happinessBonus);
 			animals.add(merchandise);
 		} else {
 			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
@@ -211,6 +212,7 @@ public class Farm {
 		int price = merchandise.getBuyPrice();
 		if (money >= price) {
 			money -= price;
+			merchandise.setBaseHarvestAge(growthBonus);
 			crops.add(merchandise);
 		} else {
 			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");

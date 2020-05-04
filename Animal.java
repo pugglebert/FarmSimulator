@@ -37,8 +37,12 @@ public class Animal {
 		return buyPrice;
 	}
 	
-		public int getHappiness() {
+	public int getHappiness() {
 		return happiness;
+	}
+		
+	public void setBaseHappiness(int bonus) {
+		happiness += bonus;
 	}
 	
 	public void increaseHappiness(int amount) {

@@ -30,6 +30,10 @@ public class Crop {
 		return harvestAge;
 	}
 	
+	public void setBaseHarvestAge(int bonus) {
+		harvestAge -= bonus;
+	}
+	
 	public void decreaseHarvestAge(int amount) {
 		harvestAge -= amount;
 		

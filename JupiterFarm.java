@@ -14,6 +14,9 @@ public class JupiterFarm extends Farm {
 	public void initializeAnimals() {
 		startAnimals.add(new Cow());
 		startAnimals.add(new Sheep());
+		for(Animal animal : startAnimals) {
+			animal.setBaseHappiness(happinessBonus);
+		}
 		super.setAnimals(startAnimals);
 	}
 
@@ -21,6 +24,9 @@ public class JupiterFarm extends Farm {
 		startCrops.add(new Wheat());
 		startCrops.add(new Maize());
 		startCrops.add(new Pumpkin());
+		for(Crop crop : startCrops) {
+			crop.setBaseHarvestAge(growthBonus);
+		}
 		super.setCrops(startCrops);
 	}
 	

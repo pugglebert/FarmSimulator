@@ -13,12 +13,18 @@ public class VenusFarm extends Farm {
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Sheep());
+		for(Animal animal : startAnimals) {
+			animal.setBaseHappiness(happinessBonus);
+		}
 		super.setAnimals(startAnimals);
 	}
 
 	public void initializeCrops() {
 		startCrops.add(new Pumpkin());
 		startCrops.add(new Kale());
+		for(Crop crop : startCrops) {
+			crop.setBaseHarvestAge(growthBonus);
+		}
 		super.setCrops(startCrops);
 	}
 	

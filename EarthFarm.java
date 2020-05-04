@@ -13,12 +13,18 @@ public class EarthFarm extends Farm {
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Chicken());
+		for(Animal animal : startAnimals) {
+			animal.setBaseHappiness(happinessBonus);
+		}
 		super.setAnimals(startAnimals);
 	}
 	
 	public void initializeCrops() {
 		startCrops.add(new Wheat());
 		startCrops.add(new Barley());
+		for(Crop crop : startCrops) {
+			crop.setBaseHarvestAge(growthBonus);
+		}
 		super.setCrops(startCrops);
 	}
 	

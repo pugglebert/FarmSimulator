@@ -84,9 +84,25 @@ public class GameEnvironment {
 			
 			System.out.println("Enter a number to select which planet you would like to start your farm on:");
 			System.out.println("1) Earth");
+			System.out.println("	Starting Money: $1000");
+			System.out.println("	Starting Animals: Chicken");
+			System.out.println("	Starting Crops: Barley, Wheat");
+			System.out.println("	Bonuses: Animal Happiness +1");
 			System.out.println("2) Mars");
+			System.out.println("	Starting Money: $800");
+			System.out.println("	Starting Animals: Sheep");
+			System.out.println("	Starting Crops: Maize, Potato");
+			System.out.println("	Bonuses: Crop Harvest Time -1");
 			System.out.println("3) Venus");
+			System.out.println("	Starting Money: $1500");
+			System.out.println("	Starting Animals: Sheep");
+			System.out.println("	Starting Crops: Pumpkin, Kale");
+			System.out.println("	Bonuses: N/A");
 			System.out.println("4) Jupiter");
+			System.out.println("	Starting Money: $500");
+			System.out.println("	Starting Animals: Cow, Sheep");
+			System.out.println("	Starting Crops: Wheat, Maize, Pumpkin");
+			System.out.println("	Bonuses: Animal Happiness +1, Crop Harvest Time -1");
 			try {
 				int planetChoice = keyboard.nextInt();
 				switch (planetChoice) {
