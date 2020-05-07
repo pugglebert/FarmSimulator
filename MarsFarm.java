@@ -8,8 +8,8 @@ public class MarsFarm extends Farm {
 	private int cropLimit = 8;
 	private int happinessBonus = 0;
 	private int growthBonus = 1;
-	private ArrayList<Animal> startAnimals;
-	private ArrayList<Crop> startCrops;
+	private ArrayList<Animal> startAnimals = new ArrayList<Animal>();
+	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
 		startAnimals.add(new Sheep());
