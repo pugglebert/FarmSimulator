@@ -399,35 +399,47 @@ public void visitStore() {
 				System.out.println("Would you like to:  ");
 				System.out.println("1) Water the crops");
 				System.out.println("2) Use an item");
+				
+				int growthBonus = 0;
 				option = keyboard.nextLine();
-				int growthBonus = 1;
-	
-				if (option == "1") {
-					growthBonus = 1;
-				}
-				else if (option == "2"){
-					System.out.println("Which item would you like to use?");
-					ArrayList<CropItem> items = farmer.getCropItems();
-					int i = 1;
-					for (CropItem item : items) {
-						System.out.print("" + i + ") " + item.getName());
-						i++;
-					}
-					String input = keyboard.nextLine();
-					CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
-					growthBonus = chosenItem.getGrowthBonus();
-					farmer.removeItem(chosenItem);				
+				
+				switch(option) {
+					case "1":
+						growthBonus = 1;
+						break;
+					case "2":
+						ArrayList<CropItem> items = farmer.getCropItems();
+						if (items.size() == 0) {
+							System.out.println("You have no items to boost your crops.");
+							System.out.println("Visit the shop to buy some more!");
+							actions -= 1;
+						}
+						
+						else {
+							System.out.println("Which item would you like to use?");
+							
+							int i = 1;
+							for (CropItem item : items) {
+								System.out.println("" + i + ") " + item.getName());
+								i++;
+							}
+							String input = keyboard.nextLine();
+							CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
+							growthBonus = chosenItem.getGrowthBonus();
+							farmer.removeItem(chosenItem);				
+							break;
+						}
 				}
 				
 				/*Add error handling*/
-	
-				for (Crop crop : farm.getCrops()) {
-					if (crop.getCropType().contentEquals(cropType.toLowerCase())) {
-						crop.decreaseHarvestAge(growthBonus);
+				if (growthBonus > 0) {
+					for (Crop crop : farm.getCrops()) {
+						if (crop.getCropType().contentEquals(cropType.toLowerCase())) {
+							crop.decreaseHarvestAge(growthBonus);
+						}
 					}
+					System.out.println("You tended to all your " + cropType + " crops and reduced their time to grow by " + growthBonus + " days.");
 				}
-				System.out.println("You tended to all your " + cropType + " crops and reduced their time to grow by " + growthBonus + " days.");
-				
 				break;
 				
 			case "2": /*play with animals*/
