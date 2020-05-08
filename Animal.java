@@ -1,6 +1,6 @@
 package farmSimulator;
 
-public class Animal {
+public class Animal implements Buyable {
 	private int health = 10;
 	private int happiness = 5;
 	private int baseReturn;

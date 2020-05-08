@@ -1,6 +1,6 @@
 package farmSimulator;
 
-public class FoodItem extends Item {
+public class FoodItem extends Item implements Buyable {
 	
 	int healthGiven;
 	

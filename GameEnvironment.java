@@ -257,19 +257,19 @@ public void visitStore() {
 		switch (option) {
 		case "1":
 			System.out.println(store.getFoodItemString());
-			buyFoodItem(store.getFoodItems());
+			buyMerchandise(store.getFoodItems());
 			break;
 		case "2":
 			System.out.println(store.getCropItemString());
-			buyCropItem(store.getCropItems());
+			buyMerchandise(store.getCropItems());
 			break;
 		case "3":
 			System.out.println(store.getAnimalString());
-			buyAnimal(store.getAnimals());
+			buyMerchandise(store.getAnimals());
 			break;
 		case "4":
 			System.out.println(store.getCropString());
-			buyCrop(store.getCrops());
+			buyMerchandise(store.getCrops());
 			break;
 		case "5" :
 			visitStore();
@@ -280,7 +280,7 @@ public void visitStore() {
 		}
 	}
 	
-	public void buyFoodItem(ArrayList<FoodItem> merchandise) {
+	public void buyMerchandise(ArrayList<Buyable> merchandise) {
 		int backInt = merchandise.size() + 1;
 		String backStr = Integer.toString(backInt);
 		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
@@ -291,92 +291,17 @@ public void visitStore() {
 				try {
 					farm.buy(merchandise.get(optionInt - 1));
 					System.out.println("Purchase successful!");
-					buyFoodItem(merchandise);
+					buyMerchandise(merchandise);
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.toString());
-					buyFoodItem(merchandise);
+					buyMerchandise(merchandise);
 				}
 			} else if (optionInt == backInt) {
 				viewMerchandise();
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("Invalid input - please enter an integer.");
-			buyFoodItem(merchandise);
-		}
-	}
-	
-	public void buyCropItem(ArrayList<CropItem> merchandise) {
-		int backInt = merchandise.size() + 1;
-		String backStr = Integer.toString(backInt);
-		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
-		String option = keyboard.nextLine();
-		try {
-			int optionInt = Integer.parseInt(option);
-			if (optionInt <= merchandise.size() && optionInt > 0) {
-				try {
-					farm.buy(merchandise.get(optionInt - 1));
-					System.out.println("Purchase successful!");
-					buyCropItem(merchandise);
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.toString());
-					buyCropItem(merchandise);
-				}
-			} else if (optionInt == backInt) {
-				viewMerchandise();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("Invalid input - please enter an integer.");
-			buyCropItem(merchandise);
-		}
-	}
-	
-	public void buyAnimal(ArrayList<Animal> merchandise) {
-		int backInt = merchandise.size() + 1;
-		String backStr = Integer.toString(backInt);
-		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
-		String option = keyboard.nextLine();
-		try {
-			int optionInt = Integer.parseInt(option);
-			if (optionInt <= merchandise.size() && optionInt > 0) {
-				try {
-					farm.buy(merchandise.get(optionInt - 1));
-					System.out.println("Purchase successful!");
-					buyAnimal(merchandise);
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.toString());
-					buyAnimal(merchandise);
-				}
-			} else if (optionInt == backInt) {
-				viewMerchandise();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("Invalid input - please enter an integer.");
-			buyAnimal(merchandise);
-		}
-	}
-	
-	public void buyCrop(ArrayList<Crop> merchandise) {
-		int backInt = merchandise.size() + 1;
-		String backStr = Integer.toString(backInt);
-		System.out.println("Enter the item's number to purchase it, or enter " + backStr + " to go back");
-		String option = keyboard.nextLine();
-		try {
-			int optionInt = Integer.parseInt(option);
-			if (optionInt <= merchandise.size() && optionInt > 0) {
-				try {
-					farm.buy(merchandise.get(optionInt - 1));
-					System.out.println("Purchase successful!");
-					buyCrop(merchandise);
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.toString());
-					buyCrop(merchandise);
-				}
-			} else if (optionInt == backInt) {
-				viewMerchandise();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("Invalid input - please enter an integer.");
-			buyCrop(merchandise);
+			buyMerchandise(merchandise);
 		}
 	}
 	

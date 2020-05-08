@@ -114,13 +114,13 @@ public class Farm {
 		return name;
 	}
 	
-	public void setFarmer(Farmer newFarmer) {
+	/*public void setFarmer(Farmer newFarmer) {
 		farmer = newFarmer;
-	}
+	}*/
 	
-	public Farmer getFarmer() {
+	/*public Farmer getFarmer() {
 		return farmer;
-	}
+	}*/
 	
 	public void setAnimals(ArrayList<Animal> newAnimals) {
 		animals = newAnimals;
@@ -170,50 +170,34 @@ public class Farm {
 		return growthBonus;
 	}
 	
-	public void setHappinessBonus(int newHappinessBonus) {
+    public void setHappinessBonus(int newHappinessBonus) {
 		happinessBonus = newHappinessBonus;
 	}
 	public int getHappinessBonus() {
 		return happinessBonus;
 	}
 	
-	public void buy(CropItem merchandise) {
+	public void buy(Buyable merchandise) {
 		int price = merchandise.getBuyPrice();
 		if (money >= price) {
 			money -= price;
-			farmer.addItem(merchandise);
-		} else {
-			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
-		}
-	}
-	
-	public void buy(FoodItem merchandise) {
-		int price = merchandise.getBuyPrice();
-		if (money >= price) {
-			money -= price;
-			farmer.addItem(merchandise);
-		} else {
-			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
-		}
-	}
-	
-	public void buy(Animal merchandise) {
-		int price = merchandise.getBuyPrice();
-		if (money >= price) {
-			money -= price;
-			merchandise.setBaseHappiness(happinessBonus);
-			animals.add(merchandise);
-		} else {
-			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
-		}
-	}
-	
-	public void buy(Crop merchandise) {
-		int price = merchandise.getBuyPrice();
-		if (money >= price) {
-			money -= price;
-			merchandise.setBaseHarvestAge(growthBonus);
-			crops.add(merchandise);
+			if (merchandise instanceof Item) {
+				Item merchItem = (Item) merchandise;
+				farmer.addItem(merchItem);
+			} else if (merchandise instanceof Animal) {
+				Animal merchAnimal = (Animal) merchandise;
+				merchAnimal.setBaseHappiness(getHappinessBonus());
+				addAnimal(merchAnimal);
+			} else if (merchandise instanceof Crop) {
+				if (crops.size() >= cropLimit) {
+					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
+							+ "Tend the land to get space to grow more.");
+				} else {
+					Crop merchCrop = (Crop) merchandise;
+					merchCrop.setBaseHarvestAge(getGrowthBonus());
+					addCrop(merchCrop);
+				}
+			}
 		} else {
 			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
 		}

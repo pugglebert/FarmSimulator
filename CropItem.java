@@ -1,6 +1,6 @@
 package farmSimulator;
 
-public class CropItem extends Item {
+public class CropItem extends Item implements Buyable {
 	
 	private int growthBonus;
 	

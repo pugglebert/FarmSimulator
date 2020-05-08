@@ -1,6 +1,6 @@
 package farmSimulator;
 
-public class Crop {
+public class Crop implements Buyable {
 	private int harvestAge;
 	private int age = 0;
 	private int buyPrice;
