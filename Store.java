@@ -9,20 +9,40 @@ public class Store {
 	private ArrayList<Animal> animals = new ArrayList<Animal>();
 	private ArrayList<Crop> crops = new ArrayList<Crop>();
 	
-	public ArrayList<FoodItem> getFoodItems() {
-		return foodItems;
+	public ArrayList<Buyable> getFoodItems() {
+		ArrayList<Buyable> buyables = new ArrayList<Buyable>();
+		for (int i = 0; i < foodItems.size(); i++) {
+			Buyable buyableItem = (Buyable) foodItems.get(i);
+			buyables.add(buyableItem);
+		}
+		return buyables;
 	}
 	
-	public ArrayList<CropItem> getCropItems() {
-		return cropItems;
+	public ArrayList<Buyable> getCropItems() {
+		ArrayList<Buyable> buyables = new ArrayList<Buyable>();
+		for (int i = 0; i < cropItems.size(); i++) {
+			Buyable buyableItem = (Buyable) cropItems.get(i);
+			buyables.add(buyableItem);
+		}
+		return buyables;
 	}
 	
-	public ArrayList<Animal> getAnimals() {
-		return animals;
+	public ArrayList<Buyable> getAnimals() {
+		ArrayList<Buyable> buyables = new ArrayList<Buyable>();
+		for (int i = 0; i < animals.size(); i++) {
+			Buyable buyableItem = (Buyable) animals.get(i);
+			buyables.add(buyableItem);
+		}
+		return buyables;
 	}
 	
-	public ArrayList<Crop> getCrops() {
-		return crops;
+	public ArrayList<Buyable> getCrops() {
+		ArrayList<Buyable> buyables = new ArrayList<Buyable>();
+		for (int i = 0; i < crops.size(); i++) {
+			Buyable buyableItem = (Buyable) crops.get(i);
+			buyables.add(buyableItem);
+		}
+		return buyables;
 	}
 	
 	public String getFoodItemString() {
