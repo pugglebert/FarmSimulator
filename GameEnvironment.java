@@ -485,9 +485,6 @@ public void visitStore() {
 		GameEnvironment game = new GameEnvironment();
 		game.startup();
 		game.mainScreen = new MainScreen(game);
-		while(game.currentDay <= game.totalDays) {
-			game.day();
-		}
 		game.endGame();
 		
 	}

@@ -30,6 +30,11 @@ public class MainScreen {
 	private Farmer farmer;
 	private int remainingActions = 2;
 	private GameEnvironment game;
+	private int totalDays = 10;
+	private int currentDay = 1;
+	private JLabel dayLabel;
+	private JLabel moneyLabel;
+	private JLabel actionLabel;
 	
 	/**
 	 * Create the application.
@@ -38,14 +43,31 @@ public class MainScreen {
 		game = newGame;
 		farm = game.getFarm();
 		farmer = game.getFarmer();
+		totalDays = game.getTotalDays();
 		initialize();
-
+		setCrops();
+		frmFarmSimulator.setVisible(true);
 	}
 	
 	public void newDay() {
 		remainingActions = 2;
-		frmFarmSimulator.setVisible(true);
 		setCrops();
+		dayLabel.setText("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
+		moneyLabel.setText("You have $" + farm.getMoney());
+		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+	}
+	
+	public void nextDay() {
+		for (Animal animal : farm.getAnimals()) {
+			farm.earnMoney((int)animal.dailyReturn());
+			animal.advanceDay();
+		}
+		for (Crop crop : farm.getCrops()) {
+			crop.advanceDay();
+		}
+		currentDay++;
+		JOptionPane.showMessageDialog(frmFarmSimulator, "You retire to your home after a hard days work");
+		newDay();
 	}
 	
 	public void setCrops() {
@@ -89,6 +111,7 @@ public class MainScreen {
 		nextDayButton.setBounds(534, 354, 106, 75);
 		nextDayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				nextDay();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(nextDayButton);
@@ -119,15 +142,15 @@ public class MainScreen {
 		chickenLabel.setBounds(10, 153, 46, 14);
 		animalPanel.add(chickenLabel);
 		
-		JLabel dayLabel = new JLabel("Day " + Integer.toString(game.getCurrentDay()) + "/" + Integer.toString(game.getTotalDays()));
+		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
 		dayLabel.setBounds(370, 354, 98, 14);
 		frmFarmSimulator.getContentPane().add(dayLabel);
 		
-		JLabel actionLabel = new JLabel(Integer.toString(remainingActions) + " actions remaining");
+		actionLabel = new JLabel(Integer.toString(remainingActions) + " actions remaining");
 		actionLabel.setBounds(370, 384, 98, 14);
 		frmFarmSimulator.getContentPane().add(actionLabel);
 		
-		JLabel moneyLabel = new JLabel("You have $" + farm.getMoney());
+		moneyLabel = new JLabel("You have $" + farm.getMoney());
 		moneyLabel.setBounds(370, 415, 98, 14);
 		frmFarmSimulator.getContentPane().add(moneyLabel);
 		
