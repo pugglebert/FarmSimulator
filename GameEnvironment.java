@@ -345,13 +345,16 @@ public void visitStore() {
 							
 							int i = 1;
 							for (CropItem item : items) {
-								System.out.println("" + i + ") " + item.getName());
+								System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
 								i++;
 							}
 							String input = keyboard.nextLine();
 							CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
 							growthBonus = chosenItem.getGrowthBonus();
-							farmer.removeItem(chosenItem);				
+							chosenItem.removeFromInventory();
+							if (chosenItem.getInventoryCount() == 0) {
+								farmer.removeItem(chosenItem);
+							}
 							break;
 						}
 				}
@@ -415,13 +418,16 @@ public void visitStore() {
 					System.out.println("Which item would you like to use?");
 					int i = 1;
 					for (FoodItem item : items) {
-						System.out.println("" + i + ") " + item.getName());
+						System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
 						i++;
 					}
 					String input = keyboard.nextLine();
 					FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
 					int healthBonus = chosenItem.getHealthGiven();
-					farmer.removeItem(chosenItem);	
+					chosenItem.removeFromInventory();
+					if (chosenItem.getInventoryCount() == 0) {
+						farmer.removeItem(chosenItem);
+					}
 					
 					for (Animal animal : farm.getAnimals()) {
 						animal.increaseHealth(healthBonus);
