@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,6 +12,23 @@ public class GameEnvironment {
 	private Farmer farmer = new Farmer();
 	private Farm farm;
 	private Store store = new Store();
+	private MainScreen mainScreen;
+	
+	public Farm getFarm() {
+		return farm;
+	}
+	
+	public Farmer getFarmer() {
+		return farmer;
+	}
+	
+	public int getTotalDays() {
+		return totalDays;
+	}
+	
+	public int getCurrentDay() {
+		return currentDay;
+	}
 
 	
 	public void startup() {
@@ -148,7 +165,7 @@ public class GameEnvironment {
 	}
 	
 	public void day() {
-		System.out.println("The sun rises and marks the beginning of day " + currentDay + " of " + totalDays + ".");
+		mainScreen.newDay();
 		
 		boolean sameDay = true;
 		while(sameDay) {
@@ -345,16 +362,13 @@ public void visitStore() {
 							
 							int i = 1;
 							for (CropItem item : items) {
-								System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
+								System.out.println("" + i + ") " + item.getName());
 								i++;
 							}
 							String input = keyboard.nextLine();
 							CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
 							growthBonus = chosenItem.getGrowthBonus();
-							chosenItem.removeFromInventory();
-							if (chosenItem.getInventoryCount() == 0) {
-								farmer.removeItem(chosenItem);
-							}
+							farmer.removeItem(chosenItem);				
 							break;
 						}
 				}
@@ -418,16 +432,13 @@ public void visitStore() {
 					System.out.println("Which item would you like to use?");
 					int i = 1;
 					for (FoodItem item : items) {
-						System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
+						System.out.println("" + i + ") " + item.getName());
 						i++;
 					}
 					String input = keyboard.nextLine();
 					FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
 					int healthBonus = chosenItem.getHealthGiven();
-					chosenItem.removeFromInventory();
-					if (chosenItem.getInventoryCount() == 0) {
-						farmer.removeItem(chosenItem);
-					}
+					farmer.removeItem(chosenItem);	
 					
 					for (Animal animal : farm.getAnimals()) {
 						animal.increaseHealth(healthBonus);
@@ -473,6 +484,7 @@ public void visitStore() {
 	public static void main(String[] args) {
 		GameEnvironment game = new GameEnvironment();
 		game.startup();
+		game.mainScreen = new MainScreen(game);
 		while(game.currentDay <= game.totalDays) {
 			game.day();
 		}
