@@ -35,6 +35,9 @@ public class MainScreen {
 	private JLabel dayLabel;
 	private JLabel moneyLabel;
 	private JLabel actionLabel;
+	private JLabel cowLabel;
+	private JLabel sheepLabel;
+	private JLabel chickenLabel;
 	
 	/**
 	 * Create the application.
@@ -46,12 +49,14 @@ public class MainScreen {
 		totalDays = game.getTotalDays();
 		initialize();
 		setCrops();
+		setAnimals();
 		frmFarmSimulator.setVisible(true);
 	}
 	
 	public void newDay() {
 		remainingActions = 2;
 		setCrops();
+		setAnimals();
 		dayLabel.setText("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
 		moneyLabel.setText("You have $" + farm.getMoney());
 		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
@@ -90,6 +95,18 @@ public class MainScreen {
 	
 	public void setAnimals() {
 		ArrayList<Animal> animals = farm.getAnimals();
+		int cows = 0;
+		int sheep = 0;
+		int chickens = 0;
+		for (int counter = 0; counter < animals.size(); counter ++) {
+			Animal animal = animals.get(counter);
+			if (animal instanceof Cow) { cows ++; }
+			else if (animal instanceof Sheep) { sheep ++; }
+			else if (animal instanceof Chicken) { chickens ++; }
+		cowLabel.setText("Cows: " + Integer.toString(cows));
+	    sheepLabel.setText("Sheep: " + Integer.toString(sheep));
+	    chickenLabel.setText("Chickens: " + Integer.toString(chickens));		
+		}
 	}
 
 	/**
@@ -130,16 +147,16 @@ public class MainScreen {
 		frmFarmSimulator.getContentPane().add(animalPanel);
 		animalPanel.setLayout(null);
 		
-		JLabel cowLabel = new JLabel("Cow");
-		cowLabel.setBounds(10, 38, 46, 14);
+		cowLabel = new JLabel("Cow: 0");
+		cowLabel.setBounds(10, 40, 100, 14);
 		animalPanel.add(cowLabel);
 		
-		JLabel sheepLabel = new JLabel("Sheep");
-		sheepLabel.setBounds(10, 94, 46, 14);
+		sheepLabel = new JLabel("Sheep: 0");
+		sheepLabel.setBounds(10, 100, 100, 14);
 		animalPanel.add(sheepLabel);
 		
-		JLabel chickenLabel = new JLabel("Chicken");
-		chickenLabel.setBounds(10, 153, 46, 14);
+		chickenLabel = new JLabel("Chicken: 0");
+		chickenLabel.setBounds(10, 160, 100, 14);
 		animalPanel.add(chickenLabel);
 		
 		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
