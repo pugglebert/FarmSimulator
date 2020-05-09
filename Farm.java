@@ -31,7 +31,7 @@ public class Farm {
 		} else {
 			status = "Your farmer has the following items:";
 			for (int counter = 1; counter <= items.size(); counter++) {
-				status += "\n" + Integer.toString(counter) + ") " + items.get(counter - 1).toString();
+				status += "\n" + items.get(counter - 1).getInventoryCount() + "x " + items.get(counter - 1).toString();
 			}
 		}
 		return status;
@@ -182,8 +182,10 @@ public class Farm {
 		if (money >= price) {
 			money -= price;
 			if (merchandise instanceof Item) {
-				Item merchItem = (Item) merchandise;
-				farmer.addItem(merchItem);
+				if(!farmer.getItems().contains(merchandise)) {
+					farmer.addItem((Item) merchandise);
+				}
+				((Item) merchandise).addToInventory();
 			} else if (merchandise instanceof Animal) {
 				Animal merchAnimal = (Animal) merchandise;
 				merchAnimal.setBaseHappiness(getHappinessBonus());
