@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.Scanner;
 import java.util.ArrayList;
