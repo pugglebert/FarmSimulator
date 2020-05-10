@@ -1,171 +1,54 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class GameEnvironment {
-	private int totalDays = 10;
+	private int totalDays;
 	private int currentDay = 1;
 	private int actions = 0;
 	private Scanner keyboard = new Scanner(System.in);
 	private Farmer farmer = new Farmer();
 	private Farm farm;
 	private Store store = new Store();
-	private MainScreen mainScreen;
-	
-	public Farm getFarm() {
-		return farm;
-	}
-	
-	public Farmer getFarmer() {
-		return farmer;
-	}
-	
-	public int getTotalDays() {
-		return totalDays;
-	}
-	
-	public int getCurrentDay() {
-		return currentDay;
-	}
 
-	
-	public void startup() {
-		System.out.println("Welcome to Farm Simulator (space edition).");
-		System.out.println("Your mission is to colonise a planet by building a succesful farm there.");
-		enterTotalDays();
-		enterFarmerName();
-		enterFarmerAge();
-		enterPlanet();
-		enterFarmName();
-		System.out.println("Great! You are now ready to start your farming adventure.");
+	public void launchSetupScreen() {
+		SetupScreen setupWindow = new SetupScreen(this);
 	}
-		
-	public void enterTotalDays() {
-		boolean valid = false;
-		while (valid == false) {
-			System.out.println("Enter how many days you would like the game to last (5-10):");
-			try {
-				int duration = keyboard.nextInt();
-				if (duration > 4 && duration < 11) {
-					totalDays = duration;
-					valid = true;
-			    } else {
-			    	System.out.println("Invalid input - number of days must be 5 to 10.");
-			    }
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input - please enter an integer");
-				keyboard.nextLine();
-			}
+	
+	public void closeSetupScreen(SetupScreen setupWindow) {
+		setupWindow.closeWindow();
+	}
+	
+	public void initiateFarmer(String name, int age) {
+		farmer.setName(name);
+		farmer.setAge(age);
+	}
+	
+	public void initiateFarm(String farmType, String farmName) {
+		switch(farmType) {
+		case "earth":
+			farm = new EarthFarm(farmer);
+		case "mars":
+			farm = new MarsFarm(farmer);
+		case "venus":
+			farm = new VenusFarm(farmer);
+		case "jupiter":
+			farm = new JupiterFarm(farmer);
+			
+		farm.setName(farmName);
+				
+			
 		}
+	}
+	
+	public void setTotalDays(int days) {
+		totalDays = days;
 	}
 			
-	public void enterFarmerName() {
-		String farmerName = keyboard.nextLine();
-		boolean valid = false;
-		while (valid == false) {
-			System.out.println("Enter a name for your farmer:");
-			farmerName = keyboard.nextLine();
-			try {
-				farmer.setName(farmerName);
-				valid = true;
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.toString());
-			}
-		}
-	}
-		
-	public void enterFarmerAge() {
-		boolean valid = false;
-		while (valid == false) {
-			System.out.println("Enter your farmers age:");
-			try {
-				int farmerAge = keyboard.nextInt();
-				if (farmerAge > 0 && farmerAge < 101) {
-					farmer.setAge(farmerAge);
-					valid = true;
-				} else {
-					System.out.println("Invalid input - age must be a number from 1 to 100.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input - please enter an integer.");
-				keyboard.nextLine();
-			}
-		}
-	}
-	
-	public void enterPlanet() {
-		boolean valid = false;
-		while (valid == false) {
-			
-			System.out.println("Enter a number to select which planet you would like to start your farm on:");
-			System.out.println("1) Earth");
-			System.out.println("	Starting Money: $1000");
-			System.out.println("	Starting Animals: Chicken");
-			System.out.println("	Starting Crops: Barley, Wheat");
-			System.out.println("	Bonuses: Animal Happiness +1");
-			System.out.println("2) Mars");
-			System.out.println("	Starting Money: $800");
-			System.out.println("	Starting Animals: Sheep");
-			System.out.println("	Starting Crops: Maize, Potato");
-			System.out.println("	Bonuses: Crop Harvest Time -1");
-			System.out.println("3) Venus");
-			System.out.println("	Starting Money: $1500");
-			System.out.println("	Starting Animals: Sheep");
-			System.out.println("	Starting Crops: Pumpkin, Kale");
-			System.out.println("	Bonuses: N/A");
-			System.out.println("4) Jupiter");
-			System.out.println("	Starting Money: $500");
-			System.out.println("	Starting Animals: Cow, Sheep");
-			System.out.println("	Starting Crops: Wheat, Maize, Pumpkin");
-			System.out.println("	Bonuses: Animal Happiness +1, Crop Harvest Time -1");
-			try {
-				int planetChoice = keyboard.nextInt();
-				switch (planetChoice) {
-				case 1:
-					farm = new EarthFarm(farmer);
-					valid = true;
-					break;
-				case 2:
-					farm = new MarsFarm(farmer);
-					valid = true;
-					break;
-				case 3:
-					farm = new VenusFarm(farmer);
-					valid = true;
-					break;
-				case 4:
-					farm = new JupiterFarm(farmer);
-					valid = true;
-					break;
-				default:
-					System.out.println("Invalid input - enter number from 1 to 4.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input - enter an integer from 1 to 4.");
-				keyboard.nextLine();
-			}
-		}
-	}
-	
-	public void enterFarmName() {
-		String farmName = keyboard.nextLine();
-		boolean valid = false;
-		while (valid == false) {
-			System.out.println("Enter a name for your farm:");
-			farmName = keyboard.nextLine();
-			try {
-				farm.setName(farmName);
-				valid = true;
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.toString());
-			}
-		}
-	}
-	
 	public void day() {
-		mainScreen.newDay();
+		System.out.println("The sun rises and marks the beginning of day " + currentDay + " of " + totalDays + ".");
 		
 		boolean sameDay = true;
 		while(sameDay) {
@@ -233,7 +116,7 @@ public class GameEnvironment {
 		}
 	}
 	
-public void visitStore() {
+	public void visitStore() {
 		System.out.println("What would you like to do?");
 		System.out.println("1) View merchandise for sale");
 		System.out.println("2) See how much money your farm has");
@@ -362,13 +245,16 @@ public void visitStore() {
 							
 							int i = 1;
 							for (CropItem item : items) {
-								System.out.println("" + i + ") " + item.getName());
+								System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
 								i++;
 							}
 							String input = keyboard.nextLine();
 							CropItem chosenItem = items.get(Integer.parseInt(input) - 1);
 							growthBonus = chosenItem.getGrowthBonus();
-							farmer.removeItem(chosenItem);				
+							chosenItem.removeFromInventory();
+							if (chosenItem.getInventoryCount() == 0) {
+								farmer.removeItem(chosenItem);
+							}
 							break;
 						}
 				}
@@ -432,13 +318,16 @@ public void visitStore() {
 					System.out.println("Which item would you like to use?");
 					int i = 1;
 					for (FoodItem item : items) {
-						System.out.println("" + i + ") " + item.getName());
+						System.out.println("" + i + ") " + item.getName() + " (" + item.getInventoryCount() + " Available)");
 						i++;
 					}
 					String input = keyboard.nextLine();
 					FoodItem chosenItem = items.get(Integer.parseInt(input) - 1);
 					int healthBonus = chosenItem.getHealthGiven();
-					farmer.removeItem(chosenItem);	
+					chosenItem.removeFromInventory();
+					if (chosenItem.getInventoryCount() == 0) {
+						farmer.removeItem(chosenItem);
+					}
 					
 					for (Animal animal : farm.getAnimals()) {
 						animal.increaseHealth(healthBonus);
@@ -483,9 +372,11 @@ public void visitStore() {
 	
 	public static void main(String[] args) {
 		GameEnvironment game = new GameEnvironment();
-		game.startup();
-		game.mainScreen = new MainScreen(game);
+		game.launchSetupScreen();
+		/*while(game.currentDay <= game.totalDays) {
+			game.day();
+		}
 		game.endGame();
-		
+		*/
 	}
 }
