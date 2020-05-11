@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.ArrayList;
 
@@ -156,6 +156,7 @@ public class Farm {
 	
 	public void setCropLimit(int newCropLimit) {
 		cropLimit = newCropLimit;
+		if (cropLimit > 16) { cropLimit = 16; }
 	}
 	
 	public int getCropLimit() {

@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public interface StatusObject {
 	

@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public class CropItem extends Item implements Buyable {
 	

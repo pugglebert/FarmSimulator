@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public class FoodItem extends Item implements Buyable {
 	

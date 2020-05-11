@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 abstract class Item implements Buyable {
 	
@@ -39,5 +39,4 @@ abstract class Item implements Buyable {
     public String getName() {
     	return name;
     }
-    
 }

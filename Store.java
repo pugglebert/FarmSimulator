@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.ArrayList;
 
@@ -103,7 +103,7 @@ public class Store {
 		cropItems.add(new CropItem("Big fertilizer", 350, 2));
 		cropItems.add(new CropItem("Super fertilizer", 500, 3));
 	}
-	Store() {
+	public Store() {
 		initializeAnimals();
 		initializeCrops();
 		initializeFItems();

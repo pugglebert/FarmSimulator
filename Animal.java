@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public class Animal implements Buyable {
 	private int health = 10;

@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class VenusFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	VenusFarm(Farmer newFarmer) {
+	public VenusFarm(Farmer newFarmer) {
 		super(newFarmer);
 		initializeAnimals();
 		initializeCrops();

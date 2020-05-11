@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public class Crop implements Buyable {
 	private int harvestAge;
@@ -28,6 +28,10 @@ public class Crop implements Buyable {
 
 	public int getHarvestAge() {
 		return harvestAge;
+	}
+	
+	public int getAge() {
+		return age;
 	}
 	
 	public void setBaseHarvestAge(int bonus) {

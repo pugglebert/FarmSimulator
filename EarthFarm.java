@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class EarthFarm extends Farm {
 		super.setCrops(startCrops);
 	}
 	
-	EarthFarm(Farmer newFarmer) {
+	public EarthFarm(Farmer newFarmer) {
 		super(newFarmer);
 		setMoney(startCash);
 		setGrowthBonus(growthBonus);

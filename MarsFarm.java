@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class MarsFarm extends Farm {
 	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
-		startAnimals.add(new Cow());
+		startAnimals.add(new Sheep());
 		for(Animal animal : startAnimals) {
 			animal.setBaseHappiness(happinessBonus);
 		}

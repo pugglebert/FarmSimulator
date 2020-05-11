@@ -1,8 +1,8 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 public class Pumpkin extends Crop{
 
 	Pumpkin(){
-		super("pumpkin", 10, 100, 100);
+		super("Pumpkin", 10, 100, 100);
 	}
 }

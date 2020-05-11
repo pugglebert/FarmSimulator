@@ -1,4 +1,4 @@
-package farmSimulator;
+package farmSimulatorGUI;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,7 +12,8 @@ public class GameEnvironment {
 	private Farmer farmer = new Farmer();
 	private Farm farm;
 	private Store store = new Store();
-
+	private MainScreen mainScreen;
+	
 	public void launchSetupScreen() {
 		SetupScreen setupWindow = new SetupScreen(this);
 	}
@@ -26,9 +27,9 @@ public class GameEnvironment {
 		MainScreen mainWindow = new MainScreen(this);
 	}
 	
-	public void closeMainScreen(MainScreen mainWindow) {
+	/*public void closeMainScreen(MainScreen mainWindow) {
 		mainWindow.closeWindow();
-	}
+	}*/
 	
 	public void initiateFarmer(String name, int age) {
 		farmer.setName(name);
@@ -52,12 +53,44 @@ public class GameEnvironment {
 		}
 	}
 	
-	public void setTotalDays(int days) {
+		public void setTotalDays(int days) {
 		totalDays = days;
 	}
-			
+		
+	public Farm getFarm() {
+		return farm;
+	}
+	
+	public Farmer getFarmer() {
+		return farmer;
+	}
+	
+	public int getTotalDays() {
+		return totalDays;
+	}
+	
+	public int getCurrentDay() {
+		return currentDay;
+	}		
+
+	
+	public void enterFarmName() {
+		String farmName = keyboard.nextLine();
+		boolean valid = false;
+		while (valid == false) {
+			System.out.println("Enter a name for your farm:");
+			farmName = keyboard.nextLine();
+			try {
+				farm.setName(farmName);
+				valid = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.toString());
+			}
+		}
+	}
+	
 	public void day() {
-		System.out.println("The sun rises and marks the beginning of day " + currentDay + " of " + totalDays + ".");
+		mainScreen.newDay();
 		
 		boolean sameDay = true;
 		while(sameDay) {
@@ -125,7 +158,7 @@ public class GameEnvironment {
 		}
 	}
 	
-	public void visitStore() {
+public void visitStore() {
 		System.out.println("What would you like to do?");
 		System.out.println("1) View merchandise for sale");
 		System.out.println("2) See how much money your farm has");
@@ -263,7 +296,7 @@ public class GameEnvironment {
 							chosenItem.removeFromInventory();
 							if (chosenItem.getInventoryCount() == 0) {
 								farmer.removeItem(chosenItem);
-							}
+							}				
 							break;
 						}
 				}
@@ -382,10 +415,6 @@ public class GameEnvironment {
 	public static void main(String[] args) {
 		GameEnvironment game = new GameEnvironment();
 		game.launchSetupScreen();
-		/*while(game.currentDay <= game.totalDays) {
-			game.day();
-		}
-		game.endGame();
-		*/
+		
 	}
 }
