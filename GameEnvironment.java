@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -19,6 +19,15 @@ public class GameEnvironment {
 	
 	public void closeSetupScreen(SetupScreen setupWindow) {
 		setupWindow.closeWindow();
+		launchMainScreen();
+	}
+	
+	public void launchMainScreen() {
+		MainScreen mainWindow = new MainScreen(this);
+	}
+	
+	public void closeMainScreen(MainScreen mainWindow) {
+		mainWindow.closeWindow();
 	}
 	
 	public void initiateFarmer(String name, int age) {

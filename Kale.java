@@ -1,8 +1,8 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 public class Kale extends Crop{
 		
 	Kale(){
-		super("Kale", 10, 100, 100);
+		super("kale", 10, 100, 100);
 	}
 }

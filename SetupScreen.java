@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,14 +24,6 @@ public class SetupScreen {
 	private JTextField farmerNameField;
 	private JTextField farmerAgeField;
 	private JTextField farmNameField;
-
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the application.
-	 */	
 
 	public SetupScreen(GameEnvironment newGame) {
 		game = newGame;
@@ -119,7 +111,7 @@ public class SetupScreen {
 		farmTypePanel.add(farmTypeLabel);
 		
 		JRadioButton earthFarmRadio = new JRadioButton("Earth Farm", true);
-		earthFarmRadio.setBounds(38, 21, 79, 21);
+		earthFarmRadio.setBounds(38, 21, 109, 21);
 		farmTypePanel.add(earthFarmRadio);
 		earthFarmRadio.setActionCommand("earth");
 		

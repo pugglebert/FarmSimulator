@@ -1,8 +1,8 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 public class Sheep extends Animal{
 
 	Sheep(){
-		super("Sheep", 100, 50);
+		super("sheep", 100, 50);
 	}
 }

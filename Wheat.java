@@ -1,8 +1,8 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 public class Wheat extends Crop{
 
 	Wheat(){
-		super("Wheat", 10, 100, 100);
+		super("wheat", 10, 100, 100);
 	}
 }

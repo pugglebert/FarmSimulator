@@ -12,7 +12,7 @@ public class MarsFarm extends Farm {
 	private ArrayList<Crop> startCrops = new ArrayList<Crop>();
 	
 	public void initializeAnimals() {
-		startAnimals.add(new Sheep());
+		startAnimals.add(new Cow());
 		for(Animal animal : startAnimals) {
 			animal.setBaseHappiness(happinessBonus);
 		}
