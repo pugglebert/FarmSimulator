@@ -40,17 +40,18 @@ public class GameEnvironment {
 		switch(farmType) {
 		case "earth":
 			farm = new EarthFarm(farmer);
+			break;
 		case "mars":
 			farm = new MarsFarm(farmer);
+			break;
 		case "venus":
 			farm = new VenusFarm(farmer);
+			break;
 		case "jupiter":
 			farm = new JupiterFarm(farmer);
-			
+			break;
+		}	
 		farm.setName(farmName);
-				
-			
-		}
 	}
 	
 		public void setTotalDays(int days) {
