@@ -13,6 +13,7 @@ public class GameEnvironment {
 	private Farm farm;
 	private Store store = new Store();
 	private MainScreen mainScreen;
+	private StoreScreen storeScreen;
 	
 	public void launchSetupScreen() {
 		SetupScreen setupWindow = new SetupScreen(this);
@@ -24,12 +25,17 @@ public class GameEnvironment {
 	}
 	
 	public void launchMainScreen() {
-		MainScreen mainWindow = new MainScreen(this);
+		mainScreen = new MainScreen(this);
+		storeScreen = new StoreScreen(this);
 	}
 	
 	/*public void closeMainScreen(MainScreen mainWindow) {
 		mainWindow.closeWindow();
 	}*/
+	
+	public void launchStoreScreen() {
+		storeScreen = new StoreScreen(this);
+	}
 	
 	public void initiateFarmer(String name, int age) {
 		farmer.setName(name);
@@ -53,7 +59,6 @@ public class GameEnvironment {
 		}	
 		farm.setName(farmName);
 	}
-	
 		public void setTotalDays(int days) {
 		totalDays = days;
 	}
@@ -72,8 +77,20 @@ public class GameEnvironment {
 	
 	public int getCurrentDay() {
 		return currentDay;
-	}		
-
+	}
+	
+	public Store getStore() {
+		return store;
+	}
+	
+	public void openStoreScreen() {
+		storeScreen.open();
+	}
+	
+	public void openMainScreen() {
+		mainScreen.open();
+	}
+	
 	
 	public void enterFarmName() {
 		String farmName = keyboard.nextLine();

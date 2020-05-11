@@ -82,7 +82,11 @@ public class MainScreen {
 			Crop crop = crops.get(counter);
 			int daysUntilHarvest = crop.getHarvestAge() - crop.getAge();
 			if (daysUntilHarvest < 0) {daysUntilHarvest = 0;}
-			space.setText(crop.getCropType() + ": " + daysUntilHarvest + " days until harvest");
+			if (daysUntilHarvest == 0) {
+				space.setText(crop.getCropType() + ": ready to harvest!");
+			} else {
+				space.setText(crop.getCropType() + ": " + daysUntilHarvest + " days until harvest");
+			}
 			space.setBackground(Color.GREEN);
 		}
 		int cropLimit = farm.getCropLimit();
@@ -122,6 +126,12 @@ public class MainScreen {
 		
 		JButton storeButton = new JButton("Store");
 		storeButton.setBounds(10, 354, 112, 75);
+		storeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				game.openStoreScreen();
+				close();
+			}
+		});
 		frmFarmSimulator.getContentPane().add(storeButton);
 		
 		JButton nextDayButton = new JButton("Go to next day");
@@ -195,6 +205,7 @@ public class MainScreen {
 					}
 					else {
 						JOptionPane.showMessageDialog(frmFarmSimulator, "You have no fully grown crops to harvest!");
+						setCrops();
 					}
 				}
 			}
@@ -256,7 +267,14 @@ public class MainScreen {
 			cropSpace.setBackground(Color.GRAY);
 			cropSpaces.add(cropSpace);
 			cropPanel.add(cropSpace);
-			}
-		
+		}
+	}
+	
+	public void open() {
+		frmFarmSimulator.setVisible(true);
+	}
+	
+	public void close() {
+		frmFarmSimulator.setVisible(false);
 	}
 }

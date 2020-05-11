@@ -18,6 +18,14 @@ public class Store {
 		return buyables;
 	}
 	
+	public String[] getStoreArray(ArrayList<Buyable> buyables) {
+		String[] buyArray = new String[buyables.size()];
+		for (int i = 0; i < buyables.size(); i++) {
+			buyArray[i] = buyables.get(i).toStringStore();
+		}
+		return buyArray;
+	}
+	
 	public ArrayList<Buyable> getCropItems() {
 		ArrayList<Buyable> buyables = new ArrayList<Buyable>();
 		for (int i = 0; i < cropItems.size(); i++) {
