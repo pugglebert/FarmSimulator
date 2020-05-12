@@ -190,7 +190,7 @@ public class Farm {
 			} else if (merchandise instanceof Animal) {
 				Animal merchAnimal = (Animal) merchandise;
 				merchAnimal.setBaseHappiness(getHappinessBonus());
-				addAnimal(merchAnimal);
+				addAnimal(new Animal(merchAnimal));
 			} else if (merchandise instanceof Crop) {
 				if (crops.size() >= cropLimit) {
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
@@ -198,7 +198,7 @@ public class Farm {
 				} else {
 					Crop merchCrop = (Crop) merchandise;
 					merchCrop.setBaseHarvestAge(getGrowthBonus());
-					addCrop(merchCrop);
+					addCrop(new Crop(merchCrop));
 				}
 			}
 		} else {
