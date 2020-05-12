@@ -56,17 +56,20 @@ public class AnimalStatusScreen {
 		animalStatusWindow.getContentPane().setLayout(null);
 		
 		cowPanel = new JPanel();
-		cowPanel.setBounds(12, 49, 215, 348);
+		cowPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		cowPanel.setBounds(12, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(cowPanel);
 		cowPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
 		sheepPanel = new JPanel();
-		sheepPanel.setBounds(239, 49, 215, 348);
+		sheepPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		sheepPanel.setBounds(239, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(sheepPanel);
 		sheepPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
 		chickenPanel = new JPanel();
-		chickenPanel.setBounds(466, 49, 215, 348);
+		chickenPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		chickenPanel.setBounds(466, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(chickenPanel);
 		chickenPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
@@ -139,10 +142,5 @@ public class AnimalStatusScreen {
 				chickenPanel.add(animalPanel);
 			}
 		}
-	}
-
-	private Color Color(int i, int j, int k) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
