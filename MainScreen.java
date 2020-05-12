@@ -260,7 +260,7 @@ public class MainScreen {
 		animalStatusButton.setBounds(352, 301, 140, 23);
 		animalStatusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frmFarmSimulator, farm.getAnimalStatus());
+				launchAnimalWindow();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(animalStatusButton);
