@@ -87,12 +87,11 @@ public class MainScreen {
 	
 	public void setCrops() {
 		ArrayList<Crop> crops = farm.getCrops();
-		for (int counter = 0; counter < crops.size(); counter ++) {
+		for (int counter = crops.size() - 1; counter >= 0; counter --) {
 			JLabel space = cropSpaces.get(counter);
 			Crop crop = crops.get(counter);
 			int daysUntilHarvest = crop.getHarvestAge() - crop.getAge();
-			if (daysUntilHarvest < 0) {daysUntilHarvest = 0;}
-			if (daysUntilHarvest == 0) {
+			if (crop.canHarvest()) {
 				space.setText(crop.getCropType() + ": ready to harvest!");
 			} else {
 				space.setText(crop.getCropType() + ": " + daysUntilHarvest + " days until harvest");
@@ -200,7 +199,9 @@ public class MainScreen {
 				} else {
 					int earnings = 0;
 					boolean cropsToHarvest =false;
-					for (Crop crop : farm.getCrops()) {
+					ArrayList<Crop> crops = farm.getCrops();
+					for (int counter = crops.size() - 1; counter >= 0; counter --) {
+						Crop crop = crops.get(counter);
 						if (crop.canHarvest()) {
 							cropsToHarvest = true;
 							earnings += crop.getSellPrice();
@@ -215,8 +216,8 @@ public class MainScreen {
 					}
 					else {
 						JOptionPane.showMessageDialog(frmFarmSimulator, "You have no fully grown crops to harvest!");
-						setCrops();
 					}
+					setCrops();
 				}
 			}
 		});
