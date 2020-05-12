@@ -53,6 +53,16 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	public void launchAnimalWindow() {
+		frmFarmSimulator.setVisible(false);
+		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game, this);	
+	}
+	
+	public void closeAnimalScreen(AnimalStatusScreen animalWindow) {
+		animalWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
+	}
+	
 	public void newDay() {
 		remainingActions = 2;
 		setCrops();
