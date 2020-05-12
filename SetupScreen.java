@@ -94,7 +94,6 @@ public class SetupScreen {
 		setupWindow.getContentPane().add(gameLengthSlider);
 
 		JLabel farmerNameLabel = new JLabel("What is your farmer's name?");
-		
 		farmerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		farmerNameLabel.setBounds(61, 187, 274, 33);
 		setupWindow.getContentPane().add(farmerNameLabel);
