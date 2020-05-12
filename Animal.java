@@ -13,6 +13,12 @@ public class Animal implements Buyable {
 		baseReturn = newBaseReturn;
 	}
 	
+	Animal(Animal another) {
+		this.baseReturn = another.baseReturn;
+		this.animalType = another.animalType;
+		this.baseReturn = another.baseReturn;
+	}
+	
 	public void advanceDay() {
 		if (health <= 3) {
 			happiness -= 3;
