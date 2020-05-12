@@ -14,6 +14,13 @@ public class Crop implements Buyable {
 		sellPrice = newSellPrice;
 	}
 	
+	Crop(Crop another) {
+		this.cropType = another.cropType;
+		this.harvestAge = another.harvestAge;
+		this.buyPrice = another.buyPrice;
+		this.sellPrice = another.sellPrice;
+	}
+	
 	public String getCropType() {
 		return cropType;
 	}
