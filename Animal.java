@@ -40,6 +40,10 @@ public class Animal implements Buyable {
 	public int getHappiness() {
 		return happiness;
 	}
+	
+	public int getHealth() {
+		return health;
+	}
 		
 	public void setBaseHappiness(int bonus) {
 		happiness += bonus;
