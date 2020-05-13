@@ -89,6 +89,8 @@ public class GameEnvironment {
 	
 	public void openMainScreen() {
 		mainScreen.open();
+		mainScreen.setAnimals();
+		mainScreen.setCrops();
 	}
 	
 	

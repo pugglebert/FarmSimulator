@@ -187,10 +187,25 @@ public class Farm {
 					farmer.addItem((Item) merchandise);
 				}
 				((Item) merchandise).addToInventory();
-			} else if (merchandise instanceof Animal) {
-				Animal merchAnimal = (Animal) merchandise;
-				merchAnimal.setBaseHappiness(getHappinessBonus());
-				addAnimal(new Animal(merchAnimal));
+			}
+			else if (merchandise instanceof Animal) {	
+				if (merchandise instanceof Cow) {
+					Cow cow = new Cow();
+					cow.setBaseHappiness(getHappinessBonus());
+					addAnimal(cow);
+				}
+				else if (merchandise instanceof Sheep) {
+					Sheep sheep = new Sheep();
+					sheep.setBaseHappiness(getHappinessBonus());
+					addAnimal(sheep);
+				}
+				else if (merchandise instanceof Chicken) {
+					Chicken chicken = new Chicken();
+					chicken.setBaseHappiness(getHappinessBonus());
+					addAnimal(chicken);
+				}
+				
+				
 			} else if (merchandise instanceof Crop) {
 				if (crops.size() >= cropLimit) {
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"

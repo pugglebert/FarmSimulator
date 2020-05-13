@@ -21,6 +21,11 @@ import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class MainScreen {
 
@@ -35,9 +40,9 @@ public class MainScreen {
 	private JLabel dayLabel;
 	private JLabel moneyLabel;
 	private JLabel actionLabel;
-	private JLabel cowLabel;
-	private JLabel sheepLabel;
-	private JLabel chickenLabel;
+	private JLabel cowCountLabel;
+	private JLabel sheepCountLabel;
+	private JLabel chickenCountLabel;
 	
 	/**
 	 * Create the application.
@@ -107,19 +112,23 @@ public class MainScreen {
 	}
 	
 	public void setAnimals() {
-		ArrayList<Animal> animals = farm.getAnimals();
 		int cows = 0;
 		int sheep = 0;
 		int chickens = 0;
-		for (int counter = 0; counter < animals.size(); counter ++) {
-			Animal animal = animals.get(counter);
-			if (animal instanceof Cow) { cows ++; }
-			else if (animal instanceof Sheep) { sheep ++; }
-			else if (animal instanceof Chicken) { chickens ++; }
-		cowLabel.setText("Cows: " + Integer.toString(cows));
-	    sheepLabel.setText("Sheep: " + Integer.toString(sheep));
-	    chickenLabel.setText("Chickens: " + Integer.toString(chickens));		
+		for (Animal animal : farm.getAnimals()) {
+			if (animal instanceof Cow) { 
+				cows ++; 
+			}
+			else if (animal instanceof Sheep) { 
+				sheep ++; 
+			}
+			else if (animal instanceof Chicken) { 
+				chickens ++; 
+			}
 		}
+	    cowCountLabel.setText("Owned: " + cows);
+	    sheepCountLabel.setText("Owned: " + sheep);
+	    chickenCountLabel.setText("Owned: " + chickens);
 	}
 
 	/**
@@ -164,19 +173,68 @@ public class MainScreen {
 		animalPanel.setBounds(352, 62, 288, 228);
 		animalPanel.setBackground(new Color(139, 69, 19));
 		frmFarmSimulator.getContentPane().add(animalPanel);
-		animalPanel.setLayout(null);
+		animalPanel.setLayout(new GridLayout(3, 1, 1, 1));
 		
-		cowLabel = new JLabel("Cow: 0");
-		cowLabel.setBounds(10, 40, 100, 14);
-		animalPanel.add(cowLabel);
+		JPanel cowPanel = new JPanel();
+		cowPanel.setBackground(Color.WHITE);
+		animalPanel.add(cowPanel);
+		cowPanel.setLayout(null);
 		
-		sheepLabel = new JLabel("Sheep: 0");
-		sheepLabel.setBounds(10, 100, 100, 14);
-		animalPanel.add(sheepLabel);
+		JLabel cowReturnLabel = new JLabel("Daily Return (Base): $" + new Cow().getBaseReturn());
+		cowReturnLabel.setBounds(103, 39, 175, 37);
+		cowPanel.add(cowReturnLabel);
 		
-		chickenLabel = new JLabel("Chicken: 0");
-		chickenLabel.setBounds(10, 160, 100, 14);
-		animalPanel.add(chickenLabel);
+		cowCountLabel = new JLabel("Owned: 0");
+		cowCountLabel.setBounds(103, 0, 175, 37);
+		cowPanel.add(cowCountLabel);
+		
+		JLabel cowLabel = new JLabel();
+		cowLabel.setToolTipText("Cow");
+		cowLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/img/cow.png")));
+		cowLabel.setBounds(0, 0, 76, 76);
+		cowPanel.add(cowLabel);
+		
+		JPanel sheepPanel = new JPanel();
+		sheepPanel.setBackground(Color.WHITE);
+		animalPanel.add(sheepPanel);
+		sheepPanel.setLayout(null);
+		
+		JLabel sheepLabel = new JLabel();
+		sheepLabel.setToolTipText("Sheep");
+		sheepLabel.setForeground(Color.WHITE);
+		sheepLabel.setBackground(Color.WHITE);
+		sheepLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/img/sheep.png")));
+		sheepLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sheepLabel.setBounds(0, 0, 76, 76);
+		sheepPanel.add(sheepLabel);
+		
+		JLabel sheepReturnLabel = new JLabel("Daily Return (Base): $" + new Sheep().getBaseReturn());
+		sheepReturnLabel.setBounds(103, 39, 175, 37);
+		sheepPanel.add(sheepReturnLabel);
+		
+		sheepCountLabel = new JLabel("Owned: 0");
+		sheepCountLabel.setBounds(103, 0, 175, 37);
+		sheepPanel.add(sheepCountLabel);
+		
+		JPanel chickenPanel = new JPanel();
+		chickenPanel.setBackground(Color.WHITE);
+		animalPanel.add(chickenPanel);
+		chickenPanel.setLayout(null);
+				
+		JLabel chickenLabel = new JLabel();
+		chickenLabel.setToolTipText("Chicken");
+		chickenLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/img/chicken.png")));
+		chickenLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		chickenLabel.setBounds(0, 0, 76, 76);
+		chickenPanel.add(chickenLabel);
+		
+		chickenCountLabel = new JLabel("Owned: 0");
+		chickenCountLabel.setBounds(103, 0, 175, 37);
+		chickenPanel.add(chickenCountLabel);
+		
+		JLabel chickenReturnLabel = new JLabel("Daily Return (Base): $" + new Cow().getBaseReturn());
+		chickenReturnLabel.setBounds(103, 39, 175, 37);
+		chickenPanel.add(chickenReturnLabel);
 		
 		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
 		dayLabel.setBounds(370, 354, 98, 14);
