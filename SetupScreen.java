@@ -93,13 +93,12 @@ public class SetupScreen {
 		gameLengthSlider.setBounds(407, 124, 252, 58);
 		setupWindow.getContentPane().add(gameLengthSlider);
 
-		JLabel farmerNameLabel = new JLabel("What is your farmer's name?");
-		farmerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		farmerNameLabel.setBounds(61, 187, 274, 33);
-		setupWindow.getContentPane().add(farmerNameLabel);
+		JLabel famerNameLabel = new JLabel("What is your farmer's name?");
+		famerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		famerNameLabel.setBounds(61, 187, 274, 33);
+		setupWindow.getContentPane().add(famerNameLabel);
 
 		farmerNameField = new JTextField();
-		farmerNameField.setText("Bob");
 		farmerNameField.setBounds(309, 189, 146, 33);
 		setupWindow.getContentPane().add(farmerNameField);
 		farmerNameField.setColumns(10);
@@ -108,12 +107,6 @@ public class SetupScreen {
 		farmerAgeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		farmerAgeLabel.setBounds(61, 226, 252, 33);
 		setupWindow.getContentPane().add(farmerAgeLabel);
-		
-		farmerAgeField = new JTextField();
-		farmerAgeField.setText("25");
-		farmerAgeField.setBounds(309, 228, 146, 33);
-		setupWindow.getContentPane().add(farmerAgeField);
-		farmerAgeField.setColumns(10);
 
 		JPanel farmTypePanel = new JPanel();
 		farmTypePanel.setBounds(36, 262, 620, 119);
@@ -129,6 +122,7 @@ public class SetupScreen {
 		earthFarmRadio.setBounds(38, 21, 79, 21);
 		farmTypePanel.add(earthFarmRadio);
 		earthFarmRadio.setActionCommand("earth");
+
 
 		JRadioButton marsFarmRadio = new JRadioButton("Mars Farm");
 		marsFarmRadio.setBounds(38, 45, 109, 23);
@@ -165,13 +159,17 @@ public class SetupScreen {
 		venusFarmRadio.addActionListener(farmTypeListener);
 		jupiterFarmRadio.addActionListener(farmTypeListener);
 
+		farmerAgeField = new JTextField();
+		farmerAgeField.setBounds(309, 228, 146, 33);
+		setupWindow.getContentPane().add(farmerAgeField);
+		farmerAgeField.setColumns(10);
+
 		JLabel farmNameLabel = new JLabel("What is the name of your farm?");
 		farmNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		farmNameLabel.setBounds(36, 392, 228, 33);
 		setupWindow.getContentPane().add(farmNameLabel);
 
 		farmNameField = new JTextField();
-		farmNameField.setText("Bobs Farm");
 		farmNameField.setBounds(36, 427, 182, 33);
 		setupWindow.getContentPane().add(farmNameField);
 		farmNameField.setColumns(10);

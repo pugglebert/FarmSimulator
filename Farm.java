@@ -210,8 +210,6 @@ public class Farm {
 					chicken.setBaseHappiness(getHappinessBonus());
 					addAnimal(chicken);
 				}
-				
-				
 			} else if (merchandise instanceof Crop) {
 				if (crops.size() >= cropLimit) {
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
@@ -224,6 +222,29 @@ public class Farm {
 			}
 		} else {
 			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+		}
+	}
+	
+	public void useItem(FoodItem chosenItem) {
+		int healthBonus = chosenItem.getHealthGiven();
+		chosenItem.removeFromInventory();
+		if (chosenItem.getInventoryCount() == 0) {
+			farmer.removeItem(chosenItem);
+		}
+		
+		for (Animal animal : animals) {
+			animal.increaseHealth(healthBonus);
+		}
+	}
+	
+	public void useItem(CropItem chosenItem) {
+		growthBonus = chosenItem.getGrowthBonus();
+		chosenItem.removeFromInventory();
+		if (chosenItem.getInventoryCount() == 0) {
+			farmer.removeItem(chosenItem);
+		}
+		for (Crop crop : crops) {
+			crop.decreaseHarvestAge(growthBonus);
 		}
 	}
 }

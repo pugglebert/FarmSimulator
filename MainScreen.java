@@ -59,34 +59,6 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
-	public void closeWindow() {
-		frmFarmSimulator.dispose();
-	}
-
-	public void finishedWindow() {
-		game.closeMainScreen(this);
-	}
-	
-	public void launchAnimalWindow() {
-		frmFarmSimulator.setVisible(false);
-		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game, this);	
-	}
-	
-	public void closeAnimalScreen(AnimalStatusScreen animalWindow) {
-		animalWindow.closeWindow();
-		frmFarmSimulator.setVisible(true);
-	}
-	
-	public void launchStoreWindow() {
-		frmFarmSimulator.setVisible(false);
-		StoreScreen storeWindow = new StoreScreen(game, this);	
-	}
-	
-	public void closeStoreScreen(StoreScreen storeWindow) {
-		storeWindow.closeWindow();
-		frmFarmSimulator.setVisible(true);
-	}
-	
 	public void newDay() {
 		if (currentDay == totalDays) {
 			nextDayButton.setText("End Game");
@@ -184,6 +156,7 @@ public class MainScreen {
 		
 		nextDayButton = new JButton("Go to next day");
 		nextDayButton.setBounds(500, 354, 140, 75);
+		nextDayButton.setBounds(534, 354, 106, 75);
 		nextDayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nextDay();
@@ -195,6 +168,7 @@ public class MainScreen {
 		inventoryButton.setBounds(132, 354, 112, 75);
 		inventoryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				launchInventoryWindow();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(inventoryButton);
@@ -209,26 +183,26 @@ public class MainScreen {
 		cowPanel.setBackground(Color.WHITE);
 		animalPanel.add(cowPanel);
 		cowPanel.setLayout(null);
-		
+
 		JLabel cowReturnLabel = new JLabel("Daily Return (Base): $" + new Cow().getBaseReturn());
 		cowReturnLabel.setBounds(103, 39, 175, 37);
 		cowPanel.add(cowReturnLabel);
-		
+
 		cowCountLabel = new JLabel("Owned: 0");
 		cowCountLabel.setBounds(103, 0, 175, 37);
 		cowPanel.add(cowCountLabel);
-		
+
 		JLabel cowLabel = new JLabel();
 		cowLabel.setToolTipText("Cow");
 		cowLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/img/cow.png")));
 		cowLabel.setBounds(0, 0, 76, 76);
 		cowPanel.add(cowLabel);
-		
+
 		JPanel sheepPanel = new JPanel();
 		sheepPanel.setBackground(Color.WHITE);
 		animalPanel.add(sheepPanel);
 		sheepPanel.setLayout(null);
-		
+
 		JLabel sheepLabel = new JLabel();
 		sheepLabel.setToolTipText("Sheep");
 		sheepLabel.setForeground(Color.WHITE);
@@ -237,11 +211,11 @@ public class MainScreen {
 		sheepLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		sheepLabel.setBounds(0, 0, 76, 76);
 		sheepPanel.add(sheepLabel);
-		
+
 		JLabel sheepReturnLabel = new JLabel("Daily Return (Base): $" + new Sheep().getBaseReturn());
 		sheepReturnLabel.setBounds(103, 39, 175, 37);
 		sheepPanel.add(sheepReturnLabel);
-		
+
 		sheepCountLabel = new JLabel("Owned: 0");
 		sheepCountLabel.setBounds(103, 0, 175, 37);
 		sheepPanel.add(sheepCountLabel);
@@ -250,7 +224,7 @@ public class MainScreen {
 		chickenPanel.setBackground(Color.WHITE);
 		animalPanel.add(chickenPanel);
 		chickenPanel.setLayout(null);
-				
+
 		JLabel chickenLabel = new JLabel();
 		chickenLabel.setToolTipText("Chicken");
 		chickenLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/img/chicken.png")));
@@ -369,11 +343,44 @@ public class MainScreen {
 		}
 	}
 	
-	public void open() {
-		frmFarmSimulator.setVisible(true);
+	public void useAction() {
+		remainingActions --;
 	}
 	
-	public void close() {
+	public int getRemainingActions() {
+		return remainingActions;
+	}
+	
+	public void launch() {
+		setCrops();
+		setAnimals();
+		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+		moneyLabel.setText("You have $" + farm.getMoney());
+		frmFarmSimulator.setVisible(true);
+	}
+
+	public void finishedWindow() {
+		game.endMainGame();
+		frmFarmSimulator.dispose();
+	}
+	
+	public void launchStoreWindow() {
 		frmFarmSimulator.setVisible(false);
+		game.openStoreScreen();
+	}
+	
+	public void launchInventoryWindow() {
+		frmFarmSimulator.setVisible(false);
+		game.openInventoryScreen();
+	}
+	
+	public void launchAnimalWindow() {
+		frmFarmSimulator.setVisible(false);
+		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game, this);	
+	}
+	
+	public void closeAnimalScreen(AnimalStatusScreen animalWindow) {
+		animalWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
 	}
 }

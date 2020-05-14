@@ -13,6 +13,8 @@ public class GameEnvironment {
 	private Farm farm;
 	private Store store = new Store();
 	private MainScreen mainScreen;
+	private StoreScreen storeScreen;
+	private InventoryScreen inventoryScreen;
 	
 	public void launchSetupScreen() {
 		SetupScreen setupWindow = new SetupScreen(this);
@@ -25,10 +27,13 @@ public class GameEnvironment {
 	
 	public void launchMainScreen() {
 		mainScreen = new MainScreen(this);
+		storeScreen = new StoreScreen(this);
+		inventoryScreen = new InventoryScreen(this);
 	}
 	
-	public void closeMainScreen(MainScreen mainWindow) {
-		mainWindow.closeWindow();
+	public void endMainGame() {
+		storeScreen.finishedWindow();
+		inventoryScreen.finishedWindow();
 		launchEndScreen();
 	}
 	
@@ -86,10 +91,20 @@ public class GameEnvironment {
 		return store;
 	}
 	
+	public MainScreen getMainScreen() {
+		return mainScreen;
+	}
+	
+	public void openStoreScreen() {
+		storeScreen.launch();
+	}
+	
 	public void openMainScreen() {
-		mainScreen.open();
-		mainScreen.setAnimals();
-		mainScreen.setCrops();
+		mainScreen.launch();
+	}
+	
+	public void openInventoryScreen() {
+		inventoryScreen.launch();
 	}
 	
 	
@@ -106,6 +121,10 @@ public class GameEnvironment {
 				System.out.println(e.toString());
 			}
 		}
+	}
+	
+	public int getRemainingActions() {
+		return mainScreen.getRemainingActions();
 	}
 	
 	public void day() {
@@ -432,14 +451,14 @@ public void visitStore() {
 		}
 		return netProfitString;
 	}
-	
+
 	public int getMoneyScore() {
 		return farm.getMoney() / totalDays;
 	}
-	
+
 	public int getAnimalScore() {
 		int animalScore = 0;
-		
+
 		for (Animal animal : farm.getAnimals()) {
 			animalScore += 50 * animal.getHappiness();
 		}
@@ -449,7 +468,7 @@ public void visitStore() {
 	public int getCropScore() {
 		return farm.getCrops().size() * 100 / totalDays;
 	}
-	
+
 	public int calcScore() {
 		return getMoneyScore() + getAnimalScore() + getCropScore();
 	}

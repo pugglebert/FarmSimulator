@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.util.ArrayList;
+import java.lang.IllegalArgumentException;
 
 public class StoreScreen {
 
@@ -21,27 +22,37 @@ public class StoreScreen {
 	private Store store;
 	private Farm farm;
 	private GameEnvironment game;
-	private MainScreen mainWindow;
 	private JLabel moneyLabel;
 
-	public StoreScreen(GameEnvironment newGame, MainScreen newMainWindow) {
+	/**
+	 * Launch the application.
+	 */
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StoreScreen window = new StoreScreen();
+					window.frmCountyStore.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
+
+	/**
+	 * Create the application.
+	 */
+	public StoreScreen(GameEnvironment newGame) {
 		game = newGame;
-		mainWindow = newMainWindow;
 		farm = game.getFarm();
 		store = game.getStore();
 		initialize();
-		frmCountyStore.setVisible(true);
 	}
 
-	
-	public void closeWindow() {
-		frmCountyStore.dispose();
-	}
-
-	public void finishedWindow() {
-		mainWindow.closeStoreScreen(this);
-	}	
-	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
 		frmCountyStore = new JFrame();
 		frmCountyStore.setTitle("County Store");
@@ -52,12 +63,12 @@ public class StoreScreen {
 		
 		JLabel welcomeLabel = new JLabel("Welcome to the County Store!");
 		welcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		welcomeLabel.setBounds(193, 11, 319, 34);
+		welcomeLabel.setBounds(230, 11, 319, 34);
 		frmCountyStore.getContentPane().add(welcomeLabel);
 		
 		moneyLabel = new JLabel("You have $0 to spend");
 		moneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		moneyLabel.setBounds(213, 56, 211, 51);
+		moneyLabel.setBounds(261, 56, 229, 51);
 		frmCountyStore.getContentPane().add(moneyLabel);
 		
 		JButton foodItemButton = new JButton("<html>Food<br/>items</html>");
@@ -68,7 +79,7 @@ public class StoreScreen {
 			}
 		});
 		foodItemButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		foodItemButton.setBounds(40, 193, 89, 89);
+		foodItemButton.setBounds(53, 193, 89, 89);
 		frmCountyStore.getContentPane().add(foodItemButton);
 		
 		JButton cropItemButton = new JButton("<html>Crop<br/>items</html>");
@@ -79,7 +90,7 @@ public class StoreScreen {
 			}
 		});
 		cropItemButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cropItemButton.setBounds(193, 193, 89, 89);
+		cropItemButton.setBounds(221, 193, 89, 89);
 		frmCountyStore.getContentPane().add(cropItemButton);
 		
 		JButton animalButton = new JButton("Animals");
@@ -90,7 +101,7 @@ public class StoreScreen {
 			}
 		});
 		animalButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		animalButton.setBounds(355, 193, 89, 89);
+		animalButton.setBounds(383, 193, 89, 89);
 		frmCountyStore.getContentPane().add(animalButton);
 		
 		JButton cropButton = new JButton("Crops");
@@ -101,32 +112,34 @@ public class StoreScreen {
 			}
 		});
 		cropButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cropButton.setBounds(508, 193, 89, 89);
+		cropButton.setBounds(545, 193, 89, 89);
 		frmCountyStore.getContentPane().add(cropButton);
 		
 		JLabel merchandiseLabel = new JLabel("View our merchandise:");
 		merchandiseLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		merchandiseLabel.setBounds(213, 118, 190, 40);
+		merchandiseLabel.setBounds(261, 121, 190, 40);
 		frmCountyStore.getContentPane().add(merchandiseLabel);
 		
 		JButton exitButton = new JButton("Return to farm");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.openMainScreen();
-				close();
+				closeWindow();
 			}
 		});
 		exitButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		exitButton.setBounds(193, 320, 251, 34);
+		exitButton.setBounds(223, 320, 251, 34);
 		frmCountyStore.getContentPane().add(exitButton);
 		
 		JButton inventoryButton = new JButton("View inventory");
 		inventoryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				game.openInventoryScreen();
+				closeWindow();
 			}
 		});
 		inventoryButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		inventoryButton.setBounds(193, 378, 251, 34);
+		inventoryButton.setBounds(223, 376, 251, 34);
 		frmCountyStore.getContentPane().add(inventoryButton);
 	}
 		
@@ -143,24 +156,32 @@ public class StoreScreen {
 		if (selection != null) {
 			for (int i = 0; i < merchandiseArray.length; i ++) {
 				if (selection == merchandiseArray[i]) {
+					try {
 					farm.buy(buyables.get(i));
 					updateMoney();
+					} catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(frmCountyStore, "You don't have enough money to buy that!");
+					}
 				}
 			}
 		}
-	}
-	
-	public void open() {
-		frmCountyStore.setVisible(true);
-		updateMoney();
-	}
-	
-	public void close() {
-		frmCountyStore.setVisible(false);
 	}
 	
 	public void updateMoney() {
 		String money = Integer.toString(farm.getMoney());
 		moneyLabel.setText("You have $" + money + " to spend");
 	}
+	
+	public void launch() {
+		updateMoney();
+		frmCountyStore.setVisible(true);
+	}
+	
+	public void closeWindow() {
+		frmCountyStore.setVisible(false);
+	}
+
+	public void finishedWindow() {
+		frmCountyStore.dispose();
+	}	
 }
