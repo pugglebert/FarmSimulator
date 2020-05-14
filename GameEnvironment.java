@@ -13,7 +13,6 @@ public class GameEnvironment {
 	private Farm farm;
 	private Store store = new Store();
 	private MainScreen mainScreen;
-	private StoreScreen storeScreen;
 	
 	public void launchSetupScreen() {
 		SetupScreen setupWindow = new SetupScreen(this);
@@ -26,15 +25,19 @@ public class GameEnvironment {
 	
 	public void launchMainScreen() {
 		mainScreen = new MainScreen(this);
-		storeScreen = new StoreScreen(this);
 	}
 	
-	/*public void closeMainScreen(MainScreen mainWindow) {
+	public void closeMainScreen(MainScreen mainWindow) {
 		mainWindow.closeWindow();
-	}*/
+		launchEndScreen();
+	}
 	
-	public void launchStoreScreen() {
-		storeScreen = new StoreScreen(this);
+	public void launchEndScreen() {
+		EndScreen endWindow = new EndScreen(this);
+	}
+	
+	public void closeEndScreen(EndScreen endWindow) {
+		endWindow.closeWindow();
 	}
 	
 	public void initiateFarmer(String name, int age) {
@@ -81,10 +84,6 @@ public class GameEnvironment {
 	
 	public Store getStore() {
 		return store;
-	}
-	
-	public void openStoreScreen() {
-		storeScreen.open();
 	}
 	
 	public void openMainScreen() {
@@ -422,14 +421,37 @@ public void visitStore() {
 		System.out.println("Your final score is " + Integer.toString(score));
 	}
 	
-	public int calcScore() {
-		int score = 0;
-		score += farm.getMoney();
-		for (int counter = 0; counter < farm.getAnimals().size(); counter ++) {
-			score += 50 * farm.getAnimals().get(counter).getHappiness();
+	public String getNetProfit() {
+		int netProfit = farm.getMoney() - farm.getStartCash();
+		String netProfitString;
+		if (netProfit < 0) {
+			netProfitString = "-$" + Math.abs(netProfit);
 		}
-		score += farm.getCrops().size() * 100;
-		return score;
+		else {
+			netProfitString = "$" + netProfit;
+		}
+		return netProfitString;
+	}
+	
+	public int getMoneyScore() {
+		return farm.getMoney() / totalDays;
+	}
+	
+	public int getAnimalScore() {
+		int animalScore = 0;
+		
+		for (Animal animal : farm.getAnimals()) {
+			animalScore += 50 * animal.getHappiness();
+		}
+		return animalScore / totalDays;
+	}
+	
+	public int getCropScore() {
+		return farm.getCrops().size() * 100 / totalDays;
+	}
+	
+	public int calcScore() {
+		return getMoneyScore() + getAnimalScore() + getCropScore();
 	}
 	
 	public static void main(String[] args) {

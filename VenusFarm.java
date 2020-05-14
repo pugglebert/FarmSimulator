@@ -29,7 +29,7 @@ public class VenusFarm extends Farm {
 	}
 	
 	public VenusFarm(Farmer newFarmer) {
-		super(newFarmer);
+		super(newFarmer, "Venus");
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);
@@ -37,5 +37,4 @@ public class VenusFarm extends Farm {
 		setGrowthBonus(growthBonus);
 		setCropLimit(cropLimit);
 	}
-
 }

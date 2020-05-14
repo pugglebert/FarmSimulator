@@ -37,6 +37,7 @@ public class MainScreen {
 	private GameEnvironment game;
 	private int totalDays = 10;
 	private int currentDay = 1;
+	private JButton nextDayButton;
 	private JLabel dayLabel;
 	private JLabel moneyLabel;
 	private JLabel actionLabel;
@@ -58,6 +59,14 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	public void closeWindow() {
+		frmFarmSimulator.dispose();
+	}
+
+	public void finishedWindow() {
+		game.closeMainScreen(this);
+	}
+	
 	public void launchAnimalWindow() {
 		frmFarmSimulator.setVisible(false);
 		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game, this);	
@@ -68,7 +77,28 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	public void launchStoreWindow() {
+		frmFarmSimulator.setVisible(false);
+		StoreScreen storeWindow = new StoreScreen(game, this);	
+	}
+	
+	public void closeStoreScreen(StoreScreen storeWindow) {
+		storeWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
+	}
+	
 	public void newDay() {
+		if (currentDay == totalDays) {
+			nextDayButton.setText("End Game");
+			for (ActionListener l : nextDayButton.getActionListeners()) {
+				nextDayButton.removeActionListener(l);
+			}
+			nextDayButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					finishedWindow();
+				}
+			});
+		}
 		remainingActions = 2;
 		setCrops();
 		setAnimals();
@@ -138,7 +168,8 @@ public class MainScreen {
 		frmFarmSimulator = new JFrame();
 		frmFarmSimulator.getContentPane().setBackground(new Color(0, 128, 0));
 		frmFarmSimulator.setTitle("Farm Simulator");
-		frmFarmSimulator.setBounds(100, 100, 666, 479);
+		frmFarmSimulator.setBounds(100, 100, 700, 500);
+		frmFarmSimulator.setResizable(false);
 		frmFarmSimulator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFarmSimulator.getContentPane().setLayout(null);
 		
@@ -146,14 +177,13 @@ public class MainScreen {
 		storeButton.setBounds(10, 354, 112, 75);
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.openStoreScreen();
-				close();
+				launchStoreWindow();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(storeButton);
 		
-		JButton nextDayButton = new JButton("Go to next day");
-		nextDayButton.setBounds(534, 354, 106, 75);
+		nextDayButton = new JButton("Go to next day");
+		nextDayButton.setBounds(500, 354, 140, 75);
 		nextDayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nextDay();
@@ -237,15 +267,15 @@ public class MainScreen {
 		chickenPanel.add(chickenReturnLabel);
 		
 		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
-		dayLabel.setBounds(370, 354, 98, 14);
+		dayLabel.setBounds(370, 354, 120, 14);
 		frmFarmSimulator.getContentPane().add(dayLabel);
 		
 		actionLabel = new JLabel(Integer.toString(remainingActions) + " actions remaining");
-		actionLabel.setBounds(370, 384, 98, 14);
+		actionLabel.setBounds(370, 384, 120, 14);
 		frmFarmSimulator.getContentPane().add(actionLabel);
 		
 		moneyLabel = new JLabel("You have $" + Integer.toString(farm.getMoney()));
-		moneyLabel.setBounds(370, 415, 98, 14);
+		moneyLabel.setBounds(370, 415, 120, 14);
 		frmFarmSimulator.getContentPane().add(moneyLabel);
 		
 		JButton harvestButton = new JButton("Harvest crops");

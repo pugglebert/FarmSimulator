@@ -21,41 +21,32 @@ public class StoreScreen {
 	private Store store;
 	private Farm farm;
 	private GameEnvironment game;
+	private MainScreen mainWindow;
 	private JLabel moneyLabel;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StoreScreen window = new StoreScreen();
-					window.frmCountyStore.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
-	public StoreScreen(GameEnvironment newGame) {
+	public StoreScreen(GameEnvironment newGame, MainScreen newMainWindow) {
 		game = newGame;
+		mainWindow = newMainWindow;
 		farm = game.getFarm();
 		store = game.getStore();
 		initialize();
+		frmCountyStore.setVisible(true);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
+	public void closeWindow() {
+		frmCountyStore.dispose();
+	}
+
+	public void finishedWindow() {
+		mainWindow.closeStoreScreen(this);
+	}	
+	
 	private void initialize() {
 		frmCountyStore = new JFrame();
 		frmCountyStore.setTitle("County Store");
-		frmCountyStore.setBounds(100, 100, 666, 479);
+		frmCountyStore.setBounds(100, 100, 700, 500);
+		frmCountyStore.setResizable(false);
 		frmCountyStore.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCountyStore.getContentPane().setLayout(null);
 		

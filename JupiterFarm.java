@@ -31,7 +31,7 @@ public class JupiterFarm extends Farm {
 	}
 	
 	JupiterFarm(Farmer newFarmer) {
-		super(newFarmer);
+		super(newFarmer, "Jupiter");
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);
@@ -39,5 +39,4 @@ public class JupiterFarm extends Farm {
 		setGrowthBonus(growthBonus);
 		setCropLimit(cropLimit);
 	}
-
 }

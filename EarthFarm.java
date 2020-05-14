@@ -29,7 +29,7 @@ public class EarthFarm extends Farm {
 	}
 	
 	public EarthFarm(Farmer newFarmer) {
-		super(newFarmer);
+		super(newFarmer, "Earth");
 		setMoney(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);
@@ -37,5 +37,4 @@ public class EarthFarm extends Farm {
 		initializeAnimals();
 		initializeCrops();
 	}
-
 }

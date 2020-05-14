@@ -29,7 +29,7 @@ public class MarsFarm extends Farm {
 	}
 	
 	MarsFarm(Farmer newFarmer) {
-		super(newFarmer);
+		super(newFarmer, "Mars");
 		initializeAnimals();
 		initializeCrops();
 		setMoney(startCash);
@@ -37,5 +37,4 @@ public class MarsFarm extends Farm {
 		setGrowthBonus(growthBonus);
 		setCropLimit(cropLimit);
 	}
-
 }

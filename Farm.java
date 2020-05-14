@@ -13,9 +13,15 @@ public class Farm {
 	private int growthBonus;
 	private int happinessBonus;
 	private int startCash;
+	private String planetType;
 	
-	Farm(Farmer newFarmer) {
+	Farm(Farmer newFarmer, String newPlanetType) {
 		farmer = newFarmer;
+		planetType = newPlanetType;
+	}
+	
+	public String getPlanetType() {
+		return planetType;
 	}
 	
 	public String getMoneyStatus() {
