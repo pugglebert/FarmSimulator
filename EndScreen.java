@@ -82,17 +82,17 @@ public class EndScreen {
 		blankSpacer.setHorizontalAlignment(SwingConstants.CENTER);
 		attributePanel.add(blankSpacer);
 		
-		JLabel moneyLabel = new JLabel("Money");
+		JLabel moneyLabel = new JLabel("Money: $" + game.getFarm().getMoney());
 		moneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		attributePanel.add(moneyLabel);
 		
-		JLabel animalLabel = new JLabel("Animals");
+		JLabel animalLabel = new JLabel("Animals Owned: " + game.getFarm().getAnimals().size());
 		animalLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		animalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		attributePanel.add(animalLabel);
 		
-		JLabel cropLabel = new JLabel("Crops");
+		JLabel cropLabel = new JLabel("Unharvested Crops: " + game.getFarm().getCrops().size());
 		cropLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cropLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		attributePanel.add(cropLabel);
