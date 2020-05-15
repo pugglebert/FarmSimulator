@@ -93,10 +93,10 @@ public class SetupScreen {
 		gameLengthSlider.setBounds(407, 124, 252, 58);
 		setupWindow.getContentPane().add(gameLengthSlider);
 
-		JLabel famerNameLabel = new JLabel("What is your farmer's name?");
-		famerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		famerNameLabel.setBounds(61, 187, 274, 33);
-		setupWindow.getContentPane().add(famerNameLabel);
+		JLabel farmerNameLabel = new JLabel("What is your farmer's name?");
+		farmerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		farmerNameLabel.setBounds(61, 187, 274, 33);
+		setupWindow.getContentPane().add(farmerNameLabel);
 
 		farmerNameField = new JTextField();
 		farmerNameField.setBounds(309, 189, 146, 33);
