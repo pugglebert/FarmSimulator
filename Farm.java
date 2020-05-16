@@ -62,7 +62,7 @@ public class Farm {
 	
 	/**
 	 * Constructs the Farm on the specified planet, called by one of the four child classes
-	 * @param newFarmer 
+         * @param newFarmer		Farmer that works on the Farm
 	 * @param newPlanetType		Name of the Planet the Farm is on
 	 */
 	Farm(Farmer newFarmer, String newPlanetType) {
