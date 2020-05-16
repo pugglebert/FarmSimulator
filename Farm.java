@@ -65,7 +65,7 @@ public class Farm {
          * @param newFarmer		Farmer that works on the Farm
 	 * @param newPlanetType		Name of the Planet the Farm is on
 	 */
-	Farm(Farmer newFarmer, String newPlanetType) {
+	public Farm(Farmer newFarmer, String newPlanetType) {
 		farmer = newFarmer;
 		planetType = newPlanetType;
 	}
@@ -275,6 +275,7 @@ public class Farm {
 			} 
 			else if (merchandise instanceof Crop){
 				if (crops.size() >= cropLimit) {
+					money += price;
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
 							+ "Tend the land to get space to grow more.");
 				} else if (merchandise instanceof Crop){
