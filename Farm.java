@@ -237,14 +237,16 @@ public class Farm {
 		}
 	}
 	
-	public void useItem(CropItem chosenItem) {
+	public void useItem(CropItem chosenItem, String cropType) {
 		growthBonus = chosenItem.getGrowthBonus();
 		chosenItem.removeFromInventory();
 		if (chosenItem.getInventoryCount() == 0) {
 			farmer.removeItem(chosenItem);
 		}
 		for (Crop crop : crops) {
-			crop.decreaseHarvestAge(growthBonus);
+			if (cropType == crop.getCropType()) {
+				crop.decreaseHarvestAge(growthBonus);
+			}
 		}
 	}
 }

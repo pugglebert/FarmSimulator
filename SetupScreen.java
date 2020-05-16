@@ -55,6 +55,7 @@ public class SetupScreen {
 		setupWindow.setTitle("Game Setup");
 		setupWindow.setResizable(false);
 		setupWindow.setBounds(100, 100, 700, 500);
+		setupWindow.setLocationRelativeTo(null);
 		setupWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setupWindow.getContentPane().setLayout(null);
 
@@ -98,7 +99,7 @@ public class SetupScreen {
 		farmerNameLabel.setBounds(61, 187, 274, 33);
 		setupWindow.getContentPane().add(farmerNameLabel);
 
-		farmerNameField = new JTextField();
+		farmerNameField = new JTextField("Bob");
 		farmerNameField.setBounds(309, 189, 146, 33);
 		setupWindow.getContentPane().add(farmerNameField);
 		farmerNameField.setColumns(10);
@@ -159,7 +160,7 @@ public class SetupScreen {
 		venusFarmRadio.addActionListener(farmTypeListener);
 		jupiterFarmRadio.addActionListener(farmTypeListener);
 
-		farmerAgeField = new JTextField();
+		farmerAgeField = new JTextField("25");
 		farmerAgeField.setBounds(309, 228, 146, 33);
 		setupWindow.getContentPane().add(farmerAgeField);
 		farmerAgeField.setColumns(10);
@@ -169,7 +170,7 @@ public class SetupScreen {
 		farmNameLabel.setBounds(36, 392, 228, 33);
 		setupWindow.getContentPane().add(farmNameLabel);
 
-		farmNameField = new JTextField();
+		farmNameField = new JTextField("Bobs Farm");
 		farmNameField.setBounds(36, 427, 182, 33);
 		setupWindow.getContentPane().add(farmNameField);
 		farmNameField.setColumns(10);

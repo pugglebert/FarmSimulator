@@ -141,6 +141,7 @@ public class MainScreen {
 		frmFarmSimulator.getContentPane().setBackground(new Color(0, 128, 0));
 		frmFarmSimulator.setTitle("Farm Simulator");
 		frmFarmSimulator.setBounds(100, 100, 700, 500);
+		frmFarmSimulator.setLocationRelativeTo(null);
 		frmFarmSimulator.setResizable(false);
 		frmFarmSimulator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFarmSimulator.getContentPane().setLayout(null);
@@ -156,7 +157,6 @@ public class MainScreen {
 		
 		nextDayButton = new JButton("Go to next day");
 		nextDayButton.setBounds(500, 354, 140, 75);
-		nextDayButton.setBounds(534, 354, 106, 75);
 		nextDayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nextDay();
@@ -241,15 +241,15 @@ public class MainScreen {
 		chickenPanel.add(chickenReturnLabel);
 		
 		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
-		dayLabel.setBounds(370, 354, 120, 14);
+		dayLabel.setBounds(10, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(dayLabel);
 		
 		actionLabel = new JLabel(Integer.toString(remainingActions) + " actions remaining");
-		actionLabel.setBounds(370, 384, 120, 14);
+		actionLabel.setBounds(160, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(actionLabel);
 		
 		moneyLabel = new JLabel("You have $" + Integer.toString(farm.getMoney()));
-		moneyLabel.setBounds(370, 415, 120, 14);
+		moneyLabel.setBounds(366, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(moneyLabel);
 		
 		JButton harvestButton = new JButton("Harvest crops");
@@ -273,8 +273,7 @@ public class MainScreen {
 					if (cropsToHarvest) {
 						JOptionPane.showMessageDialog(frmFarmSimulator, "You harvested all fully grown crops and earned $" + earnings + ".");
 						farm.earnMoney(earnings);
-						remainingActions --;
-						actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+						useAction();
 					}
 					else {
 						JOptionPane.showMessageDialog(frmFarmSimulator, "You have no fully grown crops to harvest!");
@@ -284,6 +283,15 @@ public class MainScreen {
 			}
 		});
 		frmFarmSimulator.getContentPane().add(harvestButton);
+		
+		JButton waterCropsButton = new JButton("Water Crops");
+		waterCropsButton.setBounds(179, 301, 128, 23);
+		frmFarmSimulator.getContentPane().add(waterCropsButton);
+		waterCropsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cropSelection(1);
+			}
+		});
 		
 		JButton playButton = new JButton("Play with animals");
 		playButton.setBounds(500, 301, 140, 23);
@@ -296,15 +304,14 @@ public class MainScreen {
 					for (Animal animal : farm.getAnimals()) {
 						animal.increaseHappiness(2);
 					}
-					remainingActions --;
-					actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+					useAction();
 				}
 			}
 		});
 		frmFarmSimulator.getContentPane().add(playButton);
 		
 		JButton tendLandButton = new JButton("Tend land");
-		tendLandButton.setBounds(179, 301, 120, 23);
+		tendLandButton.setBounds(254, 354, 112, 75);
 		tendLandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (remainingActions <= 0) {
@@ -312,8 +319,10 @@ public class MainScreen {
 				} else {
 					farm.setCropLimit(farm.getCropLimit() + 1);
 					setCrops();
-					remainingActions --;
-					actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+					for (Animal animal : farm.getAnimals()) {
+						animal.increaseHappiness(1);
+					}
+					useAction();
 				}
 			}
 		});
@@ -343,8 +352,32 @@ public class MainScreen {
 		}
 	}
 	
+	public void cropSelection(int amount) {
+		ArrayList<String> cropTypes = new ArrayList<String>();
+		for (Crop crop : farm.getCrops()) {
+			if (!crop.canHarvest() && !cropTypes.contains(crop.getCropType())){
+				cropTypes.add(crop.getCropType());
+			}
+		}
+		Object[] crops = cropTypes.toArray();
+		String initialSelection = "Barley";
+		System.out.println(crops.getClass());		
+		String selection = (String) JOptionPane.showInputDialog(frmFarmSimulator, "Choose a crop variety to tend to:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
+		if (selection != null) {
+			for (Crop crop : farm.getCrops()) {
+				if (crop.getCropType() == selection) {
+					crop.decreaseHarvestAge(amount);
+				}
+			}
+			useAction();
+		}
+		
+		setCrops();
+	}
+	
 	public void useAction() {
 		remainingActions --;
+		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
 	}
 	
 	public int getRemainingActions() {

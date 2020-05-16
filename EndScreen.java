@@ -43,6 +43,7 @@ public class EndScreen {
 		endWindow.setResizable(false);
 		endWindow.setTitle("End Game Summary");
 		endWindow.setBounds(100, 100, 700, 500);
+		endWindow.setLocationRelativeTo(null);
 		endWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		endWindow.getContentPane().setLayout(null);
 		

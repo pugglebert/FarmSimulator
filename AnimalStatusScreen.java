@@ -52,6 +52,7 @@ public class AnimalStatusScreen {
 		animalStatusWindow.setResizable(false);
 		animalStatusWindow.setTitle("Animal Status");
 		animalStatusWindow.setBounds(100, 100, 700, 500);
+		animalStatusWindow.setLocationRelativeTo(null);
 		animalStatusWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		animalStatusWindow.getContentPane().setLayout(null);
 		

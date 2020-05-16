@@ -56,8 +56,10 @@ public class InventoryScreen {
 	 */
 	private void initialize() {
 		frmInventory = new JFrame();
+		frmInventory.setResizable(false);
 		frmInventory.setTitle("Inventory");
 		frmInventory.setBounds(100, 100, 700, 500);
+		frmInventory.setLocationRelativeTo(null);
 		frmInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInventory.getContentPane().setLayout(null);
 		
@@ -132,9 +134,8 @@ public class InventoryScreen {
 				} else if (game.getRemainingActions() <= 0){
 					JOptionPane.showMessageDialog(frmInventory, "You have already used all your actions for today.");
 				} else {
-					farm.useItem(selected);
+					cropSelection(selected);
 					updateItems();
-					game.getMainScreen().useAction();
 				}
 			}
 		});
@@ -162,6 +163,24 @@ public class InventoryScreen {
 		cropItemListModel.clear();
 		for (CropItem crop : farmer.getCropItems()) {
 			cropItemListModel.addElement(crop);
+		}
+	}
+	
+	public void cropSelection(CropItem item) {
+		ArrayList<String> cropTypes = new ArrayList<String>();
+		for (Crop crop : farm.getCrops()) {
+			if (!crop.canHarvest() && !cropTypes.contains(crop.getCropType())){
+				cropTypes.add(crop.getCropType());
+			}
+		}
+		Object[] crops = cropTypes.toArray();
+		String initialSelection = "Barley";
+		String selection = (String) JOptionPane.showInputDialog(frmInventory, "Choose a crop variety to use " + item.getName() + " on:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
+		if (selection != null) {
+			farm.useItem(item, selection);
+		
+			game.getMainScreen().setCrops();
+			game.getMainScreen().useAction();
 		}
 	}
 	

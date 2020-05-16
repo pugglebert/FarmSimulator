@@ -57,6 +57,7 @@ public class StoreScreen {
 		frmCountyStore = new JFrame();
 		frmCountyStore.setTitle("County Store");
 		frmCountyStore.setBounds(100, 100, 700, 500);
+		frmCountyStore.setLocationRelativeTo(null);
 		frmCountyStore.setResizable(false);
 		frmCountyStore.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCountyStore.getContentPane().setLayout(null);
