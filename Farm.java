@@ -120,14 +120,6 @@ public class Farm {
 		return name;
 	}
 	
-	/*public void setFarmer(Farmer newFarmer) {
-		farmer = newFarmer;
-	}*/
-	
-	/*public Farmer getFarmer() {
-		return farmer;
-	}*/
-	
 	public void setAnimals(ArrayList<Animal> newAnimals) {
 		animals = newAnimals;
 	}

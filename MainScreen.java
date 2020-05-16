@@ -360,8 +360,7 @@ public class MainScreen {
 			}
 		}
 		Object[] crops = cropTypes.toArray();
-		String initialSelection = "Barley";
-		System.out.println(crops.getClass());		
+		String initialSelection = "Barley";		
 		String selection = (String) JOptionPane.showInputDialog(frmFarmSimulator, "Choose a crop variety to tend to:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
 		if (selection != null) {
 			for (Crop crop : farm.getCrops()) {

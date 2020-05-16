@@ -4,17 +4,10 @@ public class CropItem extends Item implements Buyable {
 	
 	private int growthBonus;
 	
-	public boolean isFoodItem() {
-		return false;
-	}
-	
-	public boolean isCropItem() {
-		return true;
-	}
-	
 	public String toString() {
 		String growthStr = Integer.toString(growthBonus);
-		String repr = super.getName() + ": crop item which speeds up growth time by " + growthStr + " days.";
+		String count = Integer.toString(super.getInventoryCount());
+		String repr = super.getName() + ": crop item which speeds up growth time by " + growthStr + " days (" + count + " available)";
 		return repr;
 	}
 	
