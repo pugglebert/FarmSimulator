@@ -106,11 +106,11 @@ public class GameEnvironment {
 	public void openInventoryScreen() {
 		inventoryScreen.launch();
 	}
-	
+
 	public int getRemainingActions() {
 		return mainScreen.getRemainingActions();
 	}
-	
+
 	public String getNetProfit() {
 		int netProfit = farm.getMoney() - farm.getStartCash();
 		String netProfitString;

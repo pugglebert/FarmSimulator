@@ -119,7 +119,7 @@ public class Farm {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setAnimals(ArrayList<Animal> newAnimals) {
 		animals = newAnimals;
 	}
@@ -189,17 +189,17 @@ public class Farm {
 			else if (merchandise instanceof Animal) {	
 				if (merchandise instanceof Cow) {
 					Cow cow = new Cow();
-					cow.setBaseHappiness(getHappinessBonus());
+					cow.increaseHappiness(getHappinessBonus());
 					addAnimal(cow);
 				}
 				else if (merchandise instanceof Sheep) {
 					Sheep sheep = new Sheep();
-					sheep.setBaseHappiness(getHappinessBonus());
+					sheep.increaseHappiness(getHappinessBonus());
 					addAnimal(sheep);
 				}
 				else if (merchandise instanceof Chicken) {
 					Chicken chicken = new Chicken();
-					chicken.setBaseHappiness(getHappinessBonus());
+					chicken.increaseHappiness(getHappinessBonus());
 					addAnimal(chicken);
 				}
 			} else if (merchandise instanceof Crop) {
@@ -237,7 +237,7 @@ public class Farm {
 		}
 		for (Crop crop : crops) {
 			if (cropType == crop.getCropType()) {
-				crop.decreaseHarvestAge(growthBonus);
+				crop.boostGrowth(growthBonus);
 			}
 		}
 	}

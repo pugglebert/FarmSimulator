@@ -45,11 +45,11 @@ public class Crop implements Buyable {
 		harvestAge -= bonus;
 	}
 	
-	public void decreaseHarvestAge(int amount) {
-		harvestAge -= amount;
+	public void boostGrowth(int amount) {
+		age += amount;
 		
-		if (harvestAge < 1) {
-			harvestAge = 1;
+		if (age > harvestAge) {
+			age = harvestAge;
 		}
 	}
 	

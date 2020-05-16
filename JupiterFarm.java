@@ -15,7 +15,7 @@ public class JupiterFarm extends Farm {
 		startAnimals.add(new Cow());
 		startAnimals.add(new Sheep());
 		for(Animal animal : startAnimals) {
-			animal.setBaseHappiness(happinessBonus);
+			animal.increaseHappiness(happinessBonus);
 		}
 		super.setAnimals(startAnimals);
 	}

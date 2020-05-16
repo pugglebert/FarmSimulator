@@ -24,6 +24,9 @@ public class SetupScreen {
 	private JTextField farmerNameField;
 	private JTextField farmerAgeField;
 	private JTextField farmNameField;
+	private JLabel farmerNameError;
+	private JLabel farmNameError;
+	private JLabel farmerAgeError;
 
 	/**
 	 * Launch the application.
@@ -175,25 +178,28 @@ public class SetupScreen {
 		setupWindow.getContentPane().add(farmNameField);
 		farmNameField.setColumns(10);
 
-		JLabel farmerNameError = new JLabel("Error");
+		farmerNameError = new JLabel("Error");
 		farmerNameError.setVisible(false);
 		farmerNameError.setForeground(Color.RED);
 		farmerNameError.setBounds(465, 187, 219, 35);
 		setupWindow.getContentPane().add(farmerNameError);
 
-		JLabel farmerAgeError = new JLabel("Error");
+		farmerAgeError = new JLabel("Error");
 		farmerAgeError.setForeground(Color.RED);
 		farmerAgeError.setVisible(false);
 		farmerAgeError.setBounds(465, 226, 219, 33);
 		setupWindow.getContentPane().add(farmerAgeError);
 
-		JLabel farmNameError = new JLabel("Error");
+		farmNameError = new JLabel("Error");
 		farmNameError.setVisible(false);
 		farmNameError.setForeground(Color.RED);
 		farmNameError.setBounds(228, 427, 228, 33);
 		setupWindow.getContentPane().add(farmNameError);
 
 		JButton beginGameButton = new JButton("Begin Game");
+		beginGameButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		beginGameButton.setBounds(513, 392, 146, 68);
+		setupWindow.getContentPane().add(beginGameButton);
 		beginGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(isValid()) {
@@ -203,65 +209,71 @@ public class SetupScreen {
 					finishedWindow();
 				}
 			}
-
-			private boolean isValid() {
-				boolean allValid = true;
-				String farmerName = farmerNameField.getText();
-				String farmName = farmNameField.getText();
-				int farmerAge;
-
-				if(!checkName(farmerName, farmerNameError)) {
-					allValid = false;
-				}
-
-				if (!checkName(farmName, farmNameError)) {
-					allValid = false;
-				}
-
-				try {
-					farmerAge = Integer.parseInt(farmerAgeField.getText());
-					if (farmerAge <= 0 || farmerAge > 100){
-						allValid = false;
-						farmerAgeError.setText("Age must be from 1 to 100");
-						farmerAgeError.setVisible(true);
-					}
-					else {
-						farmerAgeError.setVisible(false);
-					}
-				} catch (NumberFormatException e) {
-					farmerAgeError.setText("Age must be an integer");
-					farmerAgeError.setVisible(true);
-					allValid = false;
-
-				}
-
-
-				return allValid;
-			}
-
-			private boolean checkName(String name, JLabel errorLabel) {
-				boolean valid = true;
-				if (name.length() < 3 || name.length() > 15) {
-					valid = false;
-					errorLabel.setText("Name must be 3 to 15 characters long");
-					errorLabel.setVisible(true);
-				}
-				else if (!name.matches("[a-zA-Z ]+")) {
-					valid = false;
-					errorLabel.setText("<html>Name must not contain numbers<br>or special characters</html>");
-					errorLabel.setVisible(true);
-				}
-				else {
-					errorLabel.setVisible(false);
-				}
-
-				return valid;
-			}
-
 		});
-		beginGameButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		beginGameButton.setBounds(513, 392, 146, 68);
-		setupWindow.getContentPane().add(beginGameButton);
+		
+	}	
+	
+	public boolean checkName(String name, JLabel errorLabel) {
+		boolean valid = true;
+		if (name.length() < 3 || name.length() > 15) {
+			valid = false;
+			errorLabel.setText("Name must be 3 to 15 characters long");
+			errorLabel.setVisible(true);
+		}
+		else if (!name.matches("[a-zA-Z ]+")) {
+			valid = false;
+			errorLabel.setText("<html>Name must not contain numbers<br>or special characters</html>");
+			errorLabel.setVisible(true);
+		}
+		else {
+			errorLabel.setVisible(false);
+		}
+
+		return valid;
+	}
+	
+	public boolean checkAge(String age, JLabel errorLabel) {
+		boolean valid = true;
+		
+		try {
+			int farmerAge = Integer.parseInt(age);
+			if (farmerAge <= 0 || farmerAge > 100){
+				valid = false;
+				farmerAgeError.setText("Age must be from 1 to 100");
+				farmerAgeError.setVisible(true);
+			}
+			else {
+				farmerAgeError.setVisible(false);
+			}
+		} catch (NumberFormatException e) {
+			farmerAgeError.setText("Age must be an integer");
+			farmerAgeError.setVisible(true);
+			valid = false;
+
+		}
+		
+		return valid;
+	}
+	
+	public boolean isValid() {
+		boolean allValid = true;
+		String farmerName = farmerNameField.getText();
+		String farmName = farmNameField.getText();
+		String farmerAge = farmerAgeField.getText();
+
+		if(!checkName(farmerName, farmerNameError)) {
+			allValid = false;
+		}
+
+		if (!checkName(farmName, farmNameError)) {
+			allValid = false;
+		}
+		
+		if (!checkAge(farmerAge, farmerAgeError)) {
+			allValid = false;
+		}
+		
+		return allValid;
 	}
 
 }

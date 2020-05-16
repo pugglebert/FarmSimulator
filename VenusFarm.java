@@ -14,7 +14,7 @@ public class VenusFarm extends Farm {
 	public void initializeAnimals() {
 		startAnimals.add(new Sheep());
 		for(Animal animal : startAnimals) {
-			animal.setBaseHappiness(happinessBonus);
+			animal.increaseHappiness(happinessBonus);
 		}
 		super.setAnimals(startAnimals);
 	}

@@ -14,7 +14,7 @@ public class EarthFarm extends Farm {
 	public void initializeAnimals() {
 		startAnimals.add(new Chicken());
 		for(Animal animal : startAnimals) {
-			animal.setBaseHappiness(happinessBonus);
+			animal.increaseHappiness(happinessBonus);
 		}
 		super.setAnimals(startAnimals);
 	}

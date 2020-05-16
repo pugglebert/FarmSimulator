@@ -5,7 +5,6 @@ abstract class Item implements Buyable {
 	private String name;
 	private int price;
 	private int inventory_count = 0;
-
 	public abstract String toString();
 	public abstract String toStringStore();
 	

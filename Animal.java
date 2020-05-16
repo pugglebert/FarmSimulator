@@ -7,7 +7,7 @@ public class Animal implements Buyable {
 	private String animalType;
 	private int buyPrice;
 	
-	Animal(String newAnimalType, int newBuyPrice, int newBaseReturn) {
+	public Animal(String newAnimalType, int newBuyPrice, int newBaseReturn) {
 		animalType = newAnimalType;
 		buyPrice = newBuyPrice;
 		baseReturn = newBaseReturn;
@@ -47,12 +47,16 @@ public class Animal implements Buyable {
 		return happiness;
 	}
 	
+	public void setHappiness(int newHappiness) {
+		happiness = newHappiness;
+	}
+	
 	public int getHealth() {
 		return health;
 	}
-		
-	public void setBaseHappiness(int bonus) {
-		happiness += bonus;
+	
+	public void setHealth(int newHealth) {
+		health = newHealth;
 	}
 	
 	public void increaseHappiness(int amount) {
