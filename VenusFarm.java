@@ -66,9 +66,10 @@ public class VenusFarm extends Farm {
 	
 	/**
 	 * Constructs the VenusFarm using the Farm parent class
+	 * @param farmer 	Farmer that works on the farm
 	 */
-	public VenusFarm() {
-		super("Venus");
+	public VenusFarm(Farmer farmer) {
+		super(farmer, "Venus");
 		setMoney(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);

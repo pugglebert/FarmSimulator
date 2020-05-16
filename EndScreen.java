@@ -52,7 +52,7 @@ public class EndScreen {
 		endWindow.getContentPane().add(congratPanel);
 		congratPanel.setLayout(null);
 		
-		JLabel congratLabel = new JLabel("Congratulations!");
+		JLabel congratLabel = new JLabel("Congratulations " + game.getFarmer().getName() + "!");
 		congratLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		congratLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		congratLabel.setBounds(186, 11, 322, 46);

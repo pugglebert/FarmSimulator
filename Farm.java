@@ -62,9 +62,11 @@ public class Farm {
 	
 	/**
 	 * Constructs the Farm on the specified planet, called by one of the four child classes
+	 * @param newFarmer 
 	 * @param newPlanetType		Name of the Planet the Farm is on
 	 */
-	Farm(String newPlanetType) {
+	Farm(Farmer newFarmer, String newPlanetType) {
+		farmer = newFarmer;
 		planetType = newPlanetType;
 	}
 	
@@ -74,33 +76,6 @@ public class Farm {
 	 */
 	public String getPlanetType() {
 		return planetType;
-	}
-	
-	/**
-	 * Returns the amount of money the farm has as a String
-	 * @return 		String representation of the farms money
-	 */
-	public String getMoneyStatus() {
-		String status = "Your farm has $" + money;
-		return status;
-	}
-	
-	/**
-	 * Returns the string representation of all the items available in the Inventory
-	 * @return		All the items available in the Inventory
-	 */
-	public String getItemsStatus() {
-		String status = "";
-		ArrayList<Item> items = farmer.getItems();
-		if (items.isEmpty()) {
-			status = "Your farmer doesn't have any items.";
-		} else {
-			status = "Your farmer has the following items:";
-			for (int counter = 1; counter <= items.size(); counter++) {
-				status += "\n" + items.get(counter - 1).getInventoryCount() + "x " + items.get(counter - 1).toString();
-			}
-		}
-		return status;
 	}
 	
 	/**
@@ -128,27 +103,12 @@ public class Farm {
 		return startCash;
 	}
 	
-	
 	/**
 	 * Increases the farm's money by the specified amount
 	 * @param earnings		Amount of money the farm gains
 	 */
 	public void earnMoney(int earnings) {
 		money += earnings;
-	}
-	
-	/**
-	 * Uses an amount of the farms available money for purchasing merchandise from the store
-	 * @param spendings		Amount of money that is spent
-	 */
-	public void spendMoney(int spendings) {
-		if (spendings >= 0 && (money - spendings >= 0)) {
-			money -= spendings;
-		} else if (spendings < 0) {
-			throw new IllegalArgumentException("spendings < 0");
-		} else {
-			throw new IllegalArgumentException("insufficient funds");
-		}
 	}
 	
 	public void setName(String newName) {
@@ -290,9 +250,6 @@ public class Farm {
 	 * @param merchandise		The bought object, could be an Item, Animal, or Crop
 	 */
 	public void buy(Buyable merchandise) {
-		/**
-		 * Price of the bought object
-		 */
 		int price = merchandise.getBuyPrice();
 		if (money >= price) {
 			money -= price;
@@ -316,7 +273,7 @@ public class Farm {
 				animal.increaseHappiness(getHappinessBonus());
 				addAnimal(animal);
 			} 
-			else {
+			else if (merchandise instanceof Crop){
 				if (crops.size() >= cropLimit) {
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
 							+ "Tend the land to get space to grow more.");

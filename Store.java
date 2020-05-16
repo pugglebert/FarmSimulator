@@ -53,38 +53,6 @@ public class Store {
 		return buyables;
 	}
 	
-	public String getFoodItemString() {
-		String foodItemString = "The following food items are available for purchase:";
-		for (int counter = 1; counter <= foodItems.size(); counter++) {
-			foodItemString += "\n" + Integer.toString(counter) + ") " + foodItems.get(counter - 1).toStringStore();
-		}
-		return foodItemString;
-	}
-	
-	public String getCropItemString() {
-		String foodItemString = "The following crop items are available for purchase:";
-		for (int counter = 1; counter <= cropItems.size(); counter++) {
-			foodItemString += "\n" + Integer.toString(counter) + ") " + cropItems.get(counter - 1).toStringStore();
-		}
-		return foodItemString;
-	}
-	
-	public String getAnimalString() {
-		String animalString = "The following animals are available for purchase:";
-		for (int counter = 1; counter <= animals.size(); counter++) {
-			animalString += "\n" + Integer.toString(counter) + ") " + animals.get(counter - 1).toStringStore();
-		}
-		return animalString;
-	}
-	
-	public String getCropString() {
-		String cropString = "The following crops are available for purchase:";
-		for (int counter = 1; counter <= crops.size(); counter++) {
-			cropString += "\n" + Integer.toString(counter) + ") " + crops.get(counter - 1).toStringStore();
-		}
-		return cropString;
-	}
-	
 	private void initializeAnimals() {
 		animals.add(new Chicken());
 		animals.add(new Cow());

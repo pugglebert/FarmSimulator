@@ -53,16 +53,16 @@ public class GameEnvironment {
 	public void initiateFarm(String farmType, String farmName) {
 		switch(farmType) {
 		case "earth":
-			farm = new EarthFarm();
+			farm = new EarthFarm(farmer);
 			break;
 		case "mars":
-			farm = new MarsFarm();
+			farm = new MarsFarm(farmer);
 			break;
 		case "venus":
-			farm = new VenusFarm();
+			farm = new VenusFarm(farmer);
 			break;
 		case "jupiter":
-			farm = new JupiterFarm();
+			farm = new JupiterFarm(farmer);
 			break;
 		}	
 		farm.setName(farmName);
@@ -81,10 +81,6 @@ public class GameEnvironment {
 	
 	public int getTotalDays() {
 		return totalDays;
-	}
-	
-	public int getCurrentDay() {
-		return currentDay;
 	}
 	
 	public Store getStore() {

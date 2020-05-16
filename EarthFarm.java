@@ -65,9 +65,10 @@ public class EarthFarm extends Farm {
 	
 	/**
 	 * Constructs the EarthFarm using the Farm parent class
+	 * @param farmer 	Farmer that works on the farm
 	 */
-	public EarthFarm() {
-		super("Earth");
+	public EarthFarm(Farmer farmer) {
+		super(farmer, "Earth");
 		setMoney(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);
