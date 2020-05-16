@@ -23,7 +23,7 @@ public class EarthFarm extends Farm {
 		startCrops.add(new Wheat());
 		startCrops.add(new Barley());
 		for(Crop crop : startCrops) {
-			crop.setBaseHarvestAge(growthBonus);
+			crop.reduceHarvestAge(growthBonus);
 		}
 		super.setCrops(startCrops);
 	}

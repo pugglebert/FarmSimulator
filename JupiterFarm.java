@@ -25,7 +25,7 @@ public class JupiterFarm extends Farm {
 		startCrops.add(new Maize());
 		startCrops.add(new Pumpkin());
 		for(Crop crop : startCrops) {
-			crop.setBaseHarvestAge(growthBonus);
+			crop.reduceHarvestAge(growthBonus);
 		}
 		super.setCrops(startCrops);
 	}

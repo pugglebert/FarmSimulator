@@ -23,7 +23,7 @@ public class MarsFarm extends Farm {
 		startCrops.add(new Maize());
 		startCrops.add(new Potato());
 		for(Crop crop : startCrops) {
-			crop.setBaseHarvestAge(growthBonus);
+			crop.reduceHarvestAge(growthBonus);
 		}
 		super.setCrops(startCrops);
 	}

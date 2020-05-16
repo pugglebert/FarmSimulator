@@ -23,7 +23,7 @@ public class VenusFarm extends Farm {
 		startCrops.add(new Pumpkin());
 		startCrops.add(new Kale());
 		for(Crop crop : startCrops) {
-			crop.setBaseHarvestAge(growthBonus);
+			crop.reduceHarvestAge(growthBonus);
 		}
 		super.setCrops(startCrops);
 	}
