@@ -4,14 +4,6 @@ public class CropItem extends Item implements Buyable {
 	
 	private int growthBonus;
 	
-	public boolean isFoodItem() {
-		return false;
-	}
-	
-	public boolean isCropItem() {
-		return true;
-	}
-	
 	public String toString() {
 		String growthStr = Integer.toString(growthBonus);
 		String count = Integer.toString(super.getInventoryCount());
