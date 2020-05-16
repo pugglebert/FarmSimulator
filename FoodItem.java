@@ -4,14 +4,6 @@ public class FoodItem extends Item implements Buyable {
 	
 	int healthGiven;
 	
-	public boolean isFoodItem() {
-		return true;
-	}
-	
-	public boolean isCropItem() {
-		return false;
-	}
-	
 	public String toString() {
 		String healthStr = Integer.toString(healthGiven);
 		String count = Integer.toString(super.getInventoryCount());
