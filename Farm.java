@@ -15,62 +15,21 @@ public class Farm {
 	private int startCash;
 	private String planetType;
 	
-	Farm(Farmer newFarmer, String newPlanetType) {
+	public Farm(Farmer newFarmer, String newPlanetType) {
 		farmer = newFarmer;
 		planetType = newPlanetType;
+	}
+	
+	public Farmer getFarmer() {
+		return farmer;
 	}
 	
 	public String getPlanetType() {
 		return planetType;
 	}
 	
-	public String getMoneyStatus() {
-		String status = "Your farm has $" + money;
-		return status;
-	}
-	
-	public String getItemsStatus() {
-		String status = "";
-		ArrayList<Item> items = farmer.getItems();
-		if (items.isEmpty()) {
-			status = "Your farmer doesn't have any items.";
-		} else {
-			status = "Your farmer has the following items:";
-			for (int counter = 1; counter <= items.size(); counter++) {
-				status += "\n" + items.get(counter - 1).getInventoryCount() + "x " + items.get(counter - 1).toString();
-			}
-		}
-		return status;
-	}
-	
-	public String getAnimalStatus() {
-		String status = "";
-		if (animals.isEmpty()) {
-			status = "Your farm doesn't have any animals";
-		} else {
-			status = "Your farm has the following animals:";
-			for (int counter = 1; counter <= animals.size(); counter++) {
-				status += "\n" + Integer.toString(counter) + ") " + animals.get(counter - 1).toString();
-			}
-		}
-		return status;
-	}
-	
-	public String getCropStatus() {
-		String status = "";
-		if (crops.isEmpty()) {
-			status = "Your farm doesn't have any crops";
-		} else {
-			status = "Your farm has the following crops:";
-			for (int counter = 1; counter <= crops.size(); counter++) {
-				status += "\n" + Integer.toString(counter) + ") " + crops.get(counter - 1).toString();
-			}
-		}
-		return status;
-	}
-	
 	public void setMoney(int newMoney) {
-		if (money >= 0) {
+		if (newMoney >= 0) {
 			money = newMoney;
 			startCash = money;
 		} else {
@@ -119,7 +78,7 @@ public class Farm {
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setAnimals(ArrayList<Animal> newAnimals) {
 		animals = newAnimals;
 	}
@@ -153,8 +112,12 @@ public class Farm {
 	}
 	
 	public void setCropLimit(int newCropLimit) {
-		cropLimit = newCropLimit;
-		if (cropLimit > 16) { cropLimit = 16; }
+		if (newCropLimit < 0) {
+			throw new IllegalArgumentException("Crop limit cannot be a negative number.");
+		} else {
+			cropLimit = newCropLimit;
+			if (cropLimit > 16) { cropLimit = 16; }
+		}
 	}
 	
 	public int getCropLimit() {
@@ -162,7 +125,11 @@ public class Farm {
 	}
 	
 	public void setGrowthBonus(int newGrowthBonus) {
-		growthBonus = newGrowthBonus;
+		if (newGrowthBonus < 0) {
+			throw new IllegalArgumentException("Growth bonus must be a positive integer.");
+		} else {
+			growthBonus = newGrowthBonus;
+		}
 	}
 	
 	public int getGrowthBonus() {
@@ -170,7 +137,11 @@ public class Farm {
 	}
 	
     public void setHappinessBonus(int newHappinessBonus) {
-		happinessBonus = newHappinessBonus;
+    	if (newHappinessBonus < 0) {
+    		throw new IllegalArgumentException("Happiness bonus must be a positive integer.");
+    	} else {
+ 		happinessBonus = newHappinessBonus;
+    	}
 	}
 	public int getHappinessBonus() {
 		return happinessBonus;
@@ -204,6 +175,7 @@ public class Farm {
 				}
 			} else if (merchandise instanceof Crop) {
 				if (crops.size() >= cropLimit) {
+					money += price;
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
 							+ "Tend the land to get space to grow more.");
 				} else {

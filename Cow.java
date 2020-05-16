@@ -5,7 +5,7 @@ public class Cow extends Animal{
 	private static int buyPrice = 50;
 	private static String name = "Cow";
 	
-	Cow(){
+	public Cow(){
 		super(name, baseReturn, buyPrice);
 	}
 	

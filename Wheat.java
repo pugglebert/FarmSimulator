@@ -2,7 +2,7 @@ package farmSimulatorGUI;
 
 public class Wheat extends Crop{
 
-	Wheat(){
+	public Wheat(){
 		super("Wheat", 2, 100, 100);
 	}
 }

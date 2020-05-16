@@ -2,7 +2,7 @@ package farmSimulatorGUI;
 
 public class Maize extends Crop{
 
-	Maize(){
+	public Maize(){
 		super("Maize", 10, 100, 100);
 	}
 }
