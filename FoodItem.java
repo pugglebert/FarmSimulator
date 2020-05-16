@@ -14,7 +14,8 @@ public class FoodItem extends Item implements Buyable {
 	
 	public String toString() {
 		String healthStr = Integer.toString(healthGiven);
-		String repr = super.getName() + ": food item which gives " + healthStr + " health.";
+		String count = Integer.toString(super.getInventoryCount());
+		String repr = super.getName() + ": food item which gives " + healthStr + " health (" + count + " available";
 		return repr;
 	}
 	
