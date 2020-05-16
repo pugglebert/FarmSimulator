@@ -24,26 +24,6 @@ public class InventoryScreen {
 	private DefaultListModel<FoodItem> foodItemListModel;
 	private DefaultListModel<CropItem> cropItemListModel;
 	
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InventoryScreen window = new InventoryScreen();
-					window.frmInventory.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
 	public InventoryScreen(GameEnvironment newGame) {
 		game = newGame;
 		farmer = game.getFarmer();
@@ -51,9 +31,6 @@ public class InventoryScreen {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmInventory = new JFrame();
 		frmInventory.setResizable(false);

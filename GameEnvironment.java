@@ -53,16 +53,16 @@ public class GameEnvironment {
 	public void initiateFarm(String farmType, String farmName) {
 		switch(farmType) {
 		case "earth":
-			farm = new EarthFarm(farmer);
+			farm = new EarthFarm();
 			break;
 		case "mars":
-			farm = new MarsFarm(farmer);
+			farm = new MarsFarm();
 			break;
 		case "venus":
-			farm = new VenusFarm(farmer);
+			farm = new VenusFarm();
 			break;
 		case "jupiter":
-			farm = new JupiterFarm(farmer);
+			farm = new JupiterFarm();
 			break;
 		}	
 		farm.setName(farmName);

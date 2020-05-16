@@ -317,7 +317,7 @@ public class MainScreen {
 				if (remainingActions <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
-					farm.setCropLimit(farm.getCropLimit() + 1);
+					farm.increaseCropLimit();
 					setCrops();
 					for (Animal animal : farm.getAnimals()) {
 						animal.increaseHappiness(1);
