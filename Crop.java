@@ -7,7 +7,7 @@ public class Crop implements Buyable {
 	private int sellPrice;
 	private String cropType;
 	
-	Crop(String newCropType, int newHarvestAge, int newBuyPrice, int newSellPrice){
+	public Crop(String newCropType, int newHarvestAge, int newBuyPrice, int newSellPrice){
 		cropType = newCropType;
 		harvestAge = newHarvestAge;
 		buyPrice = newBuyPrice;
@@ -41,7 +41,7 @@ public class Crop implements Buyable {
 		return age;
 	}
 	
-	public void setBaseHarvestAge(int bonus) {
+	public void reduceHarvestAge(int bonus) {
 		harvestAge -= bonus;
 	}
 	
@@ -54,7 +54,9 @@ public class Crop implements Buyable {
 	}
 	
 	public void advanceDay() {
-		age++;
+		if (age < harvestAge) {
+			age++;
+		}
 	}
 	
 	public boolean canHarvest() {
