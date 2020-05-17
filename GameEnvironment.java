@@ -307,7 +307,7 @@ public class GameEnvironment {
 	 * Gets the score gained by all unharvest crops based on their stage of growth
 	 * @return 		Score based on the state of all unharvested crops
 	 */
-	public double getCropScore() {
+	public int getCropScore() {
 		int cropScore = 0;
 		for (Crop crop : farm.getCrops()) {
 			cropScore += 50 * crop.getAge();
@@ -319,7 +319,7 @@ public class GameEnvironment {
 	 * Returns the score as a sum of moneyScore, animalScore, and cropScore
 	 * @return		Returns the total score
 	 */
-	public double calcScore() {
+	public int calcScore() {
 		return getMoneyScore() + getAnimalScore() + getCropScore();
 	}
 	
