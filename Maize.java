@@ -25,7 +25,7 @@ public class Maize extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Maize(){
+	public Maize(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }

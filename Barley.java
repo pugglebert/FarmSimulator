@@ -25,7 +25,7 @@ public class Barley extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Barley(){
+	public Barley(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }

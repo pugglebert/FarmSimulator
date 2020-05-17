@@ -19,35 +19,26 @@ import java.lang.IllegalArgumentException;
 public class StoreScreen {
 
 	private JFrame frmCountyStore;
-	private Store store;
-	private Farm farm;
 	private GameEnvironment game;
 	private JLabel moneyLabel;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StoreScreen window = new StoreScreen();
-					window.frmCountyStore.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
 	public StoreScreen(GameEnvironment newGame) {
 		game = newGame;
-		farm = game.getFarm();
-		store = game.getStore();
 		initialize();
+		frmCountyStore.setVisible(true);
+	}
+	
+	public void closeWindow() {
+		frmCountyStore.dispose();
+	}
+
+	public void finishedWindow() {
+		game.getMainScreen().closeStoreWindow(this);
+	}	
+	
+	public void updateMoney() {
+		String money = Integer.toString(game.getFarm().getMoney());
+		moneyLabel.setText("You have $" + money + " to spend");
 	}
 
 	/**
@@ -67,7 +58,7 @@ public class StoreScreen {
 		welcomeLabel.setBounds(230, 11, 319, 34);
 		frmCountyStore.getContentPane().add(welcomeLabel);
 		
-		moneyLabel = new JLabel("You have $0 to spend");
+		moneyLabel = new JLabel("You have $" + game.getFarm().getMoney() + " to spend");
 		moneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		moneyLabel.setBounds(261, 56, 229, 51);
 		frmCountyStore.getContentPane().add(moneyLabel);
@@ -75,7 +66,7 @@ public class StoreScreen {
 		JButton foodItemButton = new JButton("<html>Food<br/>items</html>");
 		foodItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Buyable> foodItems = store.getFoodItems();
+				ArrayList<Buyable> foodItems = game.getStore().getFoodItems();
 				merchandiseOptionPane(foodItems);
 			}
 		});
@@ -86,7 +77,7 @@ public class StoreScreen {
 		JButton cropItemButton = new JButton("<html>Crop<br/>items</html>");
 		cropItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Buyable> cropItems = store.getCropItems();
+				ArrayList<Buyable> cropItems = game.getStore().getCropItems();
 				merchandiseOptionPane(cropItems);
 			}
 		});
@@ -97,7 +88,7 @@ public class StoreScreen {
 		JButton animalButton = new JButton("Animals");
 		animalButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Buyable> animals = store.getAnimals();
+				ArrayList<Buyable> animals = game.getStore().getAnimals();
 				merchandiseOptionPane(animals);
 			}
 		});
@@ -108,7 +99,7 @@ public class StoreScreen {
 		JButton cropButton = new JButton("Crops");
 		cropButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Buyable> crops = store.getCrops();
+				ArrayList<Buyable> crops = game.getStore().getCrops();
 				merchandiseOptionPane(crops);
 			}
 		});
@@ -124,8 +115,7 @@ public class StoreScreen {
 		JButton exitButton = new JButton("Return to farm");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.openMainScreen();
-				closeWindow();
+				finishedWindow();
 			}
 		});
 		exitButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -135,8 +125,8 @@ public class StoreScreen {
 		JButton inventoryButton = new JButton("View inventory");
 		inventoryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.openInventoryScreen();
-				closeWindow();
+				finishedWindow();
+				game.getMainScreen().launchInventoryWindow();
 			}
 		});
 		inventoryButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -145,7 +135,7 @@ public class StoreScreen {
 	}
 		
 	public void merchandiseOptionPane(ArrayList<Buyable> buyables) {
-		String[] merchandiseArray = store.getStoreArray(buyables);
+		String[] merchandiseArray = game.getStore().getStoreArray(buyables);
 		String selection = (String) JOptionPane.showInputDialog(
 				frmCountyStore,
 				"Select an item to purchase",
@@ -158,7 +148,7 @@ public class StoreScreen {
 			for (int i = 0; i < merchandiseArray.length; i ++) {
 				if (selection == merchandiseArray[i]) {
 					try {
-					farm.buy(buyables.get(i));
+					game.getFarm().buy(buyables.get(i));
 					updateMoney();
 					} catch (IllegalArgumentException e) {
 						JOptionPane.showMessageDialog(frmCountyStore, "You don't have enough money to buy that!");
@@ -167,22 +157,4 @@ public class StoreScreen {
 			}
 		}
 	}
-	
-	public void updateMoney() {
-		String money = Integer.toString(farm.getMoney());
-		moneyLabel.setText("You have $" + money + " to spend");
-	}
-	
-	public void launch() {
-		updateMoney();
-		frmCountyStore.setVisible(true);
-	}
-	
-	public void closeWindow() {
-		frmCountyStore.setVisible(false);
-	}
-
-	public void finishedWindow() {
-		frmCountyStore.dispose();
-	}	
 }

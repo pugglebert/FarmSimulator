@@ -19,16 +19,32 @@ public class InventoryScreen {
 
 	private JFrame frmInventory;
 	private GameEnvironment game;
-	private Farmer farmer;
-	private Farm farm;
 	private DefaultListModel<FoodItem> foodItemListModel;
 	private DefaultListModel<CropItem> cropItemListModel;
 	
 	public InventoryScreen(GameEnvironment newGame) {
 		game = newGame;
-		farmer = game.getFarmer();
-		farm = game.getFarm();
 		initialize();
+		frmInventory.setVisible(true);
+	}
+	
+	public void closeWindow() {
+		frmInventory.dispose();
+	}
+	
+	public void finishedWindow() {
+		game.getMainScreen().closeInventoryWindow(this);
+	}
+	
+	public void updateItems() {
+		foodItemListModel.clear();
+		for (FoodItem food : game.getFarmer().getFoodItems()) {
+			foodItemListModel.addElement(food);
+		}
+		cropItemListModel.clear();
+		for (CropItem crop : game.getFarmer().getCropItems()) {
+			cropItemListModel.addElement(crop);
+		}
 	}
 
 	private void initialize() {
@@ -41,7 +57,7 @@ public class InventoryScreen {
 		frmInventory.getContentPane().setLayout(null);
 		
 		foodItemListModel = new DefaultListModel<FoodItem>();
-		for (FoodItem food : farmer.getFoodItems()) {
+		for (FoodItem food : game.getFarmer().getFoodItems()) {
 			foodItemListModel.addElement(food);
 		}
 		
@@ -52,7 +68,7 @@ public class InventoryScreen {
 		frmInventory.getContentPane().add(foodItemList);
 		
 		cropItemListModel = new DefaultListModel<CropItem>();
-		for (CropItem cropItem : farmer.getCropItems()) {
+		for (CropItem cropItem : game.getFarmer().getCropItems()) {
 			cropItemListModel.addElement(cropItem);
 		}
 		
@@ -62,11 +78,10 @@ public class InventoryScreen {
 		cropItemList.setBounds(30, 203, 483, 78);
 		frmInventory.getContentPane().add(cropItemList);
 		
-		JButton backButton = new JButton("Return to farm");
+		JButton backButton = new JButton("Return to Farm");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.openMainScreen();
-				close();
+				finishedWindow();
 			}
 		});
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -92,7 +107,7 @@ public class InventoryScreen {
 				} else if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmInventory, "You have already used all your actions for today.");
 				} else {
-					farm.useItem(selected);
+					game.getFarm().useItem(selected);
 					updateItems();
 					game.getMainScreen().useAction();
 				}
@@ -123,8 +138,8 @@ public class InventoryScreen {
 		JButton storeButton = new JButton("Visit store");
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.openStoreScreen();
-				close();
+				finishedWindow();
+				game.getMainScreen().launchStoreWindow();
 			}
 		});
 		storeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -132,45 +147,25 @@ public class InventoryScreen {
 		frmInventory.getContentPane().add(storeButton);
 	}
 	
-	public void updateItems() {
-		foodItemListModel.clear();
-		for (FoodItem food : farmer.getFoodItems()) {
-			foodItemListModel.addElement(food);
-		}
-		cropItemListModel.clear();
-		for (CropItem crop : farmer.getCropItems()) {
-			cropItemListModel.addElement(crop);
-		}
-	}
-	
 	public void cropSelection(CropItem item) {
 		ArrayList<String> cropTypes = new ArrayList<String>();
-		for (Crop crop : farm.getCrops()) {
+		for (Crop crop : game.getFarm().getCrops()) {
 			if (!crop.canHarvest() && !cropTypes.contains(crop.getCropType())){
 				cropTypes.add(crop.getCropType());
 			}
 		}
-		Object[] crops = cropTypes.toArray();
-		String initialSelection = "Barley";
-		String selection = (String) JOptionPane.showInputDialog(frmInventory, "Choose a crop variety to use " + item.getName() + " on:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
-		if (selection != null) {
-			farm.useItem(item, selection);
-		
-			game.getMainScreen().setCrops();
-			game.getMainScreen().useAction();
+		if (cropTypes.size() > 0) {
+			Object[] crops = cropTypes.toArray();
+			String initialSelection = "Barley";
+			String selection = (String) JOptionPane.showInputDialog(frmInventory, "Choose a crop variety to use " + item.getName() + " on:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
+			if (selection != null) {
+				game.getFarm().useItem(item, selection);
+			
+				game.getMainScreen().updateCropDisplay();
+				game.getMainScreen().useAction();
+			}
+		} else {
+			JOptionPane.showMessageDialog(frmInventory, "There are no crops to use this item on");
 		}
-	}
-	
-	public void launch() {
-		updateItems();
-		frmInventory.setVisible(true);
-	}
-	
-	public void close() {
-		frmInventory.setVisible(false);
-	}
-	
-	public void finishedWindow() {
-		frmInventory.dispose();
 	}
 }

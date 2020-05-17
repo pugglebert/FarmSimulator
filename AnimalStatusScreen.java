@@ -23,17 +23,13 @@ public class AnimalStatusScreen {
 
 	private JFrame animalStatusWindow;
 	private GameEnvironment game;
-	private MainScreen mainScreen;
-	private Farm farm;
 	private JPanel cowPanel;
 	private JPanel sheepPanel;
 	private JPanel chickenPanel;
 	
 
-	public AnimalStatusScreen(GameEnvironment newGame, MainScreen newScreen) {
-		game = newGame;
-		mainScreen = newScreen;
-		farm = game.getFarm();		
+	public AnimalStatusScreen(GameEnvironment newGame) {
+		game = newGame;	
 		initialize();
 		setUpAnimals();
 		animalStatusWindow.setVisible(true);
@@ -44,7 +40,7 @@ public class AnimalStatusScreen {
 	}
 
 	public void finishedWindow() {
-		mainScreen.closeAnimalScreen(this);
+		game.getMainScreen().closeAnimalWindow(this);
 	}	
 		
 	private void initialize() {
@@ -104,7 +100,7 @@ public class AnimalStatusScreen {
 	}
 	
 	private void setUpAnimals() {
-		for (Animal animal : farm.getAnimals()) {
+		for (Animal animal : game.getFarm().getAnimals()) {
 			JPanel animalPanel = new JPanel();
 			animalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 			animalPanel.setLayout(new GridLayout(2, 2, 0, 0));

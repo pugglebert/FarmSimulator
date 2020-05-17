@@ -18,7 +18,7 @@ public class FoodItem extends Item implements Buyable {
 	 * @param newPrice			Cost of buying the item from the store
 	 * @param newHealthGiven	Amount of health the item gives to the animals
 	 */
-	FoodItem(String newName, int newPrice, int newHealthGiven) {
+	public FoodItem(String newName, int newPrice, int newHealthGiven) {
 		super.setName(newName);
 		super.setPrice(newPrice);
 		healthGiven = newHealthGiven;

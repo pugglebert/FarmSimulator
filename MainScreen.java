@@ -1,42 +1,24 @@
 package farmSimulatorGUI;
 
-import java.awt.EventQueue;
-
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.JTextField;
 import java.awt.GridLayout;
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 public class MainScreen {
 
 	private JFrame frmFarmSimulator;
 	private ArrayList<JLabel> cropSpaces = new ArrayList<JLabel>();
-	private Farm farm;
-	private Farmer farmer;
-	private int remainingActions = 2;
 	private GameEnvironment game;
-	private int totalDays = 10;
-	private int currentDay = 1;
 	private JButton nextDayButton;
 	private JLabel dayLabel;
 	private JLabel moneyLabel;
@@ -50,17 +32,57 @@ public class MainScreen {
 	 */
 	public MainScreen(GameEnvironment newGame) {
 		game = newGame;
-		farm = game.getFarm();
-		farmer = game.getFarmer();
-		totalDays = game.getTotalDays();
 		initialize();
-		setCrops();
-		setAnimals();
+		updateCropDisplay();
+		updateAnimalDisplay();
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	public void closeWindow() {
+		frmFarmSimulator.dispose();
+	}
+	
+	public void finishedWindow() {
+		game.closeMainScreen(this);
+	}
+	
+	public void launchStoreWindow() {
+		frmFarmSimulator.setVisible(false);
+		StoreScreen storeWindow = new StoreScreen(game);
+	}
+	
+	public void closeStoreWindow(StoreScreen storeWindow) {
+		storeWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
+	}
+	
+	public void launchInventoryWindow() {
+		frmFarmSimulator.setVisible(false);
+		InventoryScreen inventoryWindow = new InventoryScreen(game);
+	}
+	
+	public void closeInventoryWindow(InventoryScreen inventoryWindow) {
+		inventoryWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
+	}
+	
+	public void launchAnimalWindow() {
+		frmFarmSimulator.setVisible(false);
+		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game);	
+	}
+	
+	public void closeAnimalWindow(AnimalStatusScreen animalWindow) {
+		animalWindow.closeWindow();
+		frmFarmSimulator.setVisible(true);
+	}
+	
+	public void useAction() {
+		game.useAction();
+		actionLabel.setText(Integer.toString(game.getRemainingActions()) + " actions remaining");
+	}
+	
 	public void newDay() {
-		if (currentDay == totalDays) {
+		if (game.getCurrentDay() == game.getTotalDays()) {
 			nextDayButton.setText("End Game");
 			for (ActionListener l : nextDayButton.getActionListeners()) {
 				nextDayButton.removeActionListener(l);
@@ -71,29 +93,16 @@ public class MainScreen {
 				}
 			});
 		}
-		remainingActions = 2;
-		setCrops();
-		setAnimals();
-		dayLabel.setText("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
-		moneyLabel.setText("You have $" + farm.getMoney());
-		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
+		game.resetRemainingActions();
+		updateCropDisplay();
+		updateAnimalDisplay();
+		dayLabel.setText("Day " + Integer.toString(game.getCurrentDay()) + "/" + Integer.toString(game.getTotalDays()));
+		moneyLabel.setText("You have $" + game.getFarm().getMoney());
+		actionLabel.setText(Integer.toString(game.getRemainingActions()) + " actions remaining");
 	}
 	
-	public void nextDay() {
-		for (Animal animal : farm.getAnimals()) {
-			farm.earnMoney((int)animal.dailyReturn());
-			animal.advanceDay();
-		}
-		for (Crop crop : farm.getCrops()) {
-			crop.advanceDay();
-		}
-		currentDay++;
-		JOptionPane.showMessageDialog(frmFarmSimulator, "You retire to your home after a hard days work");
-		newDay();
-	}
-	
-	public void setCrops() {
-		ArrayList<Crop> crops = farm.getCrops();
+	public void updateCropDisplay() {
+		ArrayList<Crop> crops = game.getFarm().getCrops();
 		for (int counter = crops.size() - 1; counter >= 0; counter --) {
 			JLabel space = cropSpaces.get(counter);
 			Crop crop = crops.get(counter);
@@ -105,7 +114,7 @@ public class MainScreen {
 			}
 			space.setBackground(Color.GREEN);
 		}
-		int cropLimit = farm.getCropLimit();
+		int cropLimit = game.getFarm().getCropLimit();
 		for (int counter = crops.size(); counter < cropLimit; counter ++) {
 			JLabel space = cropSpaces.get(counter);
 			space.setText("Fertile");
@@ -113,11 +122,11 @@ public class MainScreen {
 		}
 	}
 	
-	public void setAnimals() {
+	public void updateAnimalDisplay() {
 		int cows = 0;
 		int sheep = 0;
 		int chickens = 0;
-		for (Animal animal : farm.getAnimals()) {
+		for (Animal animal : game.getFarm().getAnimals()) {
 			if (animal instanceof Cow) { 
 				cows ++; 
 			}
@@ -131,6 +140,28 @@ public class MainScreen {
 	    cowCountLabel.setText("Owned: " + cows);
 	    sheepCountLabel.setText("Owned: " + sheep);
 	    chickenCountLabel.setText("Owned: " + chickens);
+	}
+	
+	public void harvestCrops() {
+		Farm farm = game.getFarm();
+		boolean cropsToHarvest = false;
+		for (Crop crop : farm.getCrops()) {
+			if (crop.canHarvest()) {
+				cropsToHarvest = true;
+				break;
+			}
+		}
+		if (game.getRemainingActions() <= 0) {
+			JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
+		} else if (cropsToHarvest){
+			int earnings = game.harvestCrops();
+			JOptionPane.showMessageDialog(frmFarmSimulator, "You harvested all fully grown crops and earned $" + earnings + ".");
+			farm.earnMoney(earnings);
+			useAction();
+		} else {
+			JOptionPane.showMessageDialog(frmFarmSimulator, "You have no fully grown crops to harvest!");
+		}
+		updateCropDisplay();
 	}
 
 	/**
@@ -159,7 +190,9 @@ public class MainScreen {
 		nextDayButton.setBounds(500, 354, 140, 75);
 		nextDayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nextDay();
+				game.nextDay();
+				JOptionPane.showMessageDialog(frmFarmSimulator, "You retire to your home after a hard days work");
+				newDay();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(nextDayButton);
@@ -240,15 +273,15 @@ public class MainScreen {
 		chickenReturnLabel.setBounds(103, 39, 175, 37);
 		chickenPanel.add(chickenReturnLabel);
 		
-		dayLabel = new JLabel("Day " + Integer.toString(currentDay) + "/" + Integer.toString(totalDays));
+		dayLabel = new JLabel("Day " + Integer.toString(game.getCurrentDay()) + "/" + Integer.toString(game.getTotalDays()));
 		dayLabel.setBounds(10, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(dayLabel);
 		
-		actionLabel = new JLabel(Integer.toString(remainingActions) + " actions remaining");
+		actionLabel = new JLabel(Integer.toString(game.getRemainingActions()) + " actions remaining");
 		actionLabel.setBounds(160, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(actionLabel);
 		
-		moneyLabel = new JLabel("You have $" + Integer.toString(farm.getMoney()));
+		moneyLabel = new JLabel("You have $" + Integer.toString(game.getFarm().getMoney()));
 		moneyLabel.setBounds(366, 11, 140, 23);
 		frmFarmSimulator.getContentPane().add(moneyLabel);
 		
@@ -256,30 +289,7 @@ public class MainScreen {
 		harvestButton.setBounds(41, 301, 128, 23);
 		harvestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (remainingActions <= 0) {
-					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
-				} else {
-					int earnings = 0;
-					boolean cropsToHarvest =false;
-					ArrayList<Crop> crops = farm.getCrops();
-					for (int counter = crops.size() - 1; counter >= 0; counter --) {
-						Crop crop = crops.get(counter);
-						if (crop.canHarvest()) {
-							cropsToHarvest = true;
-							earnings += crop.getSellPrice();
-							farm.removeCrop(crop);
-						}
-					}
-					if (cropsToHarvest) {
-						JOptionPane.showMessageDialog(frmFarmSimulator, "You harvested all fully grown crops and earned $" + earnings + ".");
-						farm.earnMoney(earnings);
-						useAction();
-					}
-					else {
-						JOptionPane.showMessageDialog(frmFarmSimulator, "You have no fully grown crops to harvest!");
-					}
-					setCrops();
-				}
+				harvestCrops();
 			}
 		});
 		frmFarmSimulator.getContentPane().add(harvestButton);
@@ -289,7 +299,7 @@ public class MainScreen {
 		frmFarmSimulator.getContentPane().add(waterCropsButton);
 		waterCropsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cropSelection(1);
+				waterCropSelection();
 			}
 		});
 		
@@ -297,13 +307,11 @@ public class MainScreen {
 		playButton.setBounds(500, 301, 140, 23);
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (remainingActions <= 0) {
+				if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You played with all of your animals and increased their happiness.");
-					for (Animal animal : farm.getAnimals()) {
-						animal.increaseHappiness(2);
-					}
+					game.playWithAnimals();
 					useAction();
 				}
 			}
@@ -314,14 +322,11 @@ public class MainScreen {
 		tendLandButton.setBounds(254, 354, 112, 75);
 		tendLandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (remainingActions <= 0) {
+				if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
-					farm.increaseCropLimit();
-					setCrops();
-					for (Animal animal : farm.getAnimals()) {
-						animal.increaseHappiness(1);
-					}
+					game.tendLand();
+					updateCropDisplay();
 					useAction();
 				}
 			}
@@ -352,67 +357,24 @@ public class MainScreen {
 		}
 	}
 	
-	public void cropSelection(int amount) {
+	public void waterCropSelection() {
 		ArrayList<String> cropTypes = new ArrayList<String>();
-		for (Crop crop : farm.getCrops()) {
+		for (Crop crop : game.getFarm().getCrops()) {
 			if (!crop.canHarvest() && !cropTypes.contains(crop.getCropType())){
 				cropTypes.add(crop.getCropType());
 			}
 		}
-		Object[] crops = cropTypes.toArray();
-		String initialSelection = "Barley";	
-		String selection = (String) JOptionPane.showInputDialog(frmFarmSimulator, "Choose a crop variety to tend to:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
-		if (selection != null) {
-			for (Crop crop : farm.getCrops()) {
-				if (crop.getCropType() == selection) {
-					crop.boostGrowth(amount);
-				}
-			}
-			useAction();
+		if (cropTypes.size() > 0) {
+			Object[] crops = cropTypes.toArray();
+			String initialSelection = "Barley";	
+			String selection = (String) JOptionPane.showInputDialog(frmFarmSimulator, "Choose a crop variety to water:", "Choose Crop", JOptionPane.PLAIN_MESSAGE, null, crops, initialSelection);
+			if (selection != null) {
+				game.waterCrops(selection);
+				useAction();
+			}		
+			updateCropDisplay();
+		} else {
+			JOptionPane.showMessageDialog(frmFarmSimulator, "There are no crops to water");
 		}
-		
-		setCrops();
-	}
-	
-	public void useAction() {
-		remainingActions --;
-		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
-	}
-	
-	public int getRemainingActions() {
-		return remainingActions;
-	}
-	
-	public void launch() {
-		setCrops();
-		setAnimals();
-		actionLabel.setText(Integer.toString(remainingActions) + " actions remaining");
-		moneyLabel.setText("You have $" + farm.getMoney());
-		frmFarmSimulator.setVisible(true);
-	}
-
-	public void finishedWindow() {
-		game.endMainGame();
-		frmFarmSimulator.dispose();
-	}
-	
-	public void launchStoreWindow() {
-		frmFarmSimulator.setVisible(false);
-		game.openStoreScreen();
-	}
-	
-	public void launchInventoryWindow() {
-		frmFarmSimulator.setVisible(false);
-		game.openInventoryScreen();
-	}
-	
-	public void launchAnimalWindow() {
-		frmFarmSimulator.setVisible(false);
-		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game, this);	
-	}
-	
-	public void closeAnimalScreen(AnimalStatusScreen animalWindow) {
-		animalWindow.closeWindow();
-		frmFarmSimulator.setVisible(true);
 	}
 }

@@ -25,7 +25,7 @@ public class Kale extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Kale(){
+	public Kale(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }

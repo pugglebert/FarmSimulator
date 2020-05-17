@@ -18,7 +18,7 @@ public class CropItem extends Item implements Buyable {
 	 * @param newPrice			Cost of buying the item from the store
 	 * @param newGrowthBonus	Amount of days growth the item gives to crops
 	 */
-	CropItem(String newName, int newPrice, int newGrowthBonus) {
+	public CropItem(String newName, int newPrice, int newGrowthBonus) {
 		super.setName(newName);
 		super.setPrice(newPrice);
 	    growthBonus = newGrowthBonus;

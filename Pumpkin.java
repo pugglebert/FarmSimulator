@@ -25,7 +25,7 @@ public class Pumpkin extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Pumpkin(){
+	public Pumpkin(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }

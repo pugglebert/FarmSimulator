@@ -22,7 +22,7 @@ public class Sheep extends Animal{
 	/**
 	 * Initializes the Animal with the specified values
 	 */
-	Sheep(){
+	public Sheep(){
 		super(name, baseReturn, buyPrice);
 	}
 }

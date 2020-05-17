@@ -25,7 +25,7 @@ public class Wheat extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Wheat(){
+	public Wheat(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }
