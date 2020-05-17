@@ -3,7 +3,7 @@ package farmSimulatorGUI;
 import java.util.ArrayList;
 
 /**
- * This calss implements a Farm which can be one of four different types; Earth Farm, Mars Farm, Venus Farm, or Jupiter Farm
+ * This class implements a Farm which can be one of four different types; Earth Farm, Mars Farm, Venus Farm, or Jupiter Farm
  * The Farm contains information about all the crops and animals and how much money is available
  * 
  * @author David Frost, Ella Johnson
@@ -83,8 +83,12 @@ public class Farm {
 	 * @param newMoney		Amount of money the farm will have
 	 */
 	public void setMoney(int newMoney) {
-		startCash = newMoney;
-		money = newMoney;
+		if (newMoney < 0) {
+			throw new IllegalArgumentException("Money cannot be less than zero");
+		} else {
+			startCash = newMoney;
+			money = newMoney;
+		}
 	}
 	
 	/**
@@ -108,11 +112,23 @@ public class Farm {
 	 * @param earnings		Amount of money the farm gains
 	 */
 	public void earnMoney(int earnings) {
-		money += earnings;
+		if (earnings >= 0) {
+			money += earnings;
+		} else {
+			throw new IllegalArgumentException("Cannot earn negative amount of money");
+		}
 	}
 	
 	public void setName(String newName) {
-		name = newName;
+		if (newName.length() < 3) {
+			throw new IllegalArgumentException("Name must be at least 3 chars long.");
+		} else if (newName.length() > 15) {
+			throw new IllegalArgumentException("Name must be at most 15 chars long.");
+		} else if (newName.matches("[a-zA-Z ]+")){
+		    name = newName;
+		} else {
+			throw new IllegalArgumentException("Name must not contain numbers or special characters.");
+		}
 	}
 	
 	/**
@@ -192,8 +208,12 @@ public class Farm {
 	 * @param newCropLimit		Amount of crops that can be grown at one time
 	 */
 	public void setCropLimit(int newCropLimit) {
-		cropLimit = newCropLimit;
-		if (cropLimit > 16) { cropLimit = 16; }
+		if (newCropLimit < 0) {
+			throw new IllegalArgumentException("Crop limit cannot be a negative number");
+		} else {
+			cropLimit = newCropLimit;
+			if (cropLimit > 16) { cropLimit = 16; }
+		}
 	}
 	
 	/**
@@ -216,7 +236,11 @@ public class Farm {
 	 * @param newGrowthBonus		Amount of days that each crop's harvest age will decrease by
 	 */
 	public void setGrowthBonus(int newGrowthBonus) {
-		growthBonus = newGrowthBonus;
+		if (newGrowthBonus < 0) {
+			throw new IllegalArgumentException("GrowthBonus cannot be a negative number");
+		} else {
+			growthBonus = newGrowthBonus;
+		}
 	}
 	
 	/**
@@ -232,7 +256,11 @@ public class Farm {
 	 * @param newHappinessBonus		Amount of health each animal gains
 	 */
     public void setHappinessBonus(int newHappinessBonus) {
-		happinessBonus = newHappinessBonus;
+    	if (newHappinessBonus < 0) {
+    		throw new IllegalArgumentException("Happiness bonus cannot be less than zero");
+    	} else {
+    		happinessBonus = newHappinessBonus;
+    	}
 	}
     
     /**
