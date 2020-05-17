@@ -99,8 +99,14 @@ public class StoreScreen {
 		JButton cropButton = new JButton("Crops");
 		cropButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Buyable> crops = game.getStore().getCrops();
-				merchandiseOptionPane(crops);
+				if (game.getFarm().getCrops().size() < game.getFarm().getCropLimit()) {
+					ArrayList<Buyable> crops = game.getStore().getCrops();
+					merchandiseOptionPane(crops);	
+				}
+				else {
+					JOptionPane.showMessageDialog(frmCountyStore, "<html>You don't have enough space to grow more crops!<br/>Tend to the farm land to grow more</html>");
+				}
+				
 			}
 		});
 		cropButton.setFont(new Font("Tahoma", Font.PLAIN, 14));

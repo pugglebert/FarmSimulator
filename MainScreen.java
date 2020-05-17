@@ -61,6 +61,8 @@ public class MainScreen {
 	
 	public void launchInventoryWindow() {
 		frmFarmSimulator.setVisible(false);
+		updateAnimalDisplay();
+		updateCropDisplay();
 		InventoryScreen inventoryWindow = new InventoryScreen(game);
 	}
 	

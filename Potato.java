@@ -25,7 +25,7 @@ public class Potato extends Crop{
 	/**
 	 * Initializes the Crop with the specified values 
 	 */
-	Potato(){
+	public Potato(){
 		super(cropType, harvestAge, buyPrice, sellPrice);
 	}
 }

@@ -125,23 +125,23 @@ public class SetupScreen {
 		JRadioButton earthFarmRadio = new JRadioButton("Earth Farm", true);
 		earthFarmRadio.setBounds(38, 21, 79, 21);
 		farmTypePanel.add(earthFarmRadio);
-		earthFarmRadio.setActionCommand("earth");
+		earthFarmRadio.setActionCommand("Earth");
 
 
 		JRadioButton marsFarmRadio = new JRadioButton("Mars Farm");
 		marsFarmRadio.setBounds(38, 45, 109, 23);
 		farmTypePanel.add(marsFarmRadio);
-		marsFarmRadio.setActionCommand("mars");
+		marsFarmRadio.setActionCommand("Mars");
 
 		JRadioButton venusFarmRadio = new JRadioButton("Venus Farm");
 		venusFarmRadio.setBounds(38, 71, 109, 23);
 		farmTypePanel.add(venusFarmRadio);
-		venusFarmRadio.setActionCommand("venus");
+		venusFarmRadio.setActionCommand("Venus");
 
 		JRadioButton jupiterFarmRadio = new JRadioButton("Jupiter Farm");
 		jupiterFarmRadio.setBounds(38, 95, 109, 23);
 		farmTypePanel.add(jupiterFarmRadio);
-		jupiterFarmRadio.setActionCommand("jupiter");
+		jupiterFarmRadio.setActionCommand("Jupiter");
 
 		ButtonGroup farmTypeGroup = new ButtonGroup();
 		farmTypeGroup.add(earthFarmRadio);
@@ -213,7 +213,7 @@ public class SetupScreen {
 		
 	}	
 	
-	public boolean checkName(String name, JLabel errorLabel) {
+	public boolean checkNameValid(String name, JLabel errorLabel) {
 		boolean valid = true;
 		if (name.length() < 3 || name.length() > 15) {
 			valid = false;
@@ -232,7 +232,7 @@ public class SetupScreen {
 		return valid;
 	}
 	
-	public boolean checkAge(String age, JLabel errorLabel) {
+	public boolean checkAgeValid(String age, JLabel errorLabel) {
 		boolean valid = true;
 		
 		try {
@@ -261,15 +261,15 @@ public class SetupScreen {
 		String farmName = farmNameField.getText();
 		String farmerAge = farmerAgeField.getText();
 
-		if(!checkName(farmerName, farmerNameError)) {
+		if(!checkNameValid(farmerName, farmerNameError)) {
 			allValid = false;
 		}
 
-		if (!checkName(farmName, farmNameError)) {
+		if (!checkNameValid(farmName, farmNameError)) {
 			allValid = false;
 		}
 		
-		if (!checkAge(farmerAge, farmerAgeError)) {
+		if (!checkAgeValid(farmerAge, farmerAgeError)) {
 			allValid = false;
 		}
 		
@@ -290,16 +290,16 @@ class RadioListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		String button = radioGroup.getSelection().getActionCommand();
-		if (button == "earth") {
+		if (button == "Earth") {
 			text.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nBonuses: Animal Happiness +1");
 		}
-		else if (button == "mars") {
+		else if (button == "Mars") {
 			text.setText("Starting Money: $800\r\nStarting Animals: Cow\r\nStarting Crops: Maize, Potato\r\nBonuses: Crop Harvest Time -1");
 		}
-		else if (button == "venus") {
+		else if (button == "Venus") {
 			text.setText("Starting Money: $1500\r\nStarting Animals: Sheep\r\nStarting Crops: Pumpkin, Kale\r\nBonuses: N/A");
 		}
-		else if (button == "jupiter") {
+		else if (button == "Jupiter") {
 			text.setText("Starting Money: $500\r\nStarting Animals: Cow, Sheep\r\nStarting Crops: Wheat, Maize, Pumpkin\r\nBonuses: Animal Happiness +1, Crop Harvest Time -1");
 		}
 	}

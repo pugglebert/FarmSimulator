@@ -116,16 +116,16 @@ public class GameEnvironment {
 	 */
 	public void initiateFarm(String farmType, String farmName) {
 		switch(farmType) {
-		case "earth":
+		case "Earth":
 			farm = new EarthFarm(farmer);
 			break;
-		case "mars":
+		case "Mars":
 			farm = new MarsFarm(farmer);
 			break;
-		case "venus":
+		case "Venus":
 			farm = new VenusFarm(farmer);
 			break;
-		case "jupiter":
+		case "Jupiter":
 			farm = new JupiterFarm(farmer);
 			break;
 		}	
@@ -199,7 +199,9 @@ public class GameEnvironment {
 	 * Consumes an action
 	 */
 	public void useAction() {
-		remainingActions --;
+		if (remainingActions > 0) {
+			remainingActions --;
+		}
 	}
 	
 	/**
@@ -305,10 +307,10 @@ public class GameEnvironment {
 	 * Gets the score gained by all unharvest crops based on their stage of growth
 	 * @return 		Score based on the state of all unharvested crops
 	 */
-	public int getCropScore() {
+	public double getCropScore() {
 		int cropScore = 0;
 		for (Crop crop : farm.getCrops()) {
-			cropScore += (crop.getAge() / crop.getHarvestAge()) * 100;
+			cropScore += 50 * crop.getAge();
 		}
 		return cropScore / totalDays;
 	}
@@ -317,7 +319,7 @@ public class GameEnvironment {
 	 * Returns the score as a sum of moneyScore, animalScore, and cropScore
 	 * @return		Returns the total score
 	 */
-	public int calcScore() {
+	public double calcScore() {
 		return getMoneyScore() + getAnimalScore() + getCropScore();
 	}
 	

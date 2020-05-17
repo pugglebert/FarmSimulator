@@ -122,12 +122,12 @@ public class EndScreen {
 		animalScore.setHorizontalAlignment(SwingConstants.CENTER);
 		scorePanel.add(animalScore);
 		
-		JLabel cropScore = new JLabel(Integer.toString(game.getCropScore()));
+		JLabel cropScore = new JLabel(Double.toString(game.getCropScore()));
 		cropScore.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cropScore.setHorizontalAlignment(SwingConstants.CENTER);
 		scorePanel.add(cropScore);
 		
-		JLabel totalScore = new JLabel(Integer.toString(game.calcScore()));
+		JLabel totalScore = new JLabel(Double.toString(game.calcScore()));
 		totalScore.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		totalScore.setHorizontalAlignment(SwingConstants.CENTER);
 		scorePanel.add(totalScore);

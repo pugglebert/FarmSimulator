@@ -86,7 +86,6 @@ public class Farm {
 		if (newMoney < 0) {
 			throw new IllegalArgumentException("Money cannot be less than zero");
 		} else {
-			startCash = newMoney;
 			money = newMoney;
 		}
 	}
@@ -97,6 +96,19 @@ public class Farm {
 	 */
 	public int getMoney() {
 		return money;
+	}
+	
+	/**
+	 * Sets the amount of money the farm starts with
+	 * @param newMoney		Amount of money the farm will have
+	 */
+	public void setStartCash(int newMoney) {
+		if (newMoney < 0) {
+			throw new IllegalArgumentException("Money cannot be less than zero");
+		} else {
+			startCash = newMoney;
+			setMoney(startCash);
+		}
 	}
 	
 	/**

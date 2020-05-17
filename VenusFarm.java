@@ -70,7 +70,7 @@ public class VenusFarm extends Farm {
 	 */
 	public VenusFarm(Farmer farmer) {
 		super(farmer, "Venus");
-		setMoney(startCash);
+		setStartCash(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);
 		setCropLimit(cropLimit);

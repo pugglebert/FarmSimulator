@@ -30,15 +30,7 @@ public class Farmer {
 	 * @param newName string to change name to
 	 */
 	public void setName(String newName) {
-		if (newName.length() < 3) {
-			throw new IllegalArgumentException("Name must be at least 3 chars long.");
-		} else if (newName.length() > 15) {
-			throw new IllegalArgumentException("Name must be at most 15 chars long.");
-		} else if (newName.matches("[a-zA-Z ]+")){
-		    name = newName;
-		} else {
-			throw new IllegalArgumentException("Name must not contain numbers or special characters.");
-		}
+		name = newName;
 	}
 	
 	/**
@@ -54,11 +46,7 @@ public class Farmer {
 	 * @param newAge value to change name to
 	 */
 	public void setAge(int newAge) {
-		if (newAge <= 0 || newAge > 100) {
-			throw new IllegalArgumentException("Age must be 1-100");
-		} else {
-			age = newAge;
-		}
+		age = newAge;
 	}
 	
 	/**

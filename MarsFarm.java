@@ -69,7 +69,7 @@ public class MarsFarm extends Farm {
 	 */
 	public MarsFarm(Farmer farmer) {
 		super(farmer, "Mars");
-		setMoney(startCash);
+		setStartCash(startCash);
 		setGrowthBonus(growthBonus);
 		setHappinessBonus(happinessBonus);
 		setCropLimit(cropLimit);
