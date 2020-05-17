@@ -69,7 +69,7 @@ public class JupiterFarm extends Farm {
 	 * Constructs the JupiterFarm using the Farm parent class
 	 * @param farmer 	Farmer that works on the farm
 	 */
-	JupiterFarm(Farmer farmer) {
+	public JupiterFarm(Farmer farmer) {
 		super(farmer, "Jupiter");
 		initializeAnimals();
 		initializeCrops();
