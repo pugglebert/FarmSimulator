@@ -53,6 +53,9 @@ public class MainScreen {
 	
 	public void closeStoreWindow(StoreScreen storeWindow) {
 		storeWindow.closeWindow();
+		moneyLabel.setText("You have $" + game.getFarm().getMoney());
+		updateAnimalDisplay();
+		updateCropDisplay();
 		frmFarmSimulator.setVisible(true);
 	}
 	
