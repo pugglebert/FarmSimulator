@@ -84,6 +84,38 @@ class AnimalTest {
 		}
 	}
 	
+	@Test
+	void increaseHappinessTest() {
+		Animal animal = new Animal(animalType, buyPrice, baseReturn);
+		animal.setHappiness(5);
+		
+		try {
+			animal.increaseHappiness(-1);
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals(5, animal.getHappiness());
+		}
+		
+		animal.increaseHappiness(3);
+		assertEquals(8, animal.getHappiness());
+	}
+	
+	@Test
+	void increaseHealthTest() {
+		Animal animal = new Animal(animalType, buyPrice, baseReturn);
+		animal.setHealth(5);
+		
+		try {
+			animal.increaseHealth(-1);
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals(5, animal.getHealth());
+		}
+		
+		animal.increaseHealth(3);
+		assertEquals(8, animal.getHealth());
+	}
+	
 	@Test 
 	void maxHappinessCapTest() {
 		Animal animal = new Animal(animalType, buyPrice, baseReturn);

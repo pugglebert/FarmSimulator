@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 import farmSimulatorGUI.*;
 
+import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -40,6 +41,4 @@ class SetupTest {
 		JLabel errorLabel = new JLabel();
 		assertFalse(setupWindow.checkAgeValid(age, errorLabel));
 	}
-	
-
 }

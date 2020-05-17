@@ -40,6 +40,11 @@ class CropTest {
 
 	@Test
 	void boostGrowthTest() {
+		try {
+			crop.boostGrowth(-1);
+		} catch (IllegalArgumentException e) {
+			assertEquals(0, crop.getAge());
+		}
 		crop.boostGrowth(1);
 		assertEquals(1, crop.getAge());
 	}
@@ -52,7 +57,18 @@ class CropTest {
 	
 	@Test
 	void reduceHarvestAgeTest() {
+		try {
+			crop.reduceHarvestAge(-1);
+		} catch (IllegalArgumentException e) {
+			assertEquals(5, crop.getHarvestAge());
+		}
+		
 		crop.reduceHarvestAge(1);
 		assertEquals(4, crop.getHarvestAge());
+	}
+	
+	@Test
+	void toStringTest() {
+		assertEquals("Wheat: costs $100", crop.toStringStore());
 	}
 }
