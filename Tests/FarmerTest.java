@@ -12,35 +12,67 @@ import farmSimulatorGUI.*;
 import java.util.ArrayList;
 
 class FarmerTest {
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	
+	private Farmer testFarmer;
 
 	@BeforeEach
 	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+		testFarmer = new Farmer();
 	}
 
 	@Test
 	final void testSetName() {
-		Farmer testFarmer = new Farmer();
 		testFarmer.setName("Bob");
 		assertEquals("Bob", testFarmer.getName());
+		try {
+			testFarmer.setName("A");
+			fail("Should not accept names less than 3 chars long");
+		}
+		catch (IllegalArgumentException e) {
+			assertEquals("Bob", testFarmer.getName());
+		}
+		try {
+			testFarmer.setName("1234");
+			fail("Should not accept names containing numbers");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Bob", testFarmer.getName());
+		}
+		try {
+			testFarmer.setName("hello$");
+			fail("Should not accept names containing special characters");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Bob", testFarmer.getName());
+		}
+		try {
+			testFarmer.setName("This is a very long name");
+			fail("Should not accept names over 15 chars long");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Bob", testFarmer.getName());
+		}
 	}
 
 	@Test
 	final void testSetAge() {
-		Farmer testFarmer = new Farmer();
 		testFarmer.setAge(90);
 		assertEquals(90, testFarmer.getAge());
+		try {
+			testFarmer.setAge(0);
+			fail("Age cannot be set to 0");
+		} catch (IllegalArgumentException e) {
+			assertEquals(90, testFarmer.getAge());
+		}
+		try {
+			testFarmer.setAge(-10);
+			fail("Age cannot be set to a negative number");
+		} catch (IllegalArgumentException e) {
+			assertEquals(90, testFarmer.getAge());
+		}
+		try {
+			testFarmer.setAge(101);
+			fail("Age cannot be set to over 100");
+		} catch (IllegalArgumentException e) {
+			assertEquals(90, testFarmer.getAge());
+		}
 	}
 
 	@Test
