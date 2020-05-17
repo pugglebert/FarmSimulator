@@ -91,7 +91,11 @@ public class Crop implements Buyable {
 	 * @param bonus		Amount of days the harvest age is reduced by, comes as a bonus from the type of farm selected
 	 */
 	public void reduceHarvestAge(int bonus) {
-		harvestAge -= bonus;
+		if (bonus < 0) {
+			throw new IllegalArgumentException("Bonus can not be negative");
+		} else {
+			harvestAge -= bonus;
+		}
 	}
 	
 	/**
@@ -99,10 +103,14 @@ public class Crop implements Buyable {
 	 * @param amount	Amount of days the Crop's age is increased by
 	 */
 	public void boostGrowth(int amount) {
-		age += amount;
-		
-		if (age > harvestAge) {
-			age = harvestAge;
+		if (amount >= 0) {
+			age += amount;
+			
+			if (age > harvestAge) {
+				age = harvestAge;
+			}
+		} else {
+			throw new IllegalArgumentException("amount can not be negative");
 		}
 	}
 	

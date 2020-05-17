@@ -113,9 +113,13 @@ public class Animal implements Buyable {
 	 * @param amount		The amount of happiness to increase
 	 */
 	public void increaseHappiness(int amount) {
-		happiness += amount;
-		if (happiness > 10) {
-			happiness = 10;
+		if (amount >= 0) {
+			happiness += amount;
+			if (happiness > 10) {
+				happiness = 10;
+			}
+		} else {
+			throw new IllegalArgumentException("amount must be a positive integer");
 		}
 	}
 	
@@ -124,9 +128,13 @@ public class Animal implements Buyable {
 	 * @param amount		The amount of health to increase
 	 */
 	public void increaseHealth(int amount) {
-		health += amount;
-		if (health > 10) {
-			health = 10;
+		if (amount >= 0) {
+			health += amount;
+			if (health > 10) {
+				health = 10;
+			}
+		} else {
+			throw new IllegalArgumentException("amount must be a positive integer");
 		}
 	}
 	

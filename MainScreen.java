@@ -33,6 +33,7 @@ public class MainScreen {
 	public MainScreen(GameEnvironment newGame) {
 		game = newGame;
 		initialize();
+		updateMoneyDisplay();
 		updateCropDisplay();
 		updateAnimalDisplay();
 		frmFarmSimulator.setVisible(true);
@@ -53,7 +54,7 @@ public class MainScreen {
 	
 	public void closeStoreWindow(StoreScreen storeWindow) {
 		storeWindow.closeWindow();
-		moneyLabel.setText("You have $" + game.getFarm().getMoney());
+		updateMoneyDisplay();
 		updateAnimalDisplay();
 		updateCropDisplay();
 		frmFarmSimulator.setVisible(true);
@@ -61,13 +62,13 @@ public class MainScreen {
 	
 	public void launchInventoryWindow() {
 		frmFarmSimulator.setVisible(false);
-		updateAnimalDisplay();
-		updateCropDisplay();
 		InventoryScreen inventoryWindow = new InventoryScreen(game);
 	}
 	
 	public void closeInventoryWindow(InventoryScreen inventoryWindow) {
 		inventoryWindow.closeWindow();
+		updateAnimalDisplay();
+		updateCropDisplay();
 		frmFarmSimulator.setVisible(true);
 	}
 	
@@ -106,6 +107,10 @@ public class MainScreen {
 		actionLabel.setText(Integer.toString(game.getRemainingActions()) + " actions remaining");
 	}
 	
+	public void updateMoneyDisplay() {
+		moneyLabel.setText("You have $" + game.getFarm().getMoney());
+	}
+	
 	public void updateCropDisplay() {
 		ArrayList<Crop> crops = game.getFarm().getCrops();
 		for (int counter = crops.size() - 1; counter >= 0; counter --) {
@@ -142,9 +147,9 @@ public class MainScreen {
 				chickens ++; 
 			}
 		}
-	    cowCountLabel.setText("Owned: " + cows);
-	    sheepCountLabel.setText("Owned: " + sheep);
-	    chickenCountLabel.setText("Owned: " + chickens);
+	    cowCountLabel.setText("Owned: " + cows + "/10");
+	    sheepCountLabel.setText("Owned: " + sheep + "/10");
+	    chickenCountLabel.setText("Owned: " + chickens + "/10");
 	}
 	
 	public void harvestCrops() {
@@ -330,9 +335,23 @@ public class MainScreen {
 				if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
-					game.tendLand();
-					updateCropDisplay();
-					useAction();
+					boolean hasEffect = false;
+					if (game.getFarm().getCropLimit() < 16) {
+						hasEffect = true;
+					}
+					else {
+						for (Animal animal : game.getFarm().getAnimals()) {
+							if (animal.getHappiness() < 10) {
+								hasEffect = true;
+								break;
+							}
+						}
+					}
+					if (hasEffect) {
+						game.tendLand();
+						updateCropDisplay();
+						useAction();
+					}
 				}
 			}
 		});

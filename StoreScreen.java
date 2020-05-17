@@ -157,7 +157,7 @@ public class StoreScreen {
 					game.getFarm().buy(buyables.get(i));
 					updateMoney();
 					} catch (IllegalArgumentException e) {
-						JOptionPane.showMessageDialog(frmCountyStore, "You don't have enough money to buy that!");
+						JOptionPane.showMessageDialog(frmCountyStore, e.getMessage());
 					}
 				}
 			}

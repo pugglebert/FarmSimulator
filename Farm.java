@@ -300,15 +300,46 @@ public class Farm {
 				((Item) merchandise).addToInventory();
 			}
 			else if (merchandise instanceof Animal) {	
+				int cows = 0;
+				int sheep = 0;
+				int chickens = 0;
+				for (Animal animal : getAnimals()) {
+					if (animal instanceof Cow) { 
+						cows ++; 
+					}
+					else if (animal instanceof Sheep) { 
+						sheep ++; 
+					}
+					else if (animal instanceof Chicken) { 
+						chickens ++; 
+					}
+				}		
+				
 				Animal animal = null;
 				if (merchandise instanceof Cow) {
-					animal = new Cow();
+					if (cows < 10) {
+						animal = new Cow();
+					} else {
+						money += price;
+						throw new IllegalArgumentException("You already have the maximum number of Cows!");
+					}
+					
 				}
 				else if (merchandise instanceof Sheep) {
-					animal = new Sheep();
+					if (sheep < 10) {
+						animal = new Sheep();
+					} else {
+						money += price;
+						throw new IllegalArgumentException("You already have the maximum number of Sheep!");
+					}
 				}
 				else if (merchandise instanceof Chicken) {
-					animal = new Chicken();					
+					if (chickens < 10) {
+						animal = new Chicken();
+					} else {
+						money += price;
+						throw new IllegalArgumentException("You already have the maximum number of Chickens!");
+					}				
 				}
 				animal.increaseHappiness(getHappinessBonus());
 				addAnimal(animal);
@@ -346,7 +377,7 @@ public class Farm {
 				}	
 			} 
 		} else {
-			throw new IllegalArgumentException("Your farmer does not have enough money to buy this.");
+			throw new IllegalArgumentException("You don't have enough money to buy this!");
 		}
 	}
 	
