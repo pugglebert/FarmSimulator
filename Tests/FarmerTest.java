@@ -20,6 +20,11 @@ class FarmerTest {
 		testFarmer = new Farmer();
 	}
 
+	/**
+	 * Test that name can be set to a string 3-15 characters long made up of letters
+	 * and spaces
+	 * Test that strings which do not meet these criteria will not be accepted
+	 */
 	@Test
 	final void testSetName() {
 		testFarmer.setName("Bob");
@@ -51,6 +56,10 @@ class FarmerTest {
 		}
 	}
 
+	/**
+	 * Test that age can be set to an int from one to 100, but not to an int outside
+	 * of that range
+	 */
 	@Test
 	final void testSetAge() {
 		testFarmer.setAge(90);
@@ -74,10 +83,12 @@ class FarmerTest {
 			assertEquals(90, testFarmer.getAge());
 		}
 	}
-
+	
+	/**
+	 * Test that items can be set to an ArrayList containing food and crop items
+	 */
 	@Test
 	final void testSetItems() {
-		Farmer testFarmer = new Farmer();
 		ArrayList<Item> testItems = new ArrayList<Item>();
 		testItems.add(new FoodItem("Test1", 1, 1));
 		testItems.add(new CropItem("Test2", 1, 1));
@@ -85,9 +96,12 @@ class FarmerTest {
 		assertEquals(testItems, testFarmer.getItems());
 	}
 
+	/**
+	 * Test that getFoodItems returns only the items in Farmer.items which are
+	 * food items
+	 */
 	@Test
 	final void testGetFoodItems() {
-		Farmer testFarmer = new Farmer();
 		ArrayList<Item> testItems = new ArrayList<Item>();
 		testItems.add(new FoodItem("Test1", 1, 1));
 		testItems.add(new CropItem("Test2", 1, 1));
@@ -96,6 +110,10 @@ class FarmerTest {
 		assertTrue(testFarmer.getFoodItems().get(0) instanceof FoodItem);
 	}
 
+	/**
+	 * Test that getCropItems returns only the items in Farmer.items which are
+	 * crop items
+	 */
 	@Test
 	final void testGetCropItems() {
 		Farmer testFarmer = new Farmer();
@@ -107,6 +125,10 @@ class FarmerTest {
 		assertTrue(testFarmer.getCropItems().get(0) instanceof CropItem);
 	}
 
+	/**
+	 * Test that both food and crop items can be added to Farmer.items with the
+	 * addItems method
+	 */
 	@Test
 	final void testAddItem() {
 		Farmer testFarmer = new Farmer();
@@ -118,6 +140,11 @@ class FarmerTest {
 		assertEquals(2, testFarmer.getItems().size());
 	}
 
+	/**
+	 * Test that if removeItem is called with an item in Farmer.items, that item
+	 * will be removed, and that no change will occur if it is called with an item
+	 * not in Farmer.items
+	 */
 	@Test
 	final void testRemoveItem() {
 		Farmer testFarmer = new Farmer();
@@ -130,6 +157,8 @@ class FarmerTest {
 		testFarmer.removeItem(test1);
 		assertEquals(1, testFarmer.getItems().size());
 		assertTrue(testFarmer.getItems().get(0) instanceof CropItem);
+		testFarmer.removeItem(new CropItem("Test3", 1, 1));
+		assertEquals(1, testFarmer.getItems().size());
 	}
 
 }
