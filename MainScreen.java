@@ -24,15 +24,54 @@ import javax.swing.JProgressBar;
 
 public class MainScreen {
 
+	/**
+	 * Main window
+	 */
 	private JFrame frmFarmSimulator;
+	
+	/**
+	 * Spaces which can be occupied by crops, fertile or uncultivated
+	 */
 	private ArrayList<JPanel> cropSpaces = new ArrayList<JPanel>();
+	
+	/**
+	 * Game environment which controls main screen
+	 */
 	private GameEnvironment game;
+	
+	/**
+	 * Button to move to next day
+	 */
 	private JButton nextDayButton;
+	
+	/**
+	 * Label showing how many days player has been on farm
+	 */
 	private JLabel dayLabel;
+	
+	/**
+	 * Label showing how much money player has
+	 */
 	private JLabel moneyLabel;
+	
+	/**
+	 * Label showing how many actions player has remaining
+	 */
 	private JLabel actionLabel;
+	
+	/**
+	 * Label showing how many cows player has
+	 */
 	private JLabel cowCountLabel;
+	
+	/**
+	 * Label showing how many sheep player has
+	 */
 	private JLabel sheepCountLabel;
+	
+	/**
+	 * Label showing how many chickens player has
+	 */
 	private JLabel chickenCountLabel;
 	private JLabel toolTipLabel;
 	
@@ -48,19 +87,32 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	/**
+	 * Close application after main part of game has finished
+	 */
 	public void closeWindow() {
 		frmFarmSimulator.dispose();
 	}
 	
+	/**
+	 * Calls function to close main screen window
+	 */
 	public void finishedWindow() {
 		game.closeMainScreen(this);
 	}
 	
+	/**
+	 * Makes main screen window hidden, and store window visible
+	 */
 	public void launchStoreWindow() {
 		frmFarmSimulator.setVisible(false);
 		StoreScreen storeWindow = new StoreScreen(game);
 	}
 	
+	/**
+	 * Closes store window, updates value on main screen and makes main screen visible again
+	 * @param storeWindow The screen for the store
+	 */
 	public void closeStoreWindow(StoreScreen storeWindow) {
 		storeWindow.closeWindow();
 		updateMoneyDisplay();
@@ -69,11 +121,18 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	/**
+	 * Makes the main screen window hidden and the inventory window visible
+	 */
 	public void launchInventoryWindow() {
 		frmFarmSimulator.setVisible(false);
 		InventoryScreen inventoryWindow = new InventoryScreen(game);
 	}
 	
+	/**
+	 * Makes the inventory window hidden, updates the values on main screen and makes it visible
+	 * @param inventoryWindow The window to close
+	 */
 	public void closeInventoryWindow(InventoryScreen inventoryWindow) {
 		inventoryWindow.closeWindow();
 		updateAnimalDisplay();
@@ -81,21 +140,37 @@ public class MainScreen {
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	/**
+	 * Makes the main screen window hidden and the animal status window visible
+	 */
 	public void launchAnimalWindow() {
 		frmFarmSimulator.setVisible(false);
 		AnimalStatusScreen animalWindow = new AnimalStatusScreen(game);	
 	}
 	
+	/**
+	 * Makes the animal status window hidden and the mains screen visible
+	 * @param animalWindow The window to close
+	 */
 	public void closeAnimalWindow(AnimalStatusScreen animalWindow) {
 		animalWindow.closeWindow();
 		frmFarmSimulator.setVisible(true);
 	}
 	
+	/**
+	 * Decreases the game environment's tally of remaining actions and the number of remaining actions
+	 * visible on actionLable
+	 */
 	public void useAction() {
 		game.useAction();
 		actionLabel.setText("Actions Remaining: " + game.getRemainingActions());
 	}
 	
+	/**
+	 * Changes next day button to end game if this is the last day of the game.
+	 * If some days remain, resets actions to 2 and updates displays to reflect changes to crops,
+	 * animals, current day and money.
+	 */
 	public void newDay() {
 		if (game.getCurrentDay() == game.getTotalDays()) {
 			nextDayButton.addMouseListener(new MouseAdapter() {
@@ -128,10 +203,16 @@ public class MainScreen {
 		actionLabel.setText("Actions Remaining: " + game.getRemainingActions());
 	}
 	
+	/**
+	 * Changes moneyLabel to reflect changes in farmer's money
+	 */
 	public void updateMoneyDisplay() {
 		moneyLabel.setText("Money: $" + game.getFarm().getMoney());
 	}
 	
+	/**
+	 * Updates properties of crops and fertile/uncultivated crop spaces
+	 */
 	public void updateCropDisplay() {
 		ArrayList<Crop> crops = game.getFarm().getCrops();
 		for (int counter = crops.size() - 1; counter >= 0; counter --) {
@@ -189,6 +270,9 @@ public class MainScreen {
 		}
 	}
 	
+	/**
+	 * Updates amount owned of each animal
+	 */
 	public void updateAnimalDisplay() {
 		int cows = 0;
 		int sheep = 0;
@@ -209,6 +293,11 @@ public class MainScreen {
 	    chickenCountLabel.setText("Owned: " + chickens + "/10");
 	}
 	
+	/**
+	 * Shows error message if there are no crops available to harvest
+	 * If some crops are available to harvest, removes them from display, increases farmer money
+	 * by earnings from selling crops, and decreases remaining actions by 1
+	 */
 	public void harvestCrops() {
 		Farm farm = game.getFarm();
 		boolean cropsToHarvest = false;
@@ -244,6 +333,7 @@ public class MainScreen {
 		frmFarmSimulator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFarmSimulator.getContentPane().setLayout(null);
 		
+		//When pressed will open store screen and close main screen
 		JButton storeButton = new JButton("Store");
 		storeButton.setBounds(10, 373, 112, 75);
 		storeButton.addMouseListener(new MouseAdapter() {
@@ -264,6 +354,7 @@ public class MainScreen {
 		});
 		frmFarmSimulator.getContentPane().add(storeButton);
 		
+		//When pressed will move game to next day
 		nextDayButton = new JButton("Go to next day");
 		nextDayButton.setBounds(531, 373, 140, 75);
 		nextDayButton.addMouseListener(new MouseAdapter() {
@@ -286,6 +377,7 @@ public class MainScreen {
 		});
 		frmFarmSimulator.getContentPane().add(nextDayButton);
 		
+		//When pressed will close main screen and open inventory
 		JButton inventoryButton = new JButton("Inventory");
 		inventoryButton.setBounds(132, 373, 112, 75);
 		inventoryButton.addMouseListener(new MouseAdapter() {
@@ -306,6 +398,7 @@ public class MainScreen {
 		});
 		frmFarmSimulator.getContentPane().add(inventoryButton);
 		
+		//Panel within which animal information is displayed
 		JPanel animalPanel = new JPanel();
 		animalPanel.setBounds(410, 62, 261, 250);
 		animalPanel.setBackground(Color.BLACK);
@@ -410,6 +503,7 @@ public class MainScreen {
 		frmFarmSimulator.getContentPane().add(actionButtonsPanel);
 		actionButtonsPanel.setLayout(new GridLayout(1, 5, 0, 0));
 		
+		//Calls harvestCrops() method when pressed
 		JButton harvestButton = new JButton("Harvest crops");
 		harvestButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -429,6 +523,7 @@ public class MainScreen {
 			}
 		});
 		
+		//Calls waterCropSelection() when pressed if player has actions remaining
 		JButton waterCropsButton = new JButton("Water Crops");
 		actionButtonsPanel.add(waterCropsButton);
 		waterCropsButton.addMouseListener(new MouseAdapter() {
@@ -448,6 +543,7 @@ public class MainScreen {
 			}
 		});
 		
+		//Increases animal happiness and fertile crop spaces if player has actions remaining
 		JButton tendLandButton = new JButton("Tend land");
 		actionButtonsPanel.add(tendLandButton);
 		tendLandButton.addMouseListener(new MouseAdapter() {
@@ -493,6 +589,7 @@ public class MainScreen {
 		toolTipLabel.setBounds(254, 373, 261, 75);
 		frmFarmSimulator.getContentPane().add(toolTipLabel);
 		
+		//Calls the Game Environment method playWithAnimals if the player has actions remaining
 		JButton playButton = new JButton();
 		actionButtonsPanel.add(playButton);
 		playButton.setLayout(new BorderLayout());
@@ -525,6 +622,7 @@ public class MainScreen {
 			}
 		});
 		
+		//Hides main screen and makes animal status screen visible when pressed
 		JButton animalStatusButton = new JButton();
 		actionButtonsPanel.add(animalStatusButton);
 		animalStatusButton.setLayout(new BorderLayout());
@@ -551,7 +649,7 @@ public class MainScreen {
 			}
 		});
 		
-
+		//Initializes labels on all crop spaces to uncultivated
 		for (int counter = 0; counter < 16; counter ++) {
 			JPanel cropSpace = new JPanel();
 			cropSpace.setLayout(new GridLayout(1,1,0,0));
@@ -566,6 +664,12 @@ public class MainScreen {
 		}
 	}
 	
+	/**
+	 * If the farm does not have any crops, pop up message will tell player this.
+	 * If the farm does have crops, pop up message will prompt player to choose a variety to water.
+	 * The harvest times of all these crops will decrease by 1 and remaining actions will decrease
+	 * by 1.
+	 */
 	public void waterCropSelection() {
 		ArrayList<String> cropTypes = new ArrayList<String>();
 		for (Crop crop : game.getFarm().getCrops()) {
