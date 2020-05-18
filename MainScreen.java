@@ -539,7 +539,11 @@ public class MainScreen {
 		});
 		waterCropsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				waterCropSelection();
+				if (game.getRemainingActions() <= 0) {
+					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
+				} else {
+					waterCropSelection();
+				}
 			}
 		});
 		
