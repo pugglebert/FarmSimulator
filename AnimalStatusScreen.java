@@ -19,15 +19,42 @@ import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 import java.awt.Color;
 
+/**
+ * Window to display the health and happiness of each animal owned by the farmer
+ * @author David Frost, Ella Johnson
+ *
+ */
 public class AnimalStatusScreen {
 
+	/**
+	 * Main animal status screen window
+	 */
 	private JFrame animalStatusWindow;
+	
+	/**
+	 * Game environment which controls window
+	 */
 	private GameEnvironment game;
+	
+	/**
+	 * Displays cow health and happiness
+	 */
 	private JPanel cowPanel;
+	
+	/**
+	 * Displays sheep health and happiness
+	 */
 	private JPanel sheepPanel;
+	
+	/**
+	 * Displays chicken health and happiness
+	 */
 	private JPanel chickenPanel;
 	
-
+	/**
+	 * Initializes display of animal information and makes animal status screen visible
+	 * @param newGame Game environment which controls animal status screen
+	 */
 	public AnimalStatusScreen(GameEnvironment newGame) {
 		game = newGame;	
 		initialize();
@@ -35,14 +62,24 @@ public class AnimalStatusScreen {
 		animalStatusWindow.setVisible(true);
 	}
 	
+	/**
+	 * Close animal status screen
+	 */
 	public void closeWindow() {
 		animalStatusWindow.dispose();
 	}
 
+	/**
+	 * Dispose of animal status screen when main game finished
+	 */
 	public void finishedWindow() {
 		game.getMainScreen().closeAnimalWindow(this);
 	}	
 		
+	/**
+	 * Initialize three columns which display health and happiness for each of the three types of
+	 * animal
+	 */
 	private void initialize() {
 		animalStatusWindow = new JFrame();
 		animalStatusWindow.setResizable(false);
@@ -70,6 +107,7 @@ public class AnimalStatusScreen {
 		animalStatusWindow.getContentPane().add(chickenPanel);
 		chickenPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
+		// Button to return to farm
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,6 +137,10 @@ public class AnimalStatusScreen {
 		animalStatusWindow.getContentPane().add(chickenLabel);
 	}
 	
+	/**
+	 * Get information on animal health and happiness from health and display that information
+	 * as a progress bars for each animal
+	 */
 	private void setUpAnimals() {
 		for (Animal animal : game.getFarm().getAnimals()) {
 			JPanel animalPanel = new JPanel();

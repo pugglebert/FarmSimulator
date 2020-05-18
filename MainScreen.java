@@ -22,6 +22,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JProgressBar;
 
+/**
+ * Screen where main game play occurs. Displays crop and animal information and allows player to
+ * preform actions and visit store or view animal status or inventory.
+ * @author David Frost, Ella Johnson
+ *
+ */
 public class MainScreen {
 
 	/**
@@ -321,7 +327,9 @@ public class MainScreen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize display of information on farm's crops, animals, money, remaining actions and
+	 * current day
+	 * Initialize buttons to preform actions or open animal status, store or inventory screens
 	 */
 	private void initialize() {
 		frmFarmSimulator = new JFrame();

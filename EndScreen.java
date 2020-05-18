@@ -19,25 +19,51 @@ import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JSplitPane;
 
+/**
+ * After the main game is played, end screen displays information about player's farm and their final
+ * score
+ * @author David Frost, Ella Johnson
+ *
+ */
 public class EndScreen {
 
+	/**
+	 * The main endscreen window
+	 */
 	private JFrame endWindow;
+	
+	/**
+	 * Game environment which controls the window
+	 */
 	private GameEnvironment game;
 	
+	/**
+	 * Initialize display of information and score and makes endscreen visible
+	 * @param newGame Game environment which controls window
+	 */
 	public EndScreen(GameEnvironment newGame) {
 		game = newGame;
 		initialize();
 		endWindow.setVisible(true);
 	}
 
+	/**
+	 * Dispose of endscreen
+	 */
 	public void closeWindow() {
 		endWindow.dispose();
 	}
 
+	/**
+	 * Close screen when player decides to end game
+	 */
 	public void finishedWindow() {
 		game.closeEndScreen(this);
 	}	
 		
+	/**
+	 * Initializes display with information from player's time on farm and player's score
+	 */
 	private void initialize() {
 		endWindow = new JFrame();
 		endWindow.setResizable(false);
@@ -61,7 +87,7 @@ public class EndScreen {
 		JLabel farmCongratPanel = new JLabel("Your farm, " + game.getFarm().getName() + ", was succesfully set up on " + game.getFarm().getPlanetType() + ", making a net profit of " + game.getNetProfit() + ".");
 		farmCongratPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		farmCongratPanel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		farmCongratPanel.setBounds(10, 84, 654, 22);
+		farmCongratPanel.setBounds(10, 84, 654, 14);
 		congratPanel.add(farmCongratPanel);
 		
 		JLabel lblNewLabel = new JLabel("You spent " + game.getTotalDays() + " days on your farm, and here is what you have to show for it:");
@@ -132,6 +158,7 @@ public class EndScreen {
 		totalScore.setHorizontalAlignment(SwingConstants.CENTER);
 		scorePanel.add(totalScore);
 		
+		// Close window and end game
 		JButton exitButton = new JButton("Exit Game");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -15,6 +15,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
+/**
+ * Screen which displays items farmer owns and allows player to select items to use
+ * @author David Frost, Ella Johnson
+ *
+ */
 public class InventoryScreen {
 
 	/**
@@ -76,7 +81,7 @@ public class InventoryScreen {
 	}
 
 	/**
-	 * Initialize the contents of the frame
+	 * Initialize display of items farmer owns with buttons to use items or go to the farm or the store
 	 */
 	private void initialize() {
 		frmInventory = new JFrame();

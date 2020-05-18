@@ -17,6 +17,11 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.JButton;
 
+/**
+ * Screen in player sets up their farm and farmer before they start the game
+ * @author David Frost, Ella Johnson
+ *
+ */
 public class SetupScreen {
 
 	private JFrame setupWindow;
@@ -29,29 +34,31 @@ public class SetupScreen {
 	private JLabel farmerAgeError;
 
 	/**
-	 * Launch the application.
+	 * Make the setup screen visible and initialize its display
 	 */
-
-	/**
-	 * Create the application.
-	 */	
-
 	public SetupScreen(GameEnvironment newGame) {
 		game = newGame;
 		initialize();
 		setupWindow.setVisible(true);
 	}
 
+	/**
+	 * Dispose of the setup screen
+	 */
 	public void closeWindow() {
 		setupWindow.dispose();
 	}
 
+	/**
+	 * Close setup screen when player moves on to main game
+	 */
 	public void finishedWindow() {
 		game.closeSetupScreen(this);
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize slide for player to choose duration of game, buttons for player to choose farm
+	 * type and text fields for player to input farm name, farmer name and farmer age
 	 */
 	private void initialize() {
 		setupWindow = new JFrame();
@@ -213,6 +220,12 @@ public class SetupScreen {
 		
 	}	
 	
+	/**
+	 * Checks that name is 3-15 characters long and does not contain numbers or special characters
+	 * @param name String for farmer or farm name
+	 * @param errorLabel Label on which error message will be displayed
+	 * @return
+	 */
 	public boolean checkNameValid(String name, JLabel errorLabel) {
 		boolean valid = true;
 		if (name.length() < 3 || name.length() > 15) {
@@ -232,6 +245,12 @@ public class SetupScreen {
 		return valid;
 	}
 	
+	/**
+	 * Checks that age is in the range 1-100
+	 * @param age Player input for age
+	 * @param errorLabel Label on which error message will be displayed
+	 * @return
+	 */
 	public boolean checkAgeValid(String age, JLabel errorLabel) {
 		boolean valid = true;
 		
@@ -255,6 +274,13 @@ public class SetupScreen {
 		return valid;
 	}
 	
+	/**
+	 * Checks if player input is within constraints
+	 * @param farmerName Name for farmer from player input
+	 * @param farmerAge Age for farmer from player input
+	 * @param farmName Name for farm from player input
+	 * @return
+	 */
 	public boolean isValid(String farmerName, String farmerAge, String farmName) {
 		boolean allValid = true;
 
@@ -275,6 +301,11 @@ public class SetupScreen {
 
 }
 
+/**
+ * Buttons with which to choose farm type
+ * @author David Frost, Ella Johnson
+ *
+ */
 class RadioListener implements ActionListener{
 	private JTextPane text;
 	private ButtonGroup radioGroup;
@@ -284,6 +315,9 @@ class RadioListener implements ActionListener{
 		radioGroup = farmTypeGroup;
 	}
 
+	/**
+	 * Displays information about each planet and allows player to select planet
+	 */
 	public void actionPerformed(ActionEvent e) {
 
 		String button = radioGroup.getSelection().getActionCommand();
