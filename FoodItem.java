@@ -60,6 +60,10 @@ public class FoodItem extends Item implements Buyable {
 	 * @param newHealthGiven	Amount of health the animals gain
 	 */
 	public void setHealthGiven(int newHealthGiven) {
-		healthGiven = newHealthGiven;
+		if (newHealthGiven >= 0) {
+			healthGiven = newHealthGiven;
+		} else {
+			throw new IllegalArgumentException("HealthGiven cannot be a negative number");
+		}
 	}
 }

@@ -59,7 +59,11 @@ public class CropItem extends Item implements Buyable {
 	 * @param newGrowthBonus	Amount of days crops are boosted by
 	 */
 	public void setGrowthBonus(int newGrowthBonus) {
-		growthBonus = newGrowthBonus;
+		if (newGrowthBonus >= 0) {
+			growthBonus = newGrowthBonus;
+		} else {
+			throw new IllegalArgumentException("GrowthBonus cannot be a negative number");
+		}
 	}
 	
 } 

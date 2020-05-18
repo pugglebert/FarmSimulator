@@ -44,7 +44,11 @@ public abstract class Item implements Buyable {
 	 * Decreases amount of the Item that the farmer owns by 1
 	 */
 	public void removeFromInventory() {
-		inventory_count--;
+		if (inventory_count <= 0) {
+			inventory_count = 0;
+		} else {
+			inventory_count--;
+		}
 	}
 	
 	/**
@@ -60,7 +64,11 @@ public abstract class Item implements Buyable {
 	 * @param newPrice price Item can be bought for
 	 */
     public void setPrice(int newPrice) {
-    	price = newPrice;
+    	if (newPrice < 0) {
+    		throw new IllegalArgumentException("Price cannot be a negative number");
+    	} else {
+    		price = newPrice;
+    	}
     }
     
     /**
@@ -76,7 +84,11 @@ public abstract class Item implements Buyable {
      * @param newName string to set name to
      */
     public void setName(String newName) {
-    	name = newName;
+    	if (newName.trim().length() > 0) {
+    		name = newName;
+    	} else {
+    		throw new IllegalArgumentException("Item name must contain at least one non-whitespace character");
+    	}
     }
     
     /**
