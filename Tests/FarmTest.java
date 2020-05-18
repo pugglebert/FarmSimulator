@@ -35,25 +35,50 @@ class FarmTest {
 	}
 
 	/**
-	 * Test if setMoney gives getMoney and startCash correct value for inputs of positive
+	 * Test if setStartCash gives getMoney and startCash correct value for inputs of positive
+	 * number, negative number and zero
+	 */
+	@Test
+	final void testSetStartCash() {
+		for (Farm testFarm : testFarms) {
+			testFarm.setStartCash(1000);
+			assertEquals(1000, testFarm.getMoney());
+			assertEquals(1000, testFarm.getStartCash());
+			testFarm.setStartCash(0);
+			assertEquals(0, testFarm.getMoney());
+			assertEquals(0, testFarm.getStartCash());
+			try {
+				testFarm.setStartCash(-1);
+				fail("StartCash should not be set to negative number");
+			}
+			catch (IllegalArgumentException e) {
+				assertEquals(0, testFarm.getMoney());
+				assertEquals(0, testFarm.getStartCash());
+			}
+		}
+	}
+	
+	/**
+	 * Test if setStartCash gives getMoney and startCash correct value for inputs of positive
 	 * number, negative number and zero
 	 */
 	@Test
 	final void testSetMoney() {
 		for (Farm testFarm : testFarms) {
+			int startCash = testFarm.getStartCash();
 			testFarm.setMoney(1000);
 			assertEquals(1000, testFarm.getMoney());
-			assertEquals(1000, testFarm.getStartCash());
+			assertEquals(startCash, testFarm.getStartCash());
 			testFarm.setMoney(0);
 			assertEquals(0, testFarm.getMoney());
-			assertEquals(0, testFarm.getStartCash());
+			assertEquals(startCash, testFarm.getStartCash());
 			try {
 				testFarm.setMoney(-1);
 				fail("Money should not be set to negative number");
 			}
 			catch (IllegalArgumentException e) {
 				assertEquals(0, testFarm.getMoney());
-				assertEquals(0, testFarm.getStartCash());
+				assertEquals(startCash, testFarm.getStartCash());
 			}
 		}
 	}
@@ -68,7 +93,7 @@ class FarmTest {
 	@Test
 	final void testEarnMoney() {
 		for (Farm testFarm : testFarms) {
-			testFarm.setMoney(100);
+			testFarm.setStartCash(100);
 			testFarm.earnMoney(30);
 			assertEquals(testFarm.getMoney(), 130);
 			assertEquals(testFarm.getStartCash(), 100);
@@ -365,14 +390,14 @@ class FarmTest {
 				assertEquals(90, testFarm.getMoney());
 				assertEquals(size, testFarm.getAnimals().size());
 			}
-			testFarm.setMoney(100);
+			testFarm.setMoney(200);
 			testFarm.buy(testAnimal);
 			assertEquals(0, testFarm.getMoney());
 			assertEquals(size + 1, testFarm.getAnimals().size());
 			assertEquals(6, testFarm.getAnimals().get(size).getHappiness());
 			testFarm.setMoney(1000);
 			testFarm.buy(testAnimal);
-			assertEquals(900, testFarm.getMoney());
+			assertEquals(800, testFarm.getMoney());
 			assertEquals(size + 2, testFarm.getAnimals().size());
 			assertEquals(6, testFarm.getAnimals().get(size + 1).getHappiness());
 		}
