@@ -279,7 +279,7 @@ public class MainScreen {
 		chickenCountLabel.setBounds(103, 0, 175, 37);
 		chickenPanel.add(chickenCountLabel);
 		
-		JLabel chickenReturnLabel = new JLabel("Daily Return (Base): $" + new Cow().getBaseReturn());
+		JLabel chickenReturnLabel = new JLabel("Daily Return (Base): $" + new Chicken().getBaseReturn());
 		chickenReturnLabel.setBounds(103, 39, 175, 37);
 		chickenPanel.add(chickenReturnLabel);
 		
