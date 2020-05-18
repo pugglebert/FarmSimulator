@@ -35,5 +35,24 @@ class CropItemTest {
 		assertEquals("Test", testItem.getName());
 		assertEquals(1, testItem.getGrowthBonus());
 	}
+	
+	/**
+	 * Test that when a positive number or zero is passed into setGrowthBonus, getGrowthBonus
+	 * returns that number
+	 * Test that when a negative value is passed into setGrowthBonus and error is thrown
+	 */
+	@Test
+	final void testSetGrowthBonus() {
+		testItem.setGrowthBonus(0);
+		assertEquals(0, testItem.getGrowthBonus());
+		testItem.setGrowthBonus(3);
+		assertEquals(3, testItem.getGrowthBonus());
+		try {
+			testItem.setGrowthBonus(-3);
+			fail("GrowthBonus cannot be a negative number");
+		} catch (IllegalArgumentException e) {
+			assertEquals(3, testItem.getGrowthBonus());
+		}
+	}
 
 }
