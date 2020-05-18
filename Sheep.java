@@ -9,11 +9,11 @@ public class Sheep extends Animal{
 	/**
 	 * The amount of money returned by the animal per day as a base
 	 */
-	private static int baseReturn = 100;
+	private static int baseReturn = 70;
 	/**
 	 * The amount of money required to purchase a Sheep from the store
 	 */
-	private static int buyPrice = 50;
+	private static int buyPrice = 150;
 	/**
 	 * The variety of Animal
 	 */

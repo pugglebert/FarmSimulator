@@ -13,7 +13,7 @@ public class Cow extends Animal{
 	/**
 	 * The amount of money required to purchase a Cow from the store
 	 */
-	private static int buyPrice = 50;
+	private static int buyPrice = 200;
 	/**
 	 * The variety of Animal
 	 */

@@ -38,7 +38,7 @@ public class Animal implements Buyable {
 	 * @param newBuyPrice		Cost to buy from the store
 	 * @param newBaseReturn		Base return of money per day
 	 */
-	public Animal(String newAnimalType, int newBuyPrice, int newBaseReturn) {
+	public Animal(String newAnimalType, int newBaseReturn, int newBuyPrice) {
 		animalType = newAnimalType;
 		buyPrice = newBuyPrice;
 		baseReturn = newBaseReturn;

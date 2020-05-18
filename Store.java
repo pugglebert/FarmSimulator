@@ -111,9 +111,9 @@ public class Store {
 	 * Called by constructor, adds CropItem objects to cropItems attribute
 	 */
 	private void initializeCItems() {
-		cropItems.add(new CropItem("Small fertilizer", 200, 1));
-		cropItems.add(new CropItem("Big fertilizer", 350, 2));
-		cropItems.add(new CropItem("Super fertilizer", 500, 3));
+		cropItems.add(new CropItem("Small fertilizer", 70, 2));
+		cropItems.add(new CropItem("Big fertilizer", 100, 3));
+		cropItems.add(new CropItem("Super fertilizer", 120, 4));
 	}
 	
 	/**
