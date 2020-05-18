@@ -17,25 +17,53 @@ import java.awt.event.ActionEvent;
 
 public class InventoryScreen {
 
+	/**
+	 * The main window
+	 */
 	private JFrame frmInventory;
+	
+	/**
+	 * Game environment which controls inventory
+	 */
 	private GameEnvironment game;
+	
+	/**
+	 * List of food items owned by farmer
+	 */
 	private DefaultListModel<FoodItem> foodItemListModel;
+	
+	/**
+	 * List of crop items owned by farmer
+	 */
 	private DefaultListModel<CropItem> cropItemListModel;
 	
+	/**
+	 * Initilize inventory and make it visible
+	 * @param newGame Game Environment which controls inventory screen
+	 */
 	public InventoryScreen(GameEnvironment newGame) {
 		game = newGame;
 		initialize();
 		frmInventory.setVisible(true);
 	}
 	
+	/**
+	 * Dispose of inventory window
+	 */
 	public void closeWindow() {
 		frmInventory.dispose();
 	}
 	
+	/**
+	 * Close inventory window when main game has ended
+	 */
 	public void finishedWindow() {
 		game.getMainScreen().closeInventoryWindow(this);
 	}
 	
+	/**
+	 * Update lists of items in inventory to reflect items owned by farmer
+	 */
 	public void updateItems() {
 		foodItemListModel.clear();
 		for (FoodItem food : game.getFarmer().getFoodItems()) {
@@ -47,6 +75,9 @@ public class InventoryScreen {
 		}
 	}
 
+	/**
+	 * Initialize the contents of the frame
+	 */
 	private void initialize() {
 		frmInventory = new JFrame();
 		frmInventory.setResizable(false);
@@ -61,6 +92,7 @@ public class InventoryScreen {
 			foodItemListModel.addElement(food);
 		}
 		
+		//JList of all food items owned by farmer from which player can select an item to use
 		JList<FoodItem> foodItemList = new JList<FoodItem>(foodItemListModel);
 		foodItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		foodItemList.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -72,12 +104,14 @@ public class InventoryScreen {
 			cropItemListModel.addElement(cropItem);
 		}
 		
+		//JList of all crop items owned by farmer from which player can select an item to use
 		JList<CropItem> cropItemList = new JList<CropItem>(cropItemListModel);
 		cropItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cropItemList.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cropItemList.setBounds(30, 203, 483, 78);
 		frmInventory.getContentPane().add(cropItemList);
 		
+		//Close inventory window, open main screen
 		JButton backButton = new JButton("Return to Farm");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,6 +132,7 @@ public class InventoryScreen {
 		cropItemLabel.setBounds(263, 157, 119, 35);
 		frmInventory.getContentPane().add(cropItemLabel);
 		
+		//Selected food item will be used when pressed if farmer has actions remaining
 		JButton foodItemButton = new JButton("<html>Use<br/>food item!</html>");
 		foodItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -117,6 +152,7 @@ public class InventoryScreen {
 		foodItemButton.setBounds(535, 57, 98, 78);
 		frmInventory.getContentPane().add(foodItemButton);
 		
+		//Selected crop item will be used when pressed if farmer has actions remaining
 		JButton cropItemButton = new JButton("<html>Use<br/>crop item!</html>");
 		cropItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,6 +171,7 @@ public class InventoryScreen {
 		cropItemButton.setBounds(535, 203, 98, 78);
 		frmInventory.getContentPane().add(cropItemButton);
 		
+		//Closes inventory screen and opens main screen
 		JButton storeButton = new JButton("Visit store");
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -147,6 +184,10 @@ public class InventoryScreen {
 		frmInventory.getContentPane().add(storeButton);
 	}
 	
+	/**
+	 * When crop item is used, prompts player to choose a variety of crop to use it on
+	 * @param item Crop item to be used
+	 */
 	public void cropSelection(CropItem item) {
 		ArrayList<String> cropTypes = new ArrayList<String>();
 		for (Crop crop : game.getFarm().getCrops()) {
