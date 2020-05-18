@@ -202,6 +202,9 @@ public class GameEnvironment {
 		if (remainingActions > 0) {
 			remainingActions --;
 		}
+		else {
+			throw new IllegalArgumentException("You have already used your two actions for the day");
+		}
 	}
 	
 	/**
@@ -287,7 +290,7 @@ public class GameEnvironment {
 	 * @return		Score based on the amount of money / length of the game
 	 */
 	public int getMoneyScore() {
-		return farm.getMoney() / totalDays;
+		return farm.getMoney();
 	}
 
 	/**
@@ -300,7 +303,7 @@ public class GameEnvironment {
 		for (Animal animal : farm.getAnimals()) {
 			animalScore += 50 * animal.getHappiness();
 		}
-		return animalScore / totalDays;
+		return animalScore;
 	}
 	
 	/**
@@ -312,7 +315,7 @@ public class GameEnvironment {
 		for (Crop crop : farm.getCrops()) {
 			cropScore += 50 * crop.getAge();
 		}
-		return cropScore / totalDays;
+		return cropScore;
 	}
 
 	/**
@@ -320,7 +323,7 @@ public class GameEnvironment {
 	 * @return		Returns the total score
 	 */
 	public int calcScore() {
-		return getMoneyScore() + getAnimalScore() + getCropScore();
+		return (getMoneyScore() + getAnimalScore() + getCropScore()) / totalDays;
 	}
 	
 	public static void main(String[] args) {

@@ -202,7 +202,7 @@ public class SetupScreen {
 		setupWindow.getContentPane().add(beginGameButton);
 		beginGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(isValid()) {
+				if(isValid(farmerNameField.getText(), farmerAgeField.getText(), farmNameField.getText())) {
 					game.setTotalDays(gameLengthSlider.getValue());
 					game.initiateFarmer(farmerNameField.getText(), Integer.parseInt(farmerAgeField.getText()));
 					game.initiateFarm(farmTypeGroup.getSelection().getActionCommand(), farmNameField.getText());
@@ -255,11 +255,8 @@ public class SetupScreen {
 		return valid;
 	}
 	
-	public boolean isValid() {
+	public boolean isValid(String farmerName, String farmerAge, String farmName) {
 		boolean allValid = true;
-		String farmerName = farmerNameField.getText();
-		String farmName = farmNameField.getText();
-		String farmerAge = farmerAgeField.getText();
 
 		if(!checkNameValid(farmerName, farmerNameError)) {
 			allValid = false;

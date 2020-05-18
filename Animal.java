@@ -89,7 +89,15 @@ public class Animal implements Buyable {
 	 * @param newHappiness	Animal's happiness is set to this value
 	 */
 	public void setHappiness(int newHappiness) {
-		happiness = newHappiness;
+		if (newHappiness < 0) {
+			throw new IllegalArgumentException("Happiness must be a positive amount");
+		}
+		else if (newHappiness > 10) {
+			happiness = 10;
+		}
+		else {
+			happiness = newHappiness;
+		}
 	}
 	
 	/**
@@ -105,7 +113,15 @@ public class Animal implements Buyable {
 	 * @param newHealth		Animal's health is set to this value
 	 */
 	public void setHealth(int newHealth) {
-		health = newHealth;
+		if (newHealth < 0) {
+			throw new IllegalArgumentException("Happiness must be a positive amount");
+		}
+		else if (newHealth > 10) {
+			health = 10;
+		}
+		else {
+			health = newHealth;
+		}
 	}
 	
 	/**
