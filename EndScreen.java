@@ -61,7 +61,7 @@ public class EndScreen {
 		JLabel farmCongratPanel = new JLabel("Your farm, " + game.getFarm().getName() + ", was succesfully set up on " + game.getFarm().getPlanetType() + ", making a net profit of " + game.getNetProfit() + ".");
 		farmCongratPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		farmCongratPanel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		farmCongratPanel.setBounds(10, 84, 654, 14);
+		farmCongratPanel.setBounds(10, 84, 654, 22);
 		congratPanel.add(farmCongratPanel);
 		
 		JLabel lblNewLabel = new JLabel("You spent " + game.getTotalDays() + " days on your farm, and here is what you have to show for it:");
