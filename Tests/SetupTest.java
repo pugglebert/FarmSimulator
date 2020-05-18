@@ -4,41 +4,54 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import javax.swing.JLabel;
 
+import org.junit.jupiter.api.Test;
+
 import farmSimulatorGUI.*;
 
-import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class SetupTest {
 	
 	GameEnvironment game = new GameEnvironment();
 	SetupScreen setupWindow = new SetupScreen(game);
-	@ParameterizedTest
-	@ValueSource(strings = {"Bob", "Bob Smith", "abcdefghijklmno"})
-	void testValidName(String name) {
-		JLabel errorLabel = new JLabel();
-		assertTrue(setupWindow.checkNameValid(name, errorLabel));
+	JLabel errorLabel = new JLabel();
+	
+	@Test
+	void testValidName() {
+		assertTrue(setupWindow.checkNameValid("Bob", errorLabel));
+		assertTrue(setupWindow.checkNameValid("Bob Smith", errorLabel));
+		assertTrue(setupWindow.checkNameValid("abcdefghijklmno", errorLabel));
 	}
 	
-	@ParameterizedTest
-	@ValueSource(strings = {"Bo", "123", "abcdefghijklmnop", "Bob1", "B$!b"})
-	void testInvalidName(String name) {
-		JLabel errorLabel = new JLabel();
-		assertFalse(setupWindow.checkNameValid(name, errorLabel));
+	@Test
+	void testInvalidName() {
+		assertFalse(setupWindow.checkNameValid("Bo", errorLabel));
+		assertFalse(setupWindow.checkNameValid("123", errorLabel));
+		assertFalse(setupWindow.checkNameValid("abcdefghijklmnop", errorLabel));
+		assertFalse(setupWindow.checkNameValid("Bob1", errorLabel));
+		assertFalse(setupWindow.checkNameValid("B$!b", errorLabel));
 	}
 	
-	@ParameterizedTest
-	@ValueSource(strings = {"1", "100", "50"})
-	void testValidAge(String age) {
-		JLabel errorLabel = new JLabel();
-		assertTrue(setupWindow.checkAgeValid(age, errorLabel));
+	@Test
+	void testValidAge() {
+		assertTrue(setupWindow.checkAgeValid("1", errorLabel));
+		assertTrue(setupWindow.checkAgeValid("100", errorLabel));
+		assertTrue(setupWindow.checkAgeValid("50", errorLabel));
 	}
 	
-	@ParameterizedTest
-	@ValueSource(strings = {"0", "101", "5a", "@!1", "abc"})
-	void testInalidAge(String age) {
-		JLabel errorLabel = new JLabel();
-		assertFalse(setupWindow.checkAgeValid(age, errorLabel));
+	@Test
+	void testInalidAge() {
+		assertFalse(setupWindow.checkAgeValid("0", errorLabel));
+		assertFalse(setupWindow.checkAgeValid("101", errorLabel));
+		assertFalse(setupWindow.checkAgeValid("5a", errorLabel));
+		assertFalse(setupWindow.checkAgeValid("@!1", errorLabel));
+		assertFalse(setupWindow.checkAgeValid("abc", errorLabel));
+	}
+
+	@Test
+	void isValidTest() {
+		assertTrue(setupWindow.isValid("Bob", "25", "Bobs Farm"));
+		assertFalse(setupWindow.isValid("Bob1", "25", "Bobs Farm"));
+		assertFalse(setupWindow.isValid("Bob", "200", "Bobs Farm"));
+		assertFalse(setupWindow.isValid("Bob", "25", "Bobs $$$ Farm"));
 	}
 }

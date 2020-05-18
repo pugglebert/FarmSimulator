@@ -34,7 +34,7 @@ class StoreTest {
 	final void testGetCropItems() {
 		Store testStore = new Store();
 		assertEquals(3, testStore.getCropItems().size());
-		CropItem testItem = new CropItem("Small fertilizer", 200, 1);
+		CropItem testItem = new CropItem("Small fertilizer", 200, 2);
 		assertEquals(testItem.toString(), testStore.getCropItems().get(0).toString());
 	}
 

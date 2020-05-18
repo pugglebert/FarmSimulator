@@ -11,7 +11,9 @@ class CropTest {
 	
 	@BeforeEach
 	void init() {
-		crop = new Crop("Wheat", 5, 100, 100);	
+		//Creates new crop with harvest age = 5, buy price = 50, sell price = 100
+		//Crops are all created with age = 0 initially
+		crop = new Crop("TestCrop", 5, 50, 100);	
 	}
 	
 	@Test
@@ -29,12 +31,13 @@ class CropTest {
 	
 	@Test
 	void harvestableTest() {
-		crop.boostGrowth(crop.getHarvestAge());
+		crop.boostGrowth(5);
 		assertTrue(crop.canHarvest());
 	}
 	
 	@Test
 	void notHarvestableTest() {
+		crop.boostGrowth(1);
 		assertFalse(crop.canHarvest());
 	}
 
@@ -69,6 +72,6 @@ class CropTest {
 	
 	@Test
 	void toStringTest() {
-		assertEquals("Wheat: costs $100", crop.toStringStore());
+		assertEquals("TestCrop: costs $50", crop.toStringStore());
 	}
 }

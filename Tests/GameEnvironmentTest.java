@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import farmSimulatorGUI.*;
 
-class gameEnvironmentTest {
+class GameEnvironmentTest {
 	GameEnvironment game;
 	
 	@BeforeEach
@@ -17,6 +17,23 @@ class gameEnvironmentTest {
 		game.initiateFarm("Earth", "Farm");
 	}
 	
+	@Test
+	void getTotalDaysTest() {
+		game.setTotalDays(5);
+		assertEquals(5, game.getTotalDays());
+	}
+	
+	@Test
+	void getCurrentTest() {
+		assertEquals(1, game.getCurrentDay());
+		game.nextDay();
+		assertEquals(2, game.getCurrentDay());
+	}
+		
+	/**
+	 * Tests that each type of farm is initiated correctly from the setup screen. Farm name is tested with various inputs
+	 * in the SetupTest class
+	 */
 	@Test
 	void initiateFarmTest() {	
 		game.initiateFarm("Earth", "Farm");
@@ -36,6 +53,10 @@ class gameEnvironmentTest {
 		assertEquals("Farm", game.getFarm().getName());
 	}
 	
+	/**
+	 * Tests that the farmer is initiated correctly. Farm name and age are tested with various inputs in
+	 * the SetupTest class
+	 */
 	@Test
 	void initiateFarmerTest() {
 		game.initiateFarmer("Bob", 25);
@@ -43,21 +64,34 @@ class gameEnvironmentTest {
 		assertEquals(25, game.getFarmer().getAge());
 	}
 	
+	/**
+	 * Tests the use of actions, throws an error when trying to use an action when there are none left. Resets back
+	 * to 2 after each day
+	 */
 	@Test
 	void useAndResetActionsTest() {
+		assertEquals(2, game.getRemainingActions());
+		
 		game.useAction();
 		assertEquals(1, game.getRemainingActions());
 		
 		game.useAction();
 		assertEquals(0, game.getRemainingActions());
 		
-		game.useAction();
-		assertEquals(0, game.getRemainingActions());
+		try{
+			game.useAction();
+		} catch (IllegalArgumentException e) {
+			assertEquals(0, game.getRemainingActions());
+		}
 		
 		game.resetRemainingActions();
 		assertEquals(2, game.getRemainingActions());
 	}
 	
+	/**
+	 * Tests the nextDay() method. This method calls the advanceDay() method for crops and animals which have tests
+	 * with various inputs in the respective classes
+	 */
 	@Test
 	void nextDayTest() {
 		Crop crop = new Barley();
@@ -78,6 +112,10 @@ class gameEnvironmentTest {
 		assertEquals(oldAnimal.getHappiness(), animal.getHappiness());
 	}
 	
+	/**
+	 * Tests that playing with the animals increases the happiness by 2. The playWithAnimals() method calls
+	 * the increaseHappiness(int amount) method of the Animal, which is tested with various inputs
+	 */
 	@Test
 	void playWithAnimalsTest() {
 		Animal animal = new Cow();
@@ -89,6 +127,11 @@ class gameEnvironmentTest {
 		assertEquals(oldAnimal.getHappiness() + 2, animal.getHappiness());
 	}
 	
+	/**
+	 * Tests that all animals have their happiness increased by 1 and the crop limit is increased by 1
+	 * tendLand() calls farm.increaseCropLimit() and animal.increaseHappiness(int amount) which have both been tested with
+	 * various inputs
+	 */
 	@Test
 	void tendLandTest() {
 		Animal animal = new Cow();
@@ -103,6 +146,9 @@ class gameEnvironmentTest {
 		assertEquals(oldCropLimit + 1, game.getFarm().getCropLimit());		
 	}
 	
+	/**
+	 * This test verifies that nothing happens when there are no crops to harvest
+	 */
 	@Test
 	void emptyHarvestCropsTest() {
 		ArrayList<Crop> crops = game.getFarm().getCrops();
@@ -115,6 +161,10 @@ class gameEnvironmentTest {
 		assertEquals(numberOfCrops, crops.size());	
 	}
 	
+	/**
+	 * This tests verifies that the correct amount of money is earned from one crop harvested, and that the
+	 * crop is removed after harvesting
+	 */
 	@Test
 	void harvestOneCropTest() {
 		Crop newCrop = new Wheat();
@@ -133,6 +183,10 @@ class gameEnvironmentTest {
 		assertEquals(numberOfCrops - numberOfHarvestableCrops, crops.size());	
 	}
 	
+	/**
+	 * This test verifies that the correct amount of money is earned for all crops that are harvested, and that they are
+	 * all removed
+	 */
 	@Test
 	void harvestMultipleCropsTest() {
 		Crop newCrop1 = new Wheat();
@@ -161,6 +215,9 @@ class gameEnvironmentTest {
 		assertEquals(numberOfCrops - numberOfHarvestableCrops, crops.size());	
 	}
 
+	/**
+	 * Tests that watering the crops increases the growth of crops by 1
+	 */
 	@Test
 	void waterCropsTestSingleType() {
 		ArrayList<Crop> crops = new ArrayList<Crop>();
@@ -177,6 +234,9 @@ class gameEnvironmentTest {
 		}
 	}
 	
+	/**
+	 * Tests that watering the crops increases the growth of all crops of the selected type by 1
+	 */
 	@Test
 	void waterCropsTestMultipleTypes() {
 		ArrayList<Crop> crops = new ArrayList<Crop>();
@@ -194,16 +254,19 @@ class gameEnvironmentTest {
 				
 		game.waterCrops("Wheat");
 		
-		for (int i = 0; i < game.getFarm().getCrops().size(); i++) {
-			if (game.getFarm().getCrops().get(i).getCropType() == "Wheat"){
-				assertEquals(1, game.getFarm().getCrops().get(i).getAge());
+		for (Crop crop : game.getFarm().getCrops()) {
+			if (crop.getCropType() == "Wheat"){
+				assertEquals(1, crop.getAge());
 			}
 			else {
-				assertEquals(0, game.getFarm().getCrops().get(i).getAge());
+				assertEquals(0, crop.getAge());
 			}
 		}
 	}
 	
+	/**
+	 * Tests that Net Profit gives the correct representation for positive values
+	 */
 	@Test
 	void getNetProfitPositiveTest() {
 		game.getFarm().setStartCash(1000);
@@ -212,6 +275,9 @@ class gameEnvironmentTest {
 		assertEquals("$500", game.getNetProfit());		
 	}
 	
+	/**
+	 * Tests that Net Profit gives the correct representation for negative values
+	 */
 	@Test
 	void getNetProfitNegativeTest() {
 		game.getFarm().setStartCash(1000);
@@ -220,67 +286,109 @@ class gameEnvironmentTest {
 		assertEquals("-$500", game.getNetProfit());		
 	}
 	
+	/**
+	 * Tests that money score is correct for different money values
+	 */
 	@Test
 	void getMoneyScoreTest() {
 		game.getFarm().setMoney(1000);
-		game.setTotalDays(10);
-		assertEquals(100, game.getMoneyScore());
+		assertEquals(1000, game.getMoneyScore());
 		
-		game.setTotalDays(7);
-		assertEquals(142, game.getMoneyScore());
-		
-		game.setTotalDays(5);
-		assertEquals(200, game.getMoneyScore());
+		game.getFarm().setMoney(5000);
+		assertEquals(5000, game.getMoneyScore());
 		
 	}
 	
+	/**
+	 * Tests that all animals return the correct amount 
+	 * of score at max happiness
+	 */
 	@Test 
 	void getAnimalScoreTestMaxHappiness(){
-		game.setTotalDays(10);
 		ArrayList<Animal> animals = new ArrayList<Animal>();
-		animals.add(new Cow());
-		animals.add(new Cow());
-		animals.add(new Chicken());
-		animals.add(new Sheep());
-		animals.add(new Sheep());
+		animals.add(new Animal("TestAnimal1", 1, 1));
+		animals.add(new Animal("TestAnimal2", 1, 1));
+		animals.add(new Animal("TestAnimal3", 1, 1));
+		animals.add(new Animal("TestAnimal4", 1, 1));
+		animals.add(new Animal("TestAnimal5", 1, 1));
 		
 		for (Animal animal : animals) {
 			animal.setHappiness(10);
 		}
 		game.getFarm().setAnimals(animals);
 	
-		assertEquals(250, game.getAnimalScore());
+		assertEquals(2500, game.getAnimalScore());
 	}
 	
+	/**
+	 * Tests that the score is calculated correctly for varying happiness
+	 */
 	@Test
 	void getAnimalScoreTestVaryingHappiness() {
-		game.setTotalDays(10);
 		ArrayList<Animal> animals = new ArrayList<Animal>();
-		animals.add(new Cow());
+		animals.add(new Animal("TestAnimal1", 1, 1));
 		animals.get(0).setHappiness(0);
-		animals.add(new Sheep());
+		animals.add(new Animal("TestAnimal2", 1, 1));
 		animals.get(1).setHappiness(5);
-		animals.add(new Chicken());
+		animals.add(new Animal("TestAnimal3", 1, 1));
 		animals.get(2).setHappiness(10);
 		
 		game.getFarm().setAnimals(animals);
 	
-		assertEquals(75, game.getAnimalScore());
+		assertEquals(750, game.getAnimalScore());
 	}
 	
+	/**
+	 * Tests that crops give the correct score based on varying ages
+	 */
 	@Test
 	void getCropScoreTest() {
-		game.setTotalDays(5);
 		ArrayList<Crop> crops = new ArrayList<Crop>();
-		crops.add(new Wheat());
-		crops.add(new Wheat());
-		crops.add(new Wheat());
+		crops.add(new Crop("TestCrop1", 10, 1, 1));
+		crops.add(new Crop("TestCrop2", 10, 1, 1));
+		crops.add(new Crop("TestCrop3", 10, 1, 1));
 		
 		crops.get(0).boostGrowth(10);
 		crops.get(1).boostGrowth(5);
 		
 		game.getFarm().setCrops(crops);
 		
-		assertEquals(150, game.getCropScore());
+		assertEquals(750, game.getCropScore());
 	}
+	
+	/**
+	 * Tests that calcScore() gets all the correct scores based on money, crops, and animals. THen checks that
+	 * dividing this value returns the correct int value, i.e the floored value of combined scores / total days
+	 */
+	@Test
+	void calcScoreTest() {
+		game.setTotalDays(7);
+		game.getFarm().setMoney(1000);
+		assertEquals(1000, game.getMoneyScore());
+		
+		ArrayList<Animal> animals = new ArrayList<Animal>();
+		animals.add(new Animal("TestAnimal1", 1, 1));
+		animals.get(0).setHappiness(0);
+		animals.add(new Animal("TestAnimal2", 1, 1));
+		animals.get(1).setHappiness(5);
+		animals.add(new Animal("TestAnimal3", 1, 1));
+		animals.get(2).setHappiness(10);
+		
+		game.getFarm().setAnimals(animals);
+		assertEquals(750, game.getAnimalScore());
+		
+		ArrayList<Crop> crops = new ArrayList<Crop>();
+		crops.add(new Crop("TestCrop1", 10, 1, 1));
+		crops.add(new Crop("TestCrop2", 10, 1, 1));
+		crops.add(new Crop("TestCrop3", 10, 1, 1));
+		
+		crops.get(0).boostGrowth(10);
+		crops.get(1).boostGrowth(5);
+		
+		game.getFarm().setCrops(crops);
+		assertEquals(750, game.getCropScore());
+		
+		assertEquals(357, game.calcScore());
+	}
+	
 }
