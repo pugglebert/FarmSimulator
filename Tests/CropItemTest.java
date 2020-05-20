@@ -16,24 +16,24 @@ class CropItemTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		testItem = new CropItem("Test", 200, 1);
+		testItem = new CropItem("Test", 200, 2);
 	}
 
 	@Test
 	final void testToString() {
-		assertEquals("Test: crop item which speeds up growth time by 1 days (0 available)", testItem.toString());
+		assertEquals("Test: Speeds up growth by 2 days (0 available)", testItem.toString());
 	}
 
 	@Test
 	final void testToStringStore() {
-		assertEquals("Test: crop item which speeds up growth time by 1 days and costs $200", testItem.toStringStore());
+		assertEquals("Test: $200   Speeds up growth by 2 days", testItem.toStringStore());
 	}
 
 	@Test
 	final void testCropItem() {
 		assertEquals(200, testItem.getBuyPrice());
 		assertEquals("Test", testItem.getName());
-		assertEquals(1, testItem.getGrowthBonus());
+		assertEquals(2, testItem.getGrowthBonus());
 	}
 	
 	/**

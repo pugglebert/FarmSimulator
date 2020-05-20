@@ -21,12 +21,12 @@ class FoodItemTest {
 
 	@Test
 	final void testToString() {
-		assertEquals("Test: food item which gives 1 health (0 available)", testItem.toString());
+		assertEquals("Test: Gives +1 health to all animals (0 available)", testItem.toString());
 	}
 
 	@Test
 	final void testToStringStore() {
-		assertEquals("Test: food item which gives 1 health and costs $150", testItem.toStringStore());
+		assertEquals("Test: $150   Gives +1 health to all animals", testItem.toStringStore());
 	}
 
 	@Test
