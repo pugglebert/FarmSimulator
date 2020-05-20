@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JSplitPane;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * After the main game is played, end screen displays information about player's farm and their final
@@ -66,9 +68,12 @@ public class EndScreen {
 	 */
 	private void initialize() {
 		endWindow = new JFrame();
+		endWindow.getContentPane().setBackground(new Color(0, 128, 0));
 		endWindow.setResizable(false);
 		endWindow.setTitle("End Game Summary");
 		endWindow.setBounds(100, 100, 700, 500);
+		endWindow.setPreferredSize(new Dimension(710, 510));
+		endWindow.pack();
 		endWindow.setLocationRelativeTo(null);
 		endWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		endWindow.getContentPane().setLayout(null);
@@ -87,14 +92,14 @@ public class EndScreen {
 		JLabel farmCongratPanel = new JLabel("Your farm, " + game.getFarm().getName() + ", was succesfully set up on " + game.getFarm().getPlanetType() + ", making a net profit of " + game.getNetProfit() + ".");
 		farmCongratPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		farmCongratPanel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		farmCongratPanel.setBounds(10, 84, 654, 14);
+		farmCongratPanel.setBounds(10, 68, 654, 30);
 		congratPanel.add(farmCongratPanel);
 		
-		JLabel lblNewLabel = new JLabel("You spent " + game.getTotalDays() + " days on your farm, and here is what you have to show for it:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(10, 109, 654, 22);
-		congratPanel.add(lblNewLabel);
+		JLabel timeSpentLabel = new JLabel("You spent " + game.getTotalDays() + " days on your farm, and here is what you have to show for it:");
+		timeSpentLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		timeSpentLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		timeSpentLabel.setBounds(10, 109, 654, 22);
+		congratPanel.add(timeSpentLabel);
 		
 		JPanel scoreSummaryPanel = new JPanel();
 		scoreSummaryPanel.setBounds(101, 164, 491, 222);

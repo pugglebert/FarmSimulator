@@ -225,8 +225,15 @@ public class GameEnvironment {
 	 * Increases the happiness of all animals by a fixed amount
 	 */
 	public void playWithAnimals() {
+		boolean hasEffect = false;
 		for (Animal animal : farm.getAnimals()) {
-			animal.increaseHappiness(2);
+			if (animal.getHappiness() < 10) {
+				animal.increaseHappiness(2);
+				hasEffect = true;
+			}
+		}
+		if (!hasEffect) {
+			throw new IllegalArgumentException("All your animals are at maximum happiness already");
 		}
 	}
 	
@@ -234,9 +241,19 @@ public class GameEnvironment {
 	 * Increases the limit on the number of crops able to be planted, and increases the happiness of all animals
 	 */
 	public void tendLand() {
-		farm.increaseCropLimit();	
+		boolean hasEffect = false;
+		if (farm.getCropLimit() < 16) {
+			farm.increaseCropLimit();
+			hasEffect = true;
+		}
 		for (Animal animal : farm.getAnimals()) {
-			animal.increaseHappiness(1);
+			if (animal.getHappiness() < 10) {
+				animal.increaseHappiness(1);
+				hasEffect = true;
+			}
+		}
+		if (!hasEffect) {
+			throw new IllegalArgumentException("You have no more room to expand and all your animals are at maximum happiness already");
 		}
 	}
 	

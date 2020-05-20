@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSlider;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 /**
  * Screen in player sets up their farm and farmer before they start the game
@@ -63,37 +66,50 @@ public class SetupScreen {
 	private void initialize() {
 		setupWindow = new JFrame();
 		setupWindow.setTitle("Game Setup");
+		setupWindow.getContentPane().setBackground(new Color(0, 128, 0));
 		setupWindow.setResizable(false);
 		setupWindow.setBounds(100, 100, 700, 500);
+		setupWindow.setPreferredSize(new Dimension(710, 510));
+		setupWindow.pack();
 		setupWindow.setLocationRelativeTo(null);
 		setupWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setupWindow.getContentPane().setLayout(null);
 
 		JLabel welcomeLabel = new JLabel("Welcome to Farm Simulator (Space Edition).\r\n");
-		welcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		welcomeLabel.setForeground(new Color(255, 255, 255));
+		welcomeLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		welcomeLabel.setBounds(76, 0, 485, 55);
+		welcomeLabel.setBounds(104, 0, 485, 55);
 		setupWindow.getContentPane().add(welcomeLabel);
 
 		JLabel missionLabel = new JLabel("Your mission is to colonise a planet by building a succesful farm there.");
-		missionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		missionLabel.setForeground(new Color(255, 255, 255));
+		missionLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		missionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		missionLabel.setBounds(76, 52, 479, 33);
+		missionLabel.setBounds(107, 45, 479, 33);
 		setupWindow.getContentPane().add(missionLabel);
 
+		ButtonGroup farmTypeGroup = new ButtonGroup();
+		
+		JPanel detailSubmissionPanel = new JPanel();
+		detailSubmissionPanel.setBackground(SystemColor.menu);
+		detailSubmissionPanel.setBounds(10, 76, 674, 384);
+		setupWindow.getContentPane().add(detailSubmissionPanel);
+		detailSubmissionPanel.setLayout(null);
+
 		JLabel firstThingsLabel = new JLabel("First, let's sort a few things out...");
-		firstThingsLabel.setBounds(36, 89, 330, 45);
-		setupWindow.getContentPane().add(firstThingsLabel);
-
-		JLabel gameDaysLabel = new JLabel("How many days would you like your game to last?");
-		gameDaysLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		gameDaysLabel.setForeground(Color.BLACK);
-		gameDaysLabel.setBackground(new Color(240, 240, 240));
-		gameDaysLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		gameDaysLabel.setBounds(36, 124, 361, 58);
-		setupWindow.getContentPane().add(gameDaysLabel);
-
+		firstThingsLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		firstThingsLabel.setBackground(SystemColor.menu);
+		firstThingsLabel.setBounds(258, 11, 162, 14);
+		detailSubmissionPanel.add(firstThingsLabel);
+		firstThingsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		firstThingsLabel.setForeground(Color.BLACK);
+		
 		JSlider gameLengthSlider = new JSlider();
+		gameLengthSlider.setBounds(394, 36, 252, 58);
+		detailSubmissionPanel.add(gameLengthSlider);
+		gameLengthSlider.setForeground(Color.BLACK);
+		gameLengthSlider.setBackground(SystemColor.menu);
 		gameLengthSlider.setValue(5);
 		gameLengthSlider.setSnapToTicks(true);
 		gameLengthSlider.setPaintTicks(true);
@@ -101,112 +117,139 @@ public class SetupScreen {
 		gameLengthSlider.setMajorTickSpacing(1);
 		gameLengthSlider.setMinimum(5);
 		gameLengthSlider.setMaximum(10);
-		gameLengthSlider.setBounds(407, 124, 252, 58);
-		setupWindow.getContentPane().add(gameLengthSlider);
-
+		
+		JLabel gameDaysLabel = new JLabel("How many days would you like your game to last?");
+		gameDaysLabel.setBounds(23, 36, 361, 58);
+		detailSubmissionPanel.add(gameDaysLabel);
+		gameDaysLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		gameDaysLabel.setForeground(Color.BLACK);
+		gameDaysLabel.setBackground(new Color(240, 240, 240));
+		gameDaysLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		
 		JLabel farmerNameLabel = new JLabel("What is your farmer's name?");
+		farmerNameLabel.setBackground(SystemColor.menu);
+		farmerNameLabel.setBounds(23, 101, 274, 33);
+		detailSubmissionPanel.add(farmerNameLabel);
+		farmerNameLabel.setForeground(Color.BLACK);
 		farmerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		farmerNameLabel.setBounds(61, 187, 274, 33);
-		setupWindow.getContentPane().add(farmerNameLabel);
-
+		
 		farmerNameField = new JTextField("Bob");
-		farmerNameField.setBounds(309, 189, 146, 33);
-		setupWindow.getContentPane().add(farmerNameField);
+		farmerNameField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		farmerNameField.setForeground(Color.BLACK);
+		farmerNameField.setBounds(309, 103, 146, 33);
+		detailSubmissionPanel.add(farmerNameField);
+		farmerNameField.setBackground(SystemColor.menu);
 		farmerNameField.setColumns(10);
-
+		
+		farmerNameError = new JLabel("Error");
+		farmerNameError.setBounds(465, 102, 219, 35);
+		detailSubmissionPanel.add(farmerNameError);
+		farmerNameError.setVisible(false);
+		farmerNameError.setForeground(Color.RED);
+		
+		farmerAgeError = new JLabel("Error");
+		farmerAgeError.setBounds(465, 138, 219, 33);
+		detailSubmissionPanel.add(farmerAgeError);
+		farmerAgeError.setForeground(Color.RED);
+		
+		farmerAgeField = new JTextField("25");
+		farmerAgeField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		farmerAgeField.setForeground(Color.BLACK);
+		farmerAgeField.setBounds(309, 138, 146, 33);
+		detailSubmissionPanel.add(farmerAgeField);
+		farmerAgeField.setBackground(SystemColor.menu);
+		farmerAgeField.setColumns(10);
+		
 		JLabel farmerAgeLabel = new JLabel("What is your farmer's age?");
+		farmerAgeLabel.setBackground(SystemColor.menu);
+		farmerAgeLabel.setBounds(23, 136, 252, 33);
+		detailSubmissionPanel.add(farmerAgeLabel);
+		farmerAgeLabel.setForeground(Color.BLACK);
 		farmerAgeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		farmerAgeLabel.setBounds(61, 226, 252, 33);
-		setupWindow.getContentPane().add(farmerAgeLabel);
-
+		
 		JPanel farmTypePanel = new JPanel();
-		farmTypePanel.setBounds(36, 262, 620, 119);
-		setupWindow.getContentPane().add(farmTypePanel);
+		farmTypePanel.setForeground(Color.BLACK);
+		farmTypePanel.setBounds(27, 180, 620, 117);
+		detailSubmissionPanel.add(farmTypePanel);
+		farmTypePanel.setBackground(SystemColor.menu);
 		farmTypePanel.setLayout(null);
-
+		
 		JLabel farmTypeLabel = new JLabel("What type of farm would you like?");
+		farmTypeLabel.setBackground(SystemColor.menu);
+		farmTypeLabel.setForeground(Color.BLACK);
 		farmTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		farmTypeLabel.setBounds(0, 0, 620, 21);
 		farmTypePanel.add(farmTypeLabel);
-
+		
 		JRadioButton earthFarmRadio = new JRadioButton("Earth Farm", true);
-		earthFarmRadio.setBounds(38, 21, 79, 21);
+		earthFarmRadio.setForeground(Color.BLACK);
+		earthFarmRadio.setBackground(SystemColor.menu);
+		earthFarmRadio.setBounds(38, 21, 109, 21);
 		farmTypePanel.add(earthFarmRadio);
 		earthFarmRadio.setActionCommand("Earth");
-
-
+		
+		
 		JRadioButton marsFarmRadio = new JRadioButton("Mars Farm");
+		marsFarmRadio.setForeground(Color.BLACK);
+		marsFarmRadio.setBackground(SystemColor.menu);
 		marsFarmRadio.setBounds(38, 45, 109, 23);
 		farmTypePanel.add(marsFarmRadio);
 		marsFarmRadio.setActionCommand("Mars");
-
+		
 		JRadioButton venusFarmRadio = new JRadioButton("Venus Farm");
+		venusFarmRadio.setForeground(Color.BLACK);
+		venusFarmRadio.setBackground(SystemColor.menu);
 		venusFarmRadio.setBounds(38, 71, 109, 23);
 		farmTypePanel.add(venusFarmRadio);
 		venusFarmRadio.setActionCommand("Venus");
-
+		
 		JRadioButton jupiterFarmRadio = new JRadioButton("Jupiter Farm");
+		jupiterFarmRadio.setForeground(Color.BLACK);
+		jupiterFarmRadio.setBackground(SystemColor.menu);
 		jupiterFarmRadio.setBounds(38, 95, 109, 23);
 		farmTypePanel.add(jupiterFarmRadio);
 		jupiterFarmRadio.setActionCommand("Jupiter");
-
-		ButtonGroup farmTypeGroup = new ButtonGroup();
 		farmTypeGroup.add(earthFarmRadio);
 		farmTypeGroup.add(marsFarmRadio);
 		farmTypeGroup.add(venusFarmRadio);
 		farmTypeGroup.add(jupiterFarmRadio);
-
+		
 		JTextPane farmBonuses = new JTextPane();
+		farmBonuses.setForeground(Color.BLACK);
 		farmBonuses.setEditable(false);
-		farmBonuses.setBackground(UIManager.getColor("SplitPane.background"));
+		farmBonuses.setBackground(new Color(240, 240, 240));
 		farmBonuses.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		farmBonuses.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nBonuses: Animal Happiness +1");
 		farmBonuses.setBounds(234, 34, 354, 74);
 		farmTypePanel.add(farmBonuses);
-
+		
 		RadioListener farmTypeListener = new RadioListener(farmBonuses, farmTypeGroup);
-		earthFarmRadio.addActionListener(farmTypeListener);
-		marsFarmRadio.addActionListener(farmTypeListener);
-		venusFarmRadio.addActionListener(farmTypeListener);
-		jupiterFarmRadio.addActionListener(farmTypeListener);
-
-		farmerAgeField = new JTextField("25");
-		farmerAgeField.setBounds(309, 228, 146, 33);
-		setupWindow.getContentPane().add(farmerAgeField);
-		farmerAgeField.setColumns(10);
-
+		
 		JLabel farmNameLabel = new JLabel("What is the name of your farm?");
+		farmNameLabel.setBackground(SystemColor.menu);
+		farmNameLabel.setBounds(23, 296, 228, 33);
+		detailSubmissionPanel.add(farmNameLabel);
+		farmNameLabel.setForeground(Color.BLACK);
 		farmNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		farmNameLabel.setBounds(36, 392, 228, 33);
-		setupWindow.getContentPane().add(farmNameLabel);
-
+		
 		farmNameField = new JTextField("Bobs Farm");
-		farmNameField.setBounds(36, 427, 182, 33);
-		setupWindow.getContentPane().add(farmNameField);
+		farmNameField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		farmNameField.setBounds(23, 328, 182, 33);
+		detailSubmissionPanel.add(farmNameField);
+		farmNameField.setForeground(Color.BLACK);
+		farmNameField.setBackground(SystemColor.menu);
 		farmNameField.setColumns(10);
-
-		farmerNameError = new JLabel("Error");
-		farmerNameError.setVisible(false);
-		farmerNameError.setForeground(Color.RED);
-		farmerNameError.setBounds(465, 187, 219, 35);
-		setupWindow.getContentPane().add(farmerNameError);
-
-		farmerAgeError = new JLabel("Error");
-		farmerAgeError.setForeground(Color.RED);
-		farmerAgeError.setVisible(false);
-		farmerAgeError.setBounds(465, 226, 219, 33);
-		setupWindow.getContentPane().add(farmerAgeError);
-
+		
 		farmNameError = new JLabel("Error");
+		farmNameError.setBounds(215, 328, 228, 33);
+		detailSubmissionPanel.add(farmNameError);
 		farmNameError.setVisible(false);
 		farmNameError.setForeground(Color.RED);
-		farmNameError.setBounds(228, 427, 228, 33);
-		setupWindow.getContentPane().add(farmNameError);
-
+		
 		JButton beginGameButton = new JButton("Begin Game");
+		beginGameButton.setBounds(501, 308, 146, 68);
+		detailSubmissionPanel.add(beginGameButton);
 		beginGameButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		beginGameButton.setBounds(513, 392, 146, 68);
-		setupWindow.getContentPane().add(beginGameButton);
 		beginGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(isValid(farmerNameField.getText(), farmerAgeField.getText(), farmNameField.getText())) {
@@ -217,6 +260,11 @@ public class SetupScreen {
 				}
 			}
 		});
+		earthFarmRadio.addActionListener(farmTypeListener);
+		marsFarmRadio.addActionListener(farmTypeListener);
+		venusFarmRadio.addActionListener(farmTypeListener);
+		jupiterFarmRadio.addActionListener(farmTypeListener);
+		farmerAgeError.setVisible(false);
 		
 	}	
 	
@@ -230,7 +278,7 @@ public class SetupScreen {
 		boolean valid = true;
 		if (name.length() < 3 || name.length() > 15) {
 			valid = false;
-			errorLabel.setText("Name must be 3 to 15 characters long");
+			errorLabel.setText("<html>Name must be 3 to 15<br>characters long</html>");
 			errorLabel.setVisible(true);
 		}
 		else if (!name.matches("[a-zA-Z ]+")) {
@@ -298,7 +346,6 @@ public class SetupScreen {
 		
 		return allValid;
 	}
-
 }
 
 /**

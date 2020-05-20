@@ -343,7 +343,7 @@ public class MainScreen {
 		
 		//When pressed will open store screen and close main screen
 		JButton storeButton = new JButton("Store");
-		storeButton.setBounds(10, 373, 112, 75);
+		storeButton.setBounds(10, 361, 112, 87);
 		storeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -364,7 +364,7 @@ public class MainScreen {
 		
 		//When pressed will move game to next day
 		nextDayButton = new JButton("Go to next day");
-		nextDayButton.setBounds(531, 373, 140, 75);
+		nextDayButton.setBounds(531, 361, 140, 87);
 		nextDayButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -387,7 +387,7 @@ public class MainScreen {
 		
 		//When pressed will close main screen and open inventory
 		JButton inventoryButton = new JButton("Inventory");
-		inventoryButton.setBounds(132, 373, 112, 75);
+		inventoryButton.setBounds(132, 361, 112, 87);
 		inventoryButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -408,7 +408,7 @@ public class MainScreen {
 		
 		//Panel within which animal information is displayed
 		JPanel animalPanel = new JPanel();
-		animalPanel.setBounds(410, 62, 261, 250);
+		animalPanel.setBounds(410, 45, 261, 250);
 		animalPanel.setBackground(Color.BLACK);
 		frmFarmSimulator.getContentPane().add(animalPanel);
 		animalPanel.setLayout(new GridLayout(3, 1, 1, 1));
@@ -478,8 +478,8 @@ public class MainScreen {
 		chickenPanel.add(chickenReturnLabel);
 		
 		JPanel cropPanel = new JPanel();
-		cropPanel.setBackground(new Color(0, 0, 0));
-		cropPanel.setBounds(10, 62, 390, 250);
+		cropPanel.setBackground(Color.BLACK);
+		cropPanel.setBounds(10, 45, 390, 250);
 		frmFarmSimulator.getContentPane().add(cropPanel);
 		cropPanel.setLayout(new GridLayout(8, 2, 1, 1));
 		
@@ -507,7 +507,8 @@ public class MainScreen {
 		gameDetailsPanel.add(moneyLabel);
 		
 		JPanel actionButtonsPanel = new JPanel();
-		actionButtonsPanel.setBounds(10, 318, 661, 44);
+		actionButtonsPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		actionButtonsPanel.setBounds(10, 306, 661, 44);
 		frmFarmSimulator.getContentPane().add(actionButtonsPanel);
 		actionButtonsPanel.setLayout(new GridLayout(1, 5, 0, 0));
 		
@@ -574,31 +575,27 @@ public class MainScreen {
 				if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
-					boolean hasEffect = false;
-					if (game.getFarm().getCropLimit() < 16) {
-						hasEffect = true;
-					}
-					else {
-						for (Animal animal : game.getFarm().getAnimals()) {
-							if (animal.getHappiness() < 10) {
-								hasEffect = true;
-								break;
-							}
-						}
-					}
-					if (hasEffect) {
+					try {
 						game.tendLand();
 						updateCropDisplay();
 						useAction();
+						if (game.getFarm().getCropLimit() < 16) {
+							JOptionPane.showMessageDialog(frmFarmSimulator, "You have an extra space to grow crops and your animal's happiness increased by 1");
+						} else {
+							JOptionPane.showMessageDialog(frmFarmSimulator, "Your animal's happiness increased by 1");
+						}
+					} catch (IllegalArgumentException noEffect) {
+						JOptionPane.showMessageDialog(frmFarmSimulator, noEffect.getMessage());
 					}
 				}
 			}
 		});
 		
 		toolTipLabel = new JLabel("");
+		toolTipLabel.setForeground(Color.WHITE);
 		toolTipLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolTipLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		toolTipLabel.setBounds(254, 373, 261, 75);
+		toolTipLabel.setBounds(254, 361, 261, 87);
 		frmFarmSimulator.getContentPane().add(toolTipLabel);
 		
 		//Calls the Game Environment method playWithAnimals if the player has actions remaining
@@ -627,9 +624,14 @@ public class MainScreen {
 				if (game.getRemainingActions() <= 0) {
 					JOptionPane.showMessageDialog(frmFarmSimulator, "You have already used your two actions for the day");
 				} else {
-					JOptionPane.showMessageDialog(frmFarmSimulator, "You played with all of your animals and increased their happiness.");
-					game.playWithAnimals();
-					useAction();
+					try {
+						game.playWithAnimals();
+						JOptionPane.showMessageDialog(frmFarmSimulator, "You played with all of your animals and increased their happiness by 2.");
+						useAction();
+					} catch (IllegalArgumentException maxHappiness) {
+						JOptionPane.showMessageDialog(frmFarmSimulator, maxHappiness.getMessage());
+					}
+						
 				}
 			}
 		});

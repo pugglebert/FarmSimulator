@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * Window to display the health and happiness of each animal owned by the farmer
@@ -84,56 +85,62 @@ public class AnimalStatusScreen {
 		animalStatusWindow = new JFrame();
 		animalStatusWindow.setResizable(false);
 		animalStatusWindow.setTitle("Animal Status");
+		animalStatusWindow.getContentPane().setBackground(new Color(0, 128, 0));
 		animalStatusWindow.setBounds(100, 100, 700, 500);
+		animalStatusWindow.setPreferredSize(new Dimension(710, 510));
+		animalStatusWindow.pack();
 		animalStatusWindow.setLocationRelativeTo(null);
 		animalStatusWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		animalStatusWindow.getContentPane().setLayout(null);
 		
 		cowPanel = new JPanel();
+		cowPanel.setBounds(18, 49, 207, 345);
 		cowPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		cowPanel.setBounds(12, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(cowPanel);
 		cowPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
 		sheepPanel = new JPanel();
+		sheepPanel.setBounds(243, 49, 207, 345);
 		sheepPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		sheepPanel.setBounds(239, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(sheepPanel);
 		sheepPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
 		chickenPanel = new JPanel();
+		chickenPanel.setBounds(468, 49, 207, 345);
 		chickenPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		chickenPanel.setBounds(466, 49, 215, 345);
 		animalStatusWindow.getContentPane().add(chickenPanel);
 		chickenPanel.setLayout(new GridLayout(10, 1, 1, 1));
 		
 		// Button to return to farm
 		JButton backButton = new JButton("Back");
+		backButton.setBounds(269, 405, 155, 52);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
 			}
 		});
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		backButton.setBounds(269, 408, 155, 52);
 		animalStatusWindow.getContentPane().add(backButton);
 		
 		JLabel cowLabel = new JLabel("Cows");
-		cowLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		cowLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cowLabel.setForeground(Color.WHITE);
 		cowLabel.setBounds(12, 11, 215, 27);
+		cowLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		cowLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		animalStatusWindow.getContentPane().add(cowLabel);
 		
 		JLabel sheepLabel = new JLabel("Sheep");
-		sheepLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		sheepLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sheepLabel.setForeground(Color.WHITE);
 		sheepLabel.setBounds(239, 11, 215, 27);
+		sheepLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		sheepLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		animalStatusWindow.getContentPane().add(sheepLabel);
 		
 		JLabel chickenLabel = new JLabel("Chickens");
-		chickenLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chickenLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		chickenLabel.setForeground(Color.WHITE);
 		chickenLabel.setBounds(466, 11, 215, 27);
+		chickenLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		chickenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		animalStatusWindow.getContentPane().add(chickenLabel);
 	}
 	

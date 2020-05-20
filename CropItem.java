@@ -31,7 +31,7 @@ public class CropItem extends Item implements Buyable {
 	public String toString() {
 		String growthStr = Integer.toString(growthBonus);
 		String count = Integer.toString(super.getInventoryCount());
-		String repr = super.getName() + ": crop item which speeds up growth time by " + growthStr + " days (" + count + " available)";
+		String repr = super.getName() + ": Speeds up growth by " + growthStr + " days (" + count + " available)";
 		return repr;
 	}
 	
@@ -42,7 +42,7 @@ public class CropItem extends Item implements Buyable {
 	public String toStringStore() {
 		String growthStr = Integer.toString(growthBonus);
 		String priceStr = Integer.toString(super.getBuyPrice());
-		String repr = super.getName() + ": crop item which speeds up growth time by " + growthStr + " days and costs $" + priceStr;
+		String repr = super.getName() + ": $" + priceStr + "   Speeds up growth by " + growthStr + " days";
 		return repr;
 	}
 	

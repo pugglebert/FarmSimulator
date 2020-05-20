@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 
 import java.util.ArrayList;
 import java.lang.IllegalArgumentException;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 /**
  * Screen from which players can purchase animals, crops, food items and crop items
@@ -75,6 +77,7 @@ public class StoreScreen {
 	 */
 	private void initialize() {
 		frmCountyStore = new JFrame();
+		frmCountyStore.getContentPane().setBackground(new Color(0, 128, 0));
 		frmCountyStore.setTitle("County Store");
 		frmCountyStore.setBounds(100, 100, 700, 500);
 		frmCountyStore.setLocationRelativeTo(null);
@@ -83,13 +86,17 @@ public class StoreScreen {
 		frmCountyStore.getContentPane().setLayout(null);
 		
 		JLabel welcomeLabel = new JLabel("Welcome to the County Store!");
-		welcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		welcomeLabel.setBounds(230, 11, 319, 34);
+		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		welcomeLabel.setForeground(new Color(255, 255, 255));
+		welcomeLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		welcomeLabel.setBounds(145, 11, 404, 34);
 		frmCountyStore.getContentPane().add(welcomeLabel);
 		
 		moneyLabel = new JLabel("You have $" + game.getFarm().getMoney() + " to spend");
-		moneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		moneyLabel.setBounds(261, 56, 229, 51);
+		moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		moneyLabel.setForeground(new Color(255, 255, 255));
+		moneyLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		moneyLabel.setBounds(160, 56, 373, 51);
 		frmCountyStore.getContentPane().add(moneyLabel);
 		
 		// Launches option pane which allows player to purchase food items
@@ -147,19 +154,21 @@ public class StoreScreen {
 		frmCountyStore.getContentPane().add(cropButton);
 		
 		JLabel merchandiseLabel = new JLabel("View our merchandise:");
-		merchandiseLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		merchandiseLabel.setBounds(261, 121, 190, 40);
+		merchandiseLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		merchandiseLabel.setForeground(new Color(255, 255, 255));
+		merchandiseLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		merchandiseLabel.setBounds(160, 121, 373, 40);
 		frmCountyStore.getContentPane().add(merchandiseLabel);
 		
 		// Closes store screen and opens main screen
-		JButton exitButton = new JButton("Return to farm");
+		JButton exitButton = new JButton("Return to Farm");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
 			}
 		});
 		exitButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		exitButton.setBounds(223, 320, 251, 34);
+		exitButton.setBounds(221, 391, 251, 34);
 		frmCountyStore.getContentPane().add(exitButton);
 		
 		// Closes store screen and opens inventory screen
@@ -171,7 +180,7 @@ public class StoreScreen {
 			}
 		});
 		inventoryButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		inventoryButton.setBounds(223, 376, 251, 34);
+		inventoryButton.setBounds(221, 333, 251, 34);
 		frmCountyStore.getContentPane().add(inventoryButton);
 	}
 	

@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 /**
  * Screen which displays items farmer owns and allows player to select items to use
@@ -85,6 +86,7 @@ public class InventoryScreen {
 	 */
 	private void initialize() {
 		frmInventory = new JFrame();
+		frmInventory.getContentPane().setBackground(new Color(0, 128, 0));
 		frmInventory.setResizable(false);
 		frmInventory.setTitle("Inventory");
 		frmInventory.setBounds(100, 100, 700, 500);
@@ -124,17 +126,19 @@ public class InventoryScreen {
 			}
 		});
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		backButton.setBounds(223, 320, 251, 34);
+		backButton.setBounds(221, 391, 251, 34);
 		frmInventory.getContentPane().add(backButton);
 		
 		JLabel foodItemLabel = new JLabel("Food Items");
-		foodItemLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		foodItemLabel.setBounds(263, 11, 119, 35);
+		foodItemLabel.setForeground(new Color(255, 255, 255));
+		foodItemLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		foodItemLabel.setBounds(287, 11, 119, 35);
 		frmInventory.getContentPane().add(foodItemLabel);
 		
 		JLabel cropItemLabel = new JLabel("Crop Items");
-		cropItemLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		cropItemLabel.setBounds(263, 157, 119, 35);
+		cropItemLabel.setForeground(new Color(255, 255, 255));
+		cropItemLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		cropItemLabel.setBounds(287, 157, 119, 35);
 		frmInventory.getContentPane().add(cropItemLabel);
 		
 		//Selected food item will be used when pressed if farmer has actions remaining
@@ -185,7 +189,7 @@ public class InventoryScreen {
 			}
 		});
 		storeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		storeButton.setBounds(223, 376, 251, 34);
+		storeButton.setBounds(221, 333, 251, 34);
 		frmInventory.getContentPane().add(storeButton);
 	}
 	

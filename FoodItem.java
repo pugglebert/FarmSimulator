@@ -32,7 +32,7 @@ public class FoodItem extends Item implements Buyable {
 	public String toString() {
 		String healthStr = Integer.toString(healthGiven);
 		String count = Integer.toString(super.getInventoryCount());
-		String repr = super.getName() + ": food item which gives " + healthStr + " health (" + count + " available)";
+		String repr = super.getName() + ": Gives +" + healthStr + " health to all animals (" + count + " available)";
 		return repr;
 	}
 	
@@ -43,7 +43,7 @@ public class FoodItem extends Item implements Buyable {
 	public String toStringStore() {
 		String healthStr = Integer.toString(healthGiven);
 		String priceStr = Integer.toString(super.getBuyPrice());
-		String repr = super.getName() + ": food item which gives " + healthStr + " health and costs $" + priceStr;
+		String repr = super.getName() + ": $" +  priceStr + "   Gives +" + healthStr + " health to all animals";
 		return repr;
 	}
 	
