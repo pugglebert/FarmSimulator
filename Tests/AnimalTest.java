@@ -199,7 +199,7 @@ class AnimalTest {
 	@Test
 	void toStringStoreTest() {
 		Animal animal = new Animal("TestAnimal", 50, 100);
-		assertEquals("TestAnimal: costs $100", animal.toStringStore());
+		assertEquals("TestAnimal: costs $100   Daily Return (Base): $50", animal.toStringStore());
 	}
 	
 	

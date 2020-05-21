@@ -72,6 +72,6 @@ class CropTest {
 	
 	@Test
 	void toStringTest() {
-		assertEquals("TestCrop: costs $50", crop.toStringStore());
+		assertEquals("TestCrop: costs $50   Growth Time: 5 days, sells for $100", crop.toStringStore());
 	}
 }

@@ -291,11 +291,12 @@ class GameEnvironmentTest {
 	 */
 	@Test
 	void getMoneyScoreTest() {
+		game.setTotalDays(7);
 		game.getFarm().setMoney(1000);
-		assertEquals(1000, game.getMoneyScore());
+		assertEquals(142, game.getMoneyScore());
 		
 		game.getFarm().setMoney(5000);
-		assertEquals(5000, game.getMoneyScore());
+		assertEquals(714, game.getMoneyScore());
 		
 	}
 	
@@ -305,6 +306,7 @@ class GameEnvironmentTest {
 	 */
 	@Test 
 	void getAnimalScoreTestMaxHappiness(){
+		game.setTotalDays(7);
 		ArrayList<Animal> animals = new ArrayList<Animal>();
 		animals.add(new Animal("TestAnimal1", 1, 1));
 		animals.add(new Animal("TestAnimal2", 1, 1));
@@ -317,7 +319,7 @@ class GameEnvironmentTest {
 		}
 		game.getFarm().setAnimals(animals);
 	
-		assertEquals(2500, game.getAnimalScore());
+		assertEquals(357, game.getAnimalScore());
 	}
 	
 	/**
@@ -325,6 +327,7 @@ class GameEnvironmentTest {
 	 */
 	@Test
 	void getAnimalScoreTestVaryingHappiness() {
+		game.setTotalDays(7);
 		ArrayList<Animal> animals = new ArrayList<Animal>();
 		animals.add(new Animal("TestAnimal1", 1, 1));
 		animals.get(0).setHappiness(0);
@@ -335,7 +338,7 @@ class GameEnvironmentTest {
 		
 		game.getFarm().setAnimals(animals);
 	
-		assertEquals(750, game.getAnimalScore());
+		assertEquals(107, game.getAnimalScore());
 	}
 	
 	/**
@@ -343,6 +346,7 @@ class GameEnvironmentTest {
 	 */
 	@Test
 	void getCropScoreTest() {
+		game.setTotalDays(7);
 		ArrayList<Crop> crops = new ArrayList<Crop>();
 		crops.add(new Crop("TestCrop1", 10, 1, 1));
 		crops.add(new Crop("TestCrop2", 10, 1, 1));
@@ -353,7 +357,7 @@ class GameEnvironmentTest {
 		
 		game.getFarm().setCrops(crops);
 		
-		assertEquals(750, game.getCropScore());
+		assertEquals(107, game.getCropScore());
 	}
 	
 	/**
@@ -364,7 +368,7 @@ class GameEnvironmentTest {
 	void calcScoreTest() {
 		game.setTotalDays(7);
 		game.getFarm().setMoney(1000);
-		assertEquals(1000, game.getMoneyScore());
+		assertEquals(142, game.getMoneyScore());
 		
 		ArrayList<Animal> animals = new ArrayList<Animal>();
 		animals.add(new Animal("TestAnimal1", 1, 1));
@@ -375,7 +379,7 @@ class GameEnvironmentTest {
 		animals.get(2).setHappiness(10);
 		
 		game.getFarm().setAnimals(animals);
-		assertEquals(750, game.getAnimalScore());
+		assertEquals(107, game.getAnimalScore());
 		
 		ArrayList<Crop> crops = new ArrayList<Crop>();
 		crops.add(new Crop("TestCrop1", 10, 1, 1));
@@ -386,9 +390,9 @@ class GameEnvironmentTest {
 		crops.get(1).boostGrowth(5);
 		
 		game.getFarm().setCrops(crops);
-		assertEquals(750, game.getCropScore());
+		assertEquals(107, game.getCropScore());
 		
-		assertEquals(357, game.calcScore());
+		assertEquals(356, game.calcScore());
 	}
 	
 }
