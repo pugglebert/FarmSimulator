@@ -183,6 +183,6 @@ public class Animal implements Buyable {
 	 * Displays the type of the Animal and how much it costs to buy
 	 */
 	public String toStringStore() {
-		return animalType + ": costs $" + Integer.toString(buyPrice);
+		return animalType + ": costs $" + Integer.toString(buyPrice) + "   Daily Return (Base): $" + baseReturn;
 	}
 }

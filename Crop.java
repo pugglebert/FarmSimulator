@@ -141,6 +141,6 @@ public class Crop implements Buyable {
 	 * Displays the type of the Crop and how much it costs to buy
 	 */
 	public String toStringStore() {
-		return cropType.substring(0, 1).toUpperCase() + cropType.substring(1) + ": costs $" + Integer.toString(buyPrice);
+		return cropType.substring(0, 1).toUpperCase() + cropType.substring(1) + ": costs $" + Integer.toString(buyPrice) + "   Growth Time: " + harvestAge + " days, sells for $" + sellPrice;
 	}
 }

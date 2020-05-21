@@ -219,8 +219,8 @@ public class SetupScreen {
 		farmBonuses.setEditable(false);
 		farmBonuses.setBackground(new Color(240, 240, 240));
 		farmBonuses.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		farmBonuses.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nBonuses: Animal Happiness +1");
-		farmBonuses.setBounds(234, 34, 354, 74);
+		farmBonuses.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nInitial Crop Limit: 6\r\nBonuses: Animal Happiness +1");
+		farmBonuses.setBounds(233, 21, 354, 97);
 		farmTypePanel.add(farmBonuses);
 		
 		RadioListener farmTypeListener = new RadioListener(farmBonuses, farmTypeGroup);
@@ -369,16 +369,16 @@ class RadioListener implements ActionListener{
 
 		String button = radioGroup.getSelection().getActionCommand();
 		if (button == "Earth") {
-			text.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nBonuses: Animal Happiness +1");
+			text.setText("Starting Money: $1000\r\nStarting Animals: Chicken\r\nStarting Crops: Barley, Wheat\r\nInitial Crop Limit: 6\r\nBonuses: Animal Happiness +1");
 		}
 		else if (button == "Mars") {
-			text.setText("Starting Money: $800\r\nStarting Animals: Cow\r\nStarting Crops: Maize, Potato\r\nBonuses: Crop Harvest Time -1");
+			text.setText("Starting Money: $800\r\nStarting Animals: Cow\r\nStarting Crops: Maize, Potato\r\nInitial Crop Limit: 8\r\nBonuses: Crop Harvest Time -1");
 		}
 		else if (button == "Venus") {
-			text.setText("Starting Money: $1500\r\nStarting Animals: Sheep\r\nStarting Crops: Pumpkin, Kale\r\nBonuses: N/A");
+			text.setText("Starting Money: $1500\r\nStarting Animals: Sheep\r\nStarting Crops: Pumpkin, Kale\r\nInitial Crop Limit: 10\r\nBonuses: N/A");
 		}
 		else if (button == "Jupiter") {
-			text.setText("Starting Money: $500\r\nStarting Animals: Cow, Sheep\r\nStarting Crops: Wheat, Maize, Pumpkin\r\nBonuses: Animal Happiness +1, Crop Harvest Time -1");
+			text.setText("Starting Money: $500\r\nStarting Animals: Cow, Sheep\r\nStarting Crops: Wheat, Maize, Pumpkin\r\nInitial Crop Limit: 6\r\nBonuses: Animal Happiness +1, Crop Harvest Time -1");
 		}
 	}
 }

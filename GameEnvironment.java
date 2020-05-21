@@ -307,7 +307,7 @@ public class GameEnvironment {
 	 * @return		Score based on the amount of money / length of the game
 	 */
 	public int getMoneyScore() {
-		return farm.getMoney();
+		return farm.getMoney() / totalDays;
 	}
 
 	/**
@@ -320,7 +320,7 @@ public class GameEnvironment {
 		for (Animal animal : farm.getAnimals()) {
 			animalScore += 50 * animal.getHappiness();
 		}
-		return animalScore;
+		return animalScore / totalDays;
 	}
 	
 	/**
@@ -332,7 +332,7 @@ public class GameEnvironment {
 		for (Crop crop : farm.getCrops()) {
 			cropScore += 50 * crop.getAge();
 		}
-		return cropScore;
+		return cropScore / totalDays;
 	}
 
 	/**
@@ -340,7 +340,7 @@ public class GameEnvironment {
 	 * @return		Returns the total score
 	 */
 	public int calcScore() {
-		return (getMoneyScore() + getAnimalScore() + getCropScore()) / totalDays;
+		return (getMoneyScore() + getAnimalScore() + getCropScore()) ;
 	}
 	
 	public static void main(String[] args) {
