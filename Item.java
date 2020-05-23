@@ -21,7 +21,7 @@ public abstract class Item implements Buyable {
 	/**
 	 * Number of a particular type of item which farmer has in their possession
 	 */
-	private int inventory_count = 0;
+	private int inventoryCount = 0;
 	
 	/**
 	 * String representation used in inventory screen
@@ -37,7 +37,7 @@ public abstract class Item implements Buyable {
 	 * Increase amount of an Item which the farmer owns by 1
 	 */
 	public void addToInventory() {
-		inventory_count++;
+		inventoryCount++;
 	}
 	
 	/**
@@ -45,9 +45,9 @@ public abstract class Item implements Buyable {
 	 */
 	public void removeFromInventory() {
 		if (inventory_count <= 0) {
-			inventory_count = 0;
+			inventoryCount = 0;
 		} else {
-			inventory_count--;
+			inventoryCount--;
 		}
 	}
 	
@@ -56,7 +56,7 @@ public abstract class Item implements Buyable {
 	 * @return number of specific Item owned by farmer
 	 */
 	public int getInventoryCount() {
-		return inventory_count;
+		return inventoryCount;
 	}
 	
 	/**
