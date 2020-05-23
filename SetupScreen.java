@@ -38,6 +38,7 @@ public class SetupScreen {
 
 	/**
 	 * Make the setup screen visible and initialize its display
+	 * @param newGame		Game environment passed into the setup screen
 	 */
 	public SetupScreen(GameEnvironment newGame) {
 		game = newGame;
@@ -133,7 +134,7 @@ public class SetupScreen {
 		farmerNameLabel.setForeground(Color.BLACK);
 		farmerNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		farmerNameField = new JTextField("Bob");
+		farmerNameField = new JTextField();
 		farmerNameField.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		farmerNameField.setForeground(Color.BLACK);
 		farmerNameField.setBounds(309, 103, 146, 33);
@@ -152,7 +153,7 @@ public class SetupScreen {
 		detailSubmissionPanel.add(farmerAgeError);
 		farmerAgeError.setForeground(Color.RED);
 		
-		farmerAgeField = new JTextField("25");
+		farmerAgeField = new JTextField();
 		farmerAgeField.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		farmerAgeField.setForeground(Color.BLACK);
 		farmerAgeField.setBounds(309, 138, 146, 33);
@@ -232,7 +233,7 @@ public class SetupScreen {
 		farmNameLabel.setForeground(Color.BLACK);
 		farmNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		farmNameField = new JTextField("Bobs Farm");
+		farmNameField = new JTextField();
 		farmNameField.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		farmNameField.setBounds(23, 328, 182, 33);
 		detailSubmissionPanel.add(farmNameField);
@@ -272,7 +273,7 @@ public class SetupScreen {
 	 * Checks that name is 3-15 characters long and does not contain numbers or special characters
 	 * @param name String for farmer or farm name
 	 * @param errorLabel Label on which error message will be displayed
-	 * @return
+	 * @return		Returns true if all inputs are valid, false otherwise
 	 */
 	public boolean checkNameValid(String name, JLabel errorLabel) {
 		boolean valid = true;
@@ -297,7 +298,7 @@ public class SetupScreen {
 	 * Checks that age is in the range 1-100
 	 * @param age Player input for age
 	 * @param errorLabel Label on which error message will be displayed
-	 * @return
+	 * @return		Returns true if the farmers age is a valid input, false otherwise
 	 */
 	public boolean checkAgeValid(String age, JLabel errorLabel) {
 		boolean valid = true;
@@ -327,7 +328,7 @@ public class SetupScreen {
 	 * @param farmerName Name for farmer from player input
 	 * @param farmerAge Age for farmer from player input
 	 * @param farmName Name for farm from player input
-	 * @return
+	 * @return		Returns true if all name inputs are valid, faalse otherwise
 	 */
 	public boolean isValid(String farmerName, String farmerAge, String farmName) {
 		boolean allValid = true;

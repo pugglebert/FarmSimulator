@@ -83,6 +83,7 @@ public class MainScreen {
 	
 	/**
 	 * Create the application.
+	 * @param newGame		Game environment passed into the main screen
 	 */
 	public MainScreen(GameEnvironment newGame) {
 		game = newGame;

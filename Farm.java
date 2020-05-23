@@ -349,7 +349,7 @@ public class Farm {
 					money += price;
 					throw new IllegalArgumentException("Your farm already has the maximum number of crops.\n"
 							+ "Tend the land to get space to grow more.");
-				} else if (merchandise instanceof Crop){
+				} else {
 					String cropType = ((Crop) merchandise).getCropType();
 					Crop crop = null;
 					switch(cropType) {

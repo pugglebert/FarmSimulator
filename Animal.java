@@ -79,6 +79,7 @@ public class Animal implements Buyable {
 	
 	/**
 	 * Returns the Animal's happiness
+	 * @return 		The animal's happiness
 	 */
 	public int getHappiness() {
 		return happiness;
