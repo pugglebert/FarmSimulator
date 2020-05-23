@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 /**
  * This class implements the Sheep variety of Animal

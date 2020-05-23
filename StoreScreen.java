@@ -1,13 +1,9 @@
 package farmSimulatorGUI;
 
-import java.awt.EventQueue;
-
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,6 +13,9 @@ import java.util.ArrayList;
 import java.lang.IllegalArgumentException;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
+import farmSimulator.Buyable;
+import farmSimulator.GameEnvironment;
 
 /**
  * Screen from which players can purchase animals, crops, food items and crop items

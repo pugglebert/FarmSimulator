@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 /**
  * This class implements an Animal being a Cow, Chicken, or Sheep

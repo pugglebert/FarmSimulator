@@ -1,12 +1,15 @@
 package farmSimulatorGUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+
+import farmSimulator.Crop;
+import farmSimulator.CropItem;
+import farmSimulator.FoodItem;
+import farmSimulator.GameEnvironment;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

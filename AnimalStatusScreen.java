@@ -1,16 +1,16 @@
 package farmSimulatorGUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import java.awt.GridBagLayout;
-import java.util.ArrayList;
 import java.awt.GridLayout;
 import javax.swing.border.BevelBorder;
+
+import farmSimulator.Animal;
+import farmSimulator.Cow;
+import farmSimulator.GameEnvironment;
+import farmSimulator.Sheep;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;

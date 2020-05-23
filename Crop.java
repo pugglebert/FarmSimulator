@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 /**
  * This class implements a Crop (Barley, Kale, Maize, Potato, Pumpkin, Wheat)

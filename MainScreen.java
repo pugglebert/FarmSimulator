@@ -15,11 +15,18 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.border.EtchedBorder;
+
+import farmSimulator.Animal;
+import farmSimulator.Chicken;
+import farmSimulator.Cow;
+import farmSimulator.Crop;
+import farmSimulator.Farm;
+import farmSimulator.GameEnvironment;
+import farmSimulator.Sheep;
+
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JProgressBar;
 
 /**

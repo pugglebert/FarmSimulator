@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 /**
  * Interface Buyable allows objects which implement it to be displayed

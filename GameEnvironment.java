@@ -1,6 +1,10 @@
-package farmSimulatorGUI;
+package farmSimulator;
 
 import java.util.ArrayList;
+
+import farmSimulatorGUI.EndScreen;
+import farmSimulatorGUI.MainScreen;
+import farmSimulatorGUI.SetupScreen;
 
 /**
  * This class sets up the main game environment used in the application.

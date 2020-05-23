@@ -1,4 +1,4 @@
-package farmSimulatorGUI;
+package farmSimulator;
 /**
  * The abstract class Item can be bought and stored in a farmer's inventory
  * Its subclasses foodItem and cropItem are used to provide bonuses to crops
@@ -21,7 +21,7 @@ public abstract class Item implements Buyable {
 	/**
 	 * Number of a particular type of item which farmer has in their possession
 	 */
-	private int inventoryCount = 0;
+	private int inventory_count = 0;
 	
 	/**
 	 * String representation used in inventory screen
@@ -37,7 +37,7 @@ public abstract class Item implements Buyable {
 	 * Increase amount of an Item which the farmer owns by 1
 	 */
 	public void addToInventory() {
-		inventoryCount++;
+		inventory_count++;
 	}
 	
 	/**
@@ -45,9 +45,9 @@ public abstract class Item implements Buyable {
 	 */
 	public void removeFromInventory() {
 		if (inventory_count <= 0) {
-			inventoryCount = 0;
+			inventory_count = 0;
 		} else {
-			inventoryCount--;
+			inventory_count--;
 		}
 	}
 	
@@ -56,7 +56,7 @@ public abstract class Item implements Buyable {
 	 * @return number of specific Item owned by farmer
 	 */
 	public int getInventoryCount() {
-		return inventoryCount;
+		return inventory_count;
 	}
 	
 	/**

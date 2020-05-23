@@ -1,7 +1,5 @@
 package farmSimulatorGUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,12 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JSplitPane;
+
+import farmSimulator.GameEnvironment;
 import java.awt.Color;
 import java.awt.Dimension;
 

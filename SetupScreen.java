@@ -16,7 +16,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import javax.swing.UIManager;
+
+import farmSimulator.GameEnvironment;
+
 import javax.swing.JButton;
 import java.awt.SystemColor;
 
