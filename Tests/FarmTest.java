@@ -401,6 +401,37 @@ class FarmTest {
 			assertEquals(size + 2, testFarm.getAnimals().size());
 			assertEquals(6, testFarm.getAnimals().get(size + 1).getHappiness());
 		}
+		
+		Farm farm = new Farm(new Farmer(), "TestFarm");
+		farm.setMoney(10000);
+		farm.setAnimals(new ArrayList<Animal>());
+		for (int i = 1; i <= 10; i++) {
+			farm.addAnimal(new Cow());
+			farm.addAnimal(new Chicken());
+			farm.addAnimal(new Sheep());
+		}
+		assertEquals(30, farm.getAnimals().size());
+		try {
+			 farm.buy(new Cow());
+		 } catch (IllegalArgumentException e) {
+			 assertEquals("You already have the maximum number of Cows!", e.getMessage());
+			 assertEquals(30, farm.getAnimals().size());
+		 }
+		
+		try {
+			 farm.buy(new Chicken());
+		 } catch (IllegalArgumentException e) {
+			 assertEquals("You already have the maximum number of Chickens!", e.getMessage());
+			 assertEquals(30, farm.getAnimals().size());
+		 }
+		
+		try {
+			 farm.buy(new Sheep());
+		 } catch (IllegalArgumentException e) {
+			 assertEquals("You already have the maximum number of Sheep!", e.getMessage());
+			 assertEquals(30, farm.getAnimals().size());
+		 }
+		
 	}
 			
 	/**
@@ -410,34 +441,35 @@ class FarmTest {
 	 * added to the Farm.crops and the Farm's money will decrease by buyPrice
 	 * Tests that growthBonus is added when an Crop is purchased
 	 */
+	@Test
 	 final void testBuyCrop() {
 		for (Farm testFarm : testFarms) {
 			testFarm.setGrowthBonus(1);
-			testFarm.setMoney(90);
+			testFarm.setMoney(50);
 			int size = testFarm.getCrops().size();
 			try {
-				testFarm.buy(new Crop("Test", 10, 100, 100));
+				testFarm.buy(new Crop("Wheat", 5, 60, 130));
 				fail("Farmer should not have been able to buy item they could not afford");
 			} catch (IllegalArgumentException e) {
-				assertEquals(90, testFarm.getMoney());
+				assertEquals(50, testFarm.getMoney());
 				assertEquals(size, testFarm.getCrops().size());
 			}
-			testFarm.setMoney(100);
-			testFarm.buy(new Crop("Test", 10, 100, 100));
+			testFarm.setMoney(60);
+			testFarm.buy(new Crop("Wheat", 5, 60, 130));
 			assertEquals(0, testFarm.getMoney());
 			assertEquals(size + 1, testFarm.getCrops().size());
-			assertEquals(9, testFarm.getCrops().get(size).getHarvestAge());
+			assertEquals(5 - testFarm.getGrowthBonus(), testFarm.getCrops().get(size).getHarvestAge());
 			testFarm.setMoney(1000);
-			testFarm.buy(new Crop("Test", 10, 100, 100));
-			assertEquals(900, testFarm.getMoney());
-			assertEquals(size + 2, testFarm.getAnimals().size());
-			assertEquals(9, testFarm.getCrops().get(size + 1).getHarvestAge());
+			testFarm.buy(new Crop("Wheat", 5, 60, 130));
+			assertEquals(940, testFarm.getMoney());
+			assertEquals(size + 2, testFarm.getCrops().size());
+			assertEquals(5 - testFarm.getGrowthBonus(), testFarm.getCrops().get(size + 1).getHarvestAge());
 			testFarm.setCropLimit(testFarm.getCrops().size());
 			try {
-				testFarm.buy(new Crop("Test", 10, 100, 100));
+				testFarm.buy(new Crop("Wheat", 5, 60, 130));
 				fail("Crop limit surpassed");
 			} catch (IllegalArgumentException e) {
-				assertEquals(900, testFarm.getMoney());
+				assertEquals(940, testFarm.getMoney());
 				assertEquals(size + 2, testFarm.getCrops().size());
 			}
 		}
@@ -451,26 +483,26 @@ class FarmTest {
 	 * and the Farms money decreases by the buyPrice of the item
 	 * Tests that items with a buyPrice greater than the farm's money cannot be bought
 	 */
+	@Test
 	final void testBuyItem() {
-		for (Farm testFarm : testFarms) {
-			testFarm.setMoney(1000);
-			FoodItem testItem = new FoodItem("Test", 100, 1);
-			testFarm.buy(testItem);
-			assertEquals(testFarm.getMoney(), 900);
-			assertEquals(testFarmer.getItems().size(), 1);
-			assertEquals(1, testFarmer.getItems().get(0).getInventoryCount());
-			testFarm.buy(testItem);
-			assertEquals(testFarm.getMoney(), 800);
-			assertEquals(testFarmer.getItems().size(), 1);
-			assertEquals(2, testFarmer.getItems().get(0).getInventoryCount());
-			CropItem testItem2 = new CropItem("Test", 1000, 1);
-			try {
-				testFarm.buy(testItem2);
-				fail("Farmer should not have been able to buy item they could not afford");
-			} catch (IllegalArgumentException e) {
-				assertEquals(800, testFarm.getMoney());
-				assertEquals(1, testFarmer.getItems().size());
-			}
+		Farm testFarm = testFarms.get(0);
+		testFarm.setMoney(1000);
+		FoodItem testItem = new FoodItem("Test", 100, 1);
+		testFarm.buy(testItem);
+		assertEquals(testFarm.getMoney(), 900);
+		assertEquals(1, testFarmer.getItems().size());
+		assertEquals(1, testFarmer.getItems().get(0).getInventoryCount());
+		testFarm.buy(testItem);
+		assertEquals(testFarm.getMoney(), 800);
+		assertEquals(testFarmer.getItems().size(), 1);
+		assertEquals(2, testFarmer.getItems().get(0).getInventoryCount());
+		CropItem testItem2 = new CropItem("Test", 1000, 1);
+		try {
+			testFarm.buy(testItem2);
+			fail("Farmer should not have been able to buy item they could not afford");
+		} catch (IllegalArgumentException e) {
+			assertEquals(800, testFarm.getMoney());
+			assertEquals(1, testFarmer.getItems().size());
 		}
 	}
 
