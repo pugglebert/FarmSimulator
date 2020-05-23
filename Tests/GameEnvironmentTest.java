@@ -54,17 +54,6 @@ class GameEnvironmentTest {
 	}
 	
 	/**
-	 * Tests that the farmer is initiated correctly. Farm name and age are tested with various inputs in
-	 * the SetupTest class
-	 */
-	@Test
-	void initiateFarmerTest() {
-		game.initiateFarmer("Bob", 25);
-		assertEquals("Bob", game.getFarmer().getName());
-		assertEquals(25, game.getFarmer().getAge());
-	}
-	
-	/**
 	 * Tests the use of actions, throws an error when trying to use an action when there are none left. Resets back
 	 * to 2 after each day
 	 */

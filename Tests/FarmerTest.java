@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import CustomExceptions.InvalidFarmerAgeException;
+import CustomExceptions.InvalidFarmerNameException;
 import farmSimulatorGUI.*;
 import java.util.ArrayList;
 
@@ -30,29 +32,29 @@ class FarmerTest {
 		testFarmer.setName("Bob");
 		assertEquals("Bob", testFarmer.getName());
 		try {
-			testFarmer.setName("A");
+			testFarmer.setName("AA");
 			fail("Should not accept names less than 3 chars long");
 		}
-		catch (IllegalArgumentException e) {
-			assertEquals("Bob", testFarmer.getName());
+		catch (InvalidFarmerNameException e) {
+			assertEquals("Name must be at least 3 chars long.", e.getMessage());
 		}
 		try {
 			testFarmer.setName("1234");
 			fail("Should not accept names containing numbers");
-		} catch (IllegalArgumentException e) {
-			assertEquals("Bob", testFarmer.getName());
+		} catch (InvalidFarmerNameException e) {
+			assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 		}
 		try {
 			testFarmer.setName("hello$");
 			fail("Should not accept names containing special characters");
-		} catch (IllegalArgumentException e) {
-			assertEquals("Bob", testFarmer.getName());
+		} catch (InvalidFarmerNameException e) {
+			assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 		}
 		try {
-			testFarmer.setName("This is a very long name");
+			testFarmer.setName("SixteenCharacter");
 			fail("Should not accept names over 15 chars long");
-		} catch (IllegalArgumentException e) {
-			assertEquals("Bob", testFarmer.getName());
+		} catch (InvalidFarmerNameException e) {
+			assertEquals("Name must be at most 15 chars long.", e.getMessage());
 		}
 	}
 
@@ -62,25 +64,31 @@ class FarmerTest {
 	 */
 	@Test
 	final void testSetAge() {
-		testFarmer.setAge(90);
+		testFarmer.setAge("90");
 		assertEquals(90, testFarmer.getAge());
 		try {
-			testFarmer.setAge(0);
+			testFarmer.setAge("0");
 			fail("Age cannot be set to 0");
-		} catch (IllegalArgumentException e) {
-			assertEquals(90, testFarmer.getAge());
+		} catch (InvalidFarmerAgeException e) {
+			assertEquals("Age must be from 1 to 100", e.getMessage());
 		}
 		try {
-			testFarmer.setAge(-10);
+			testFarmer.setAge("-10");
 			fail("Age cannot be set to a negative number");
-		} catch (IllegalArgumentException e) {
-			assertEquals(90, testFarmer.getAge());
+		} catch (InvalidFarmerAgeException e) {
+			assertEquals("Age must be from 1 to 100", e.getMessage());
 		}
 		try {
-			testFarmer.setAge(101);
+			testFarmer.setAge("101");
 			fail("Age cannot be set to over 100");
-		} catch (IllegalArgumentException e) {
-			assertEquals(90, testFarmer.getAge());
+		} catch (InvalidFarmerAgeException e) {
+			assertEquals("Age must be from 1 to 100", e.getMessage());
+		}
+		try {
+			testFarmer.setAge("abc");
+			fail("Age cannot a non integer");
+		} catch (InvalidFarmerAgeException e) {
+			assertEquals("Age must be from 1 to 100", e.getMessage());
 		}
 	}
 	

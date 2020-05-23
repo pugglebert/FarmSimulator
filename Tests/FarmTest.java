@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import CustomExceptions.InvalidFarmNameException;
 import farmSimulatorGUI.*;
 import java.util.ArrayList;
 
@@ -119,31 +120,31 @@ class FarmTest {
 	final void testSetName() {
 		for (Farm testFarm : testFarms) {
 			testFarm.setName("Cool Farm");
-			assertEquals(testFarm.getName(), "Cool Farm");
+			assertEquals("Cool Farm", testFarm.getName());
 			try {
 				testFarm.setName("A");
 				fail("Should not accept names less than 3 chars long");
 			}
-			catch (IllegalArgumentException e) {
-				assertEquals(testFarm.getName(), "Cool Farm");
+			catch (InvalidFarmNameException e) {
+				assertEquals("Name must be at least 3 chars long.", e.getMessage());
 			}
 			try {
 				testFarm.setName("1234");
 				fail("Should not accept names containing numbers");
-			} catch (IllegalArgumentException e) {
-				assertEquals(testFarm.getName(), "Cool Farm");
+			} catch (InvalidFarmNameException e) {
+				assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 			}
 			try {
 				testFarm.setName("hello$");
 				fail("Should not accept names containing special characters");
-			} catch (IllegalArgumentException e) {
-				assertEquals(testFarm.getName(), "Cool Farm");
+			} catch (InvalidFarmNameException e) {
+				assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 			}
 			try {
 				testFarm.setName("This is a very long name");
 				fail("Should not accept names over 15 chars long");
-			} catch (IllegalArgumentException e) {
-				assertEquals(testFarm.getName(), "Cool Farm");
+			} catch (InvalidFarmNameException e) {
+				assertEquals("Name must be at most 15 chars long.", e.getMessage());
 			}
 		}
 	}
