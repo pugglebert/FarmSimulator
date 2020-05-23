@@ -100,16 +100,6 @@ public class GameEnvironment {
 	}
 	
 	/**
-	 * Sets up the farmer according to the user's inputs
-	 * @param name		Name of the farmer
-	 * @param age		Age of the farmer
-	 */
-	public void initiateFarmer(String name, int age) {
-		farmer.setName(name);
-		farmer.setAge(age);
-	}
-	
-	/**
 	 * Sets up the farm according to the user's inputs
 	 * @param farmType		Planet on which the farm is located
 	 * @param farmName		Name of the farm

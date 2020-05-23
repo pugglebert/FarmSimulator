@@ -139,7 +139,7 @@ public class Farm {
 		} else if (newName.matches("[a-zA-Z ]+")){
 		    name = newName;
 		} else {
-			throw new IllegalArgumentException("Name must not contain numbers or special characters.");
+			throw new IllegalArgumentException("<html>Name must not contain numbers</br> or special characters.</html>");
 		}
 	}
 	

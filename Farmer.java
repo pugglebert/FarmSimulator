@@ -37,7 +37,7 @@ public class Farmer {
 		} else if (newName.matches("[a-zA-Z ]+")){	
 		    name = newName;	
 		} else {	
-			throw new IllegalArgumentException("Name must not contain numbers or special characters.");	
+			throw new IllegalArgumentException("<html>Name must not contain numbers</br> or special characters.</html>");	
 		}
 	}
 	
@@ -53,12 +53,17 @@ public class Farmer {
 	 * Change Farmer's age to new value
 	 * @param newAge value to change name to
 	 */
-	public void setAge(int newAge) {
-		if (newAge <= 0 || newAge > 100) {
-			throw new IllegalArgumentException("Age must be 1-100");	
-		} else {	
-			age = newAge;	
+	public void setAge(String newAge) {
+		try {
+			age = Integer.parseInt(newAge);
+			if (age <= 0 || age > 100) {
+				throw new IllegalArgumentException("Age must be from 1 to 100");	
+			}	
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("Age must be from 1 to 100");
 		}
+		
+		
 	}
 	
 	/**

@@ -253,10 +253,37 @@ public class SetupScreen {
 		beginGameButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		beginGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(isValid(farmerNameField.getText(), farmerAgeField.getText(), farmNameField.getText())) {
-					game.setTotalDays(gameLengthSlider.getValue());
-					game.initiateFarmer(farmerNameField.getText(), Integer.parseInt(farmerAgeField.getText()));
+				boolean all_valid = true;
+				game.setTotalDays(gameLengthSlider.getValue());
+				try {	
+					game.getFarmer().setAge(farmerAgeField.getText());
+					farmerAgeError.setVisible(false);
+					
+				} catch (IllegalArgumentException invalidFarmerAge) {
+					farmerAgeError.setText(invalidFarmerAge.getMessage());
+					farmerAgeError.setVisible(true);
+					all_valid = false;
+				} 
+				
+				try {
+					game.getFarmer().setName(farmerNameField.getText());
+					farmerNameError.setVisible(false);
+				} catch (IllegalArgumentException invalidFarmerName) {
+					farmerNameError.setText(invalidFarmerName.getMessage());
+					farmerNameError.setVisible(true);
+					all_valid = false;
+				} 
+					
+				try {
 					game.initiateFarm(farmTypeGroup.getSelection().getActionCommand(), farmNameField.getText());
+					farmNameError.setVisible(false);
+				} catch (IllegalArgumentException invalidFarmName) {
+					farmNameError.setText(invalidFarmName.getMessage());
+					farmNameError.setVisible(true);
+					all_valid = false;
+				}
+				
+				if (all_valid) {
 					finishedWindow();
 				}
 			}
@@ -268,85 +295,6 @@ public class SetupScreen {
 		farmerAgeError.setVisible(false);
 		
 	}	
-	
-	/**
-	 * Checks that name is 3-15 characters long and does not contain numbers or special characters
-	 * @param name String for farmer or farm name
-	 * @param errorLabel Label on which error message will be displayed
-	 * @return		Returns true if all inputs are valid, false otherwise
-	 */
-	public boolean checkNameValid(String name, JLabel errorLabel) {
-		boolean valid = true;
-		if (name.length() < 3 || name.length() > 15) {
-			valid = false;
-			errorLabel.setText("<html>Name must be 3 to 15<br>characters long</html>");
-			errorLabel.setVisible(true);
-		}
-		else if (!name.matches("[a-zA-Z ]+")) {
-			valid = false;
-			errorLabel.setText("<html>Name must not contain numbers<br>or special characters</html>");
-			errorLabel.setVisible(true);
-		}
-		else {
-			errorLabel.setVisible(false);
-		}
-
-		return valid;
-	}
-	
-	/**
-	 * Checks that age is in the range 1-100
-	 * @param age Player input for age
-	 * @param errorLabel Label on which error message will be displayed
-	 * @return		Returns true if the farmers age is a valid input, false otherwise
-	 */
-	public boolean checkAgeValid(String age, JLabel errorLabel) {
-		boolean valid = true;
-		
-		try {
-			int farmerAge = Integer.parseInt(age);
-			if (farmerAge <= 0 || farmerAge > 100){
-				valid = false;
-				farmerAgeError.setText("Age must be from 1 to 100");
-				farmerAgeError.setVisible(true);
-			}
-			else {
-				farmerAgeError.setVisible(false);
-			}
-		} catch (NumberFormatException e) {
-			farmerAgeError.setText("Age must be an integer");
-			farmerAgeError.setVisible(true);
-			valid = false;
-
-		}
-		
-		return valid;
-	}
-	
-	/**
-	 * Checks if player input is within constraints
-	 * @param farmerName Name for farmer from player input
-	 * @param farmerAge Age for farmer from player input
-	 * @param farmName Name for farm from player input
-	 * @return		Returns true if all name inputs are valid, faalse otherwise
-	 */
-	public boolean isValid(String farmerName, String farmerAge, String farmName) {
-		boolean allValid = true;
-
-		if(!checkNameValid(farmerName, farmerNameError)) {
-			allValid = false;
-		}
-
-		if (!checkNameValid(farmName, farmNameError)) {
-			allValid = false;
-		}
-		
-		if (!checkAgeValid(farmerAge, farmerAgeError)) {
-			allValid = false;
-		}
-		
-		return allValid;
-	}
 }
 
 /**
