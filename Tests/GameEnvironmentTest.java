@@ -6,7 +6,16 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import farmSimulatorGUI.*;
+
+import farmSimulator.Animal;
+import farmSimulator.Barley;
+import farmSimulator.Cow;
+import farmSimulator.Crop;
+import farmSimulator.GameEnvironment;
+import farmSimulator.Kale;
+import farmSimulator.Maize;
+import farmSimulator.Potato;
+import farmSimulator.Wheat;
 
 class GameEnvironmentTest {
 	GameEnvironment game;

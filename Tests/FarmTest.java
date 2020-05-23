@@ -2,12 +2,28 @@ package farmSimulatorTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import farmSimulatorGUI.*;
+
+import farmSimulator.Animal;
+import farmSimulator.Barley;
+import farmSimulator.Chicken;
+import farmSimulator.Cow;
+import farmSimulator.Crop;
+import farmSimulator.CropItem;
+import farmSimulator.EarthFarm;
+import farmSimulator.Farm;
+import farmSimulator.Farmer;
+import farmSimulator.FoodItem;
+import farmSimulator.JupiterFarm;
+import farmSimulator.Kale;
+import farmSimulator.Maize;
+import farmSimulator.MarsFarm;
+import farmSimulator.Potato;
+import farmSimulator.Pumpkin;
+import farmSimulator.Sheep;
+import farmSimulator.VenusFarm;
+import farmSimulator.Wheat;
 import java.util.ArrayList;
 
 class FarmTest {
@@ -123,25 +139,25 @@ class FarmTest {
 				testFarm.setName("A");
 				fail("Should not accept names less than 3 chars long");
 			}
-			catch (InvalidFarmNameException e) {
+			catch (IllegalArgumentException e) {
 				assertEquals("Name must be at least 3 chars long.", e.getMessage());
 			}
 			try {
 				testFarm.setName("1234");
 				fail("Should not accept names containing numbers");
-			} catch (InvalidFarmNameException e) {
+			} catch (IllegalArgumentException e) {
 				assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 			}
 			try {
 				testFarm.setName("hello$");
 				fail("Should not accept names containing special characters");
-			} catch (InvalidFarmNameException e) {
+			} catch (IllegalArgumentException e) {
 				assertEquals("<html>Name must not contain numbers</br> or special characters.</html>", e.getMessage());
 			}
 			try {
 				testFarm.setName("This is a very long name");
 				fail("Should not accept names over 15 chars long");
-			} catch (InvalidFarmNameException e) {
+			} catch (IllegalArgumentException e) {
 				assertEquals("Name must be at most 15 chars long.", e.getMessage());
 			}
 		}

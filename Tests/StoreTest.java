@@ -4,8 +4,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import farmSimulator.Animal;
+import farmSimulator.Buyable;
+import farmSimulator.Cow;
+import farmSimulator.Crop;
+import farmSimulator.CropItem;
+import farmSimulator.FoodItem;
+import farmSimulator.Sheep;
+import farmSimulator.Store;
+import farmSimulator.Wheat;
+
 import java.util.ArrayList;
-import farmSimulatorGUI.*;
 
 class StoreTest {
 
